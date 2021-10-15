@@ -1,6 +1,6 @@
 # GroupThree: CSC4710 Database Project
 
-## [App Description-- ToDo List version 2] 
+## ToDo List version 2-- App Description
 Create a web application to store a to-do list.
 
 ### Basic characteristics
@@ -44,8 +44,7 @@ Each task category consists of
 | Netlify | Hosting & Domain Setup |
 
 ## Architecture Diagram
-![Image of Architecture Diagram](https://user-images.githubusercontent.com/82237730/137398287-deb80136-4bca-4e01-a5b2-ec2fb1441c1b.png)
-
+![Image of Architecture Diagram](https://user-images.githubusercontent.com/82237730/137406076-e6d619fa-e129-4aa3-b9d1-73e68d74ab5e.png)
 
 ## Resources
 - [React Card] - Cards contain content and actions about a single subject.
