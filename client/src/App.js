@@ -1,7 +1,8 @@
 import React from "react"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
-import Main from "./components/Main"
-import Authors from "./components/Authors"
+import Main from "./pages/Main"
+import Authors from "./pages/Authors"
+
 
 function App() {
   return (
