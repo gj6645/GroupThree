@@ -51,16 +51,16 @@ export default function Cards() {
                     />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="h2">
-                            -- Eisha Akbar --
+                            Eisha Akbar
                         </Typography>
                         <Typography variant="body2" color="textSecondary" component="p">
-                            -- Senior Computer Technology Student at Wayne State University. Academic Focus: Computer Networks, Embedded Systems, Atificial Intelligence, and Machine Learning. --
+                            Senior Computer Technology Student at Wayne State University. Academic Focus: Computer Networks, Embedded Systems, Atificial Intelligence, and Machine Learning.
                         </Typography>
                     </CardContent>
                 </CardActionArea>
                 <CardActions>
                 <Button size="small" color="primary" justify="center">
-                       -- Github --
+                       Github
                     </Button>
                 </CardActions>
             </Card>
