@@ -46,21 +46,21 @@ export default function Cards() {
                 <CardActionArea>
                     <CardMedia
                         className={classes.media}
-                        image="https://source.unsplash.com/random"
-                        title="INSERT NAME HERE"
+                        image="https://w0.peakpx.com/wallpaper/5/512/HD-wallpaper-python-amoled-coding-dark-programming.jpg"
+                        title="Eisha Akbar"
                     />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="h2">
-                            -- INSERT NAME HERE --
+                            -- Eisha Akbar --
                         </Typography>
                         <Typography variant="body2" color="textSecondary" component="p">
-                            -- INSERT DESCRIPTION HERE --
+                            -- Senior Computer Technology Student at Wayne State University. Academic Focus: Computer Networks, Embedded Systems, Atificial Intelligence, and Machine Learning. --
                         </Typography>
                     </CardContent>
                 </CardActionArea>
                 <CardActions>
                 <Button size="small" color="primary" justify="center">
-                       -- Any Link Here --
+                       -- Github --
                     </Button>
                 </CardActions>
             </Card>
