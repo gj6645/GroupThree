@@ -152,22 +152,22 @@ export default function Cards() {
                         <CardActionArea>
                             <CardMedia
                                 className={classes.media}
-                                image="https://source.unsplash.com/random"
-                                title="INSERT NAME HERE"
+                                image="https://i.imgur.com/ENRt8ey.jpg"
+                                title="Chris Gumieny"
                             />
                             <CardContent>
                                 <Typography gutterBottom variant="h5" component="h2">
-                                    -- INSERT NAME HERE --
+                                    Chris Gumieny
                                 </Typography>
                                 <Typography variant="body2" color="textSecondary" component="p">
-                                    -- INSERT DESCRIPTION HERE --
+                                    Senior Computer Science Student at Wayne State University. Academic Focus: Full Stack, Web Development and Game Design.
+                                    <br></br><br></br>
                                 </Typography>
                             </CardContent>
                         </CardActionArea>
                         <CardActions>
-
                             <Button size="small" color="primary" justify="center">
-                                -- Any Link Here --
+                                Github
                             </Button>
                         </CardActions>
                     </Card>
