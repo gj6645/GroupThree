@@ -68,27 +68,27 @@ export default function Cards() {
 
                     {/*  Card 2 */}
                     <Card className={classes.root}>
-                        <CardActionArea>
-                            <CardMedia
-                                className={classes.media}
-                                image="https://source.unsplash.com/random"
-                                title="INSERT NAME HERE"
-                            />
-                            <CardContent>
-                                <Typography gutterBottom variant="h5" component="h2">
-                                    -- INSERT NAME HERE --
-                                </Typography>
-                                <Typography variant="body2" color="textSecondary" component="p">
-                                    -- INSERT DESCRIPTION HERE --
-                                </Typography>
-                            </CardContent>
-                        </CardActionArea>
-                        <CardActions>
-                            <Button size="small" color="primary" justify="center">
-                                -- Any Link Here --
-                            </Button>
-                        </CardActions>
-                    </Card>
+                    <CardActionArea>
+                    <CardMedia
+                        className={classes.media}
+                        image="https://www.jonesday.com/-/media/files/publications/2019/05/when-coding-is-criminal/when-coding-is-criminal.jpg?h=800&w=1600&la=en&hash=5522AA91198A168017C511FCBE77E201"
+                        title="Tanvir Ahmed"
+                    />
+                    <CardContent>
+                        <Typography gutterBottom variant="h5" component="h2">
+                            Tanvir Ahmed
+                        </Typography>
+                        <Typography variant="body2" color="textSecondary" component="p">
+                            Junior Computer Science Student at Wayne State University. Academic Focus: Full Stack, Mobile Application Development, Machine Learning, and Data Scientist.
+                        </Typography>
+                    </CardContent>
+                </CardActionArea>
+                <CardActions>
+                <Button size="small" color="primary" justify="center">
+                <a href="https://github.com/tanvirahmed725" target="_blank" rel="noopener noreferrer">Github</a>
+                    </Button>
+                </CardActions>
+            </Card>
 
                     {/*  Card 3 */}
                     <Card className={classes.root}>
