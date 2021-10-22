@@ -1,80 +1,154 @@
-// Sample CRUD API for todo app
+
+
 const express = require('express');
 const app = express();
 const mysql = require('mysql')
 
+// Middleware
+app.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", 
+    "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+    });
+
+// middleware for post requests
+app.use(express.json());
+
+// middleware for post requests form-data
+app.use(express.urlencoded({ extended: false }));
+
+// middleware for post requests form-data, raw
+app.use(express.raw({ type: '*/*' }));
+
+
+// error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).send('Error Occured!');
+});
+
+
 const db = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'TodoDB'
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
+    
 });
 
-// POST API to insert todo values into database
-app.post('/api/createTodos', (req, res) => {
-    const task_name = req.body.task_name;
 
-    // Query and insert values
-    db.query('INSERT INTO task (name) VALUES (?)', 
-    [task_name], 
+// connect to database
+db.connect((err) => {
+    if (err) {
+        throw err;
+    }
+    console.log('MySql Connected...');
+});
+
+
+// create database
+app.get('/api/createDB', (req, res) => {
+    // check if database exists
+    let sql = 'CREATE DATABASE CSC_4710_ToDo_Database';
+    db.query(sql, (err, result) => {
+        if (err) throw err;
+        console.log(result);
+        res.send('Database created...');
+    });
+});
+
+// create table in database
+app.get('/api/createTaskTable', (req, res) => {
+    let sql = 'CREATE TABLE task(id int AUTO_INCREMENT, title VARCHAR(255), description VARCHAR(255), PRIMARY KEY(id))';
+    db.query(sql, (err, result) => {
+        if (err) throw err;
+        console.log(result);
+        res.send('Table created...');
+    });
+});
+
+
+
+// POST API to insert tasks into database
+// TODO: We need to add more attributes to the task table
+app.post('/api/createTask', (req, res) => {
+    const title = req.body.title;
+    const description = req.body.description;
+
+    db.query('INSERT INTO task (title, description) VALUES (?, ?)', 
+    [title, description], 
     (err, result) => {
-
-        if (err) {
-            console.log(err);
-            res.send(500, 'Error');
-        } else {
-            res.send(200, 'Success');
-        }
-    });
-});
-
-// GET API to get all todo values from database
-app.get('/api/getTodos', (req, res) => {
-    db.query('SELECT * FROM task', (err, result) => {
-        if (err) {
-            console.log(err);
-            res.send(500, 'Error');
-        } else {
-            res.send(200, result);
-        }
+        if (err) throw err;
+        console.log(result);
+        res.send('Task inserted...');
     });
 });
 
 
-// PUT API to update todo values in database
-app.put('/api/updateTodos', (req, res) => {
-    const task_id = req.body.task_id;
-    const task_name = req.body.task_name;
 
-    // Query and update values
-    db.query('UPDATE task SET name = ? WHERE id = ?', 
-    [task_name, task_id], 
-    (err, result) => {
+// GET API to get all tasks from database
+app.get('/api/getTasks', (req, res) => {
+    db.query('SELECT * FROM task', 
+    (err, rows, fields) => {
+        if (!err) {
+            //res.send(rows);
+            res.header("Content-Type",'application/json');
+            //res.send(JSON.stringify(rows));
+            res.type('json').send(JSON.stringify(rows, null, 2) + '\n');
 
-        if (err) {
-            console.log(err);
-            res.send(500, 'Error');
         } else {
-            res.send(200, 'Success');
+            console.log(err);
         }
     });
 });
 
 
-// DELETE API to delete todo values from database
-app.delete('/api/deleteTodos', (req, res) => {
-    const task_id = req.body.task_id;
 
-    // Query and delete values
+// GET API to get a task from database
+app.get('/api/getTask/:id', (req, res) => {
+    const id = req.params.id;
+    db.query('SELECT * FROM task WHERE id = ?', 
+    [id], (err, rows, fields) => {
+        if (!err) {
+            res.send(rows);
+        } else {
+            console.log(err);
+        }
+    });
+});
+
+
+// PUT API to update a task in database
+// TODO: We need to add more attributes to the task table
+app.put('/api/updateTask/:id', (req, res) => {
+    const id = req.params.id;
+    const title = req.body.title;
+    const description = req.body.description;
+
+    db.query('UPDATE task SET title = ?, description = ? WHERE id = ?',
+    [title, description, id], 
+    (err, rows, fields) => {
+        if (!err) {
+            res.send(rows);
+        } else {
+            console.log(err);
+        }
+    });
+});
+
+
+
+// DELETE API to delete a task from database
+app.delete('/api/deleteTask/:id', (req, res) => {
+    const id = req.params.id;
     db.query('DELETE FROM task WHERE id = ?', 
-    [task_id], 
-    (err, result) => {
-
-        if (err) {
-            console.log(err);
-            res.send(500, 'Error');
+    [id], 
+    (err, rows, fields) => {
+        if (!err) {
+            res.send(rows);
         } else {
-            res.send(200, 'Success');
+            console.log(err);
         }
     });
 });
@@ -84,3 +158,18 @@ app.delete('/api/deleteTodos', (req, res) => {
 app.listen(3001, () => {
     console.log('Server is running on port 3001');
 });
+
+
+
+
+/*
+    TODO: Create a new endpoint to handle the following:
+    - Display Task bases on day (e.g. Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday)
+    - Display Task that have been marked as completed
+    - Display Task that are overdue
+    - Display Tasked based on Priority (e.g. Priority1, Priority2, Priority3)
+
+    - Create more tables in database
+    
+*/
+
