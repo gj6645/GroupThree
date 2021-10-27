@@ -44,8 +44,6 @@ const db = mysql.createConnection({
 });
 
 
-
-
 // connect to database
 db.connect((err) => {
     if (err) {
@@ -77,8 +75,6 @@ app.get('/api/createDB', (req, res) => {
 });
 
 
-
-
 // create table in database
 app.get('/api/createTaskTable', (req, res) => {
     let sql = 'CREATE TABLE task(id int AUTO_INCREMENT, title VARCHAR(255), description VARCHAR(255), PRIMARY KEY(id))';
@@ -88,7 +84,6 @@ app.get('/api/createTaskTable', (req, res) => {
         res.send('Table created...');
     });
 });
-
 
 
 // POST API to insert tasks into database
@@ -200,8 +195,6 @@ app.listen(process.env.PORT || PORT, () => {
 // http://localhost:3001/api/getTasksByCompleted/:completed
 // http://localhost:3001/api/getTasksByOverdue/:overdue
 // http://localhost:3001/api/getTasksByDayAndPriority/:day/:priority
-
-
 
 
 
