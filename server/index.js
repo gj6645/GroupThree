@@ -3,6 +3,9 @@
 const express = require('express');
 const app = express();
 const mysql = require('mysql')
+const cors = require('cors');
+
+app.use(cors());
 
 // Middleware
 app.use((req, res, next) => {
@@ -155,7 +158,7 @@ app.delete('/api/deleteTask/:id', (req, res) => {
 
 
 
-app.listen(3001, () => {
+app.listen(process.env.PORT || 3001, () => {
     console.log('Server is running on port 3001');
 });
 
@@ -168,8 +171,35 @@ app.listen(3001, () => {
     - Display Task that have been marked as completed
     - Display Task that are overdue
     - Display Tasked based on Priority (e.g. Priority1, Priority2, Priority3)
-
     - Create more tables in database
-    
+
 */
+
+// Needs to be developed
+// http://localhost:3001/api/getTasksByDay/:day
+// http://localhost:3001/api/getTasksByPriority/:priority
+// http://localhost:3001/api/getTasksByCompleted/:completed
+// http://localhost:3001/api/getTasksByOverdue/:overdue
+// http://localhost:3001/api/getTasksByDayAndPriority/:day/:priority
+
+
+
+
+
+// Working api
+// http://localhost:3001/api/createDB
+// http://localhost:3001/api/createTaskTable
+// http://localhost:3001/api/createTask
+// http://localhost:3001/api/getTasks
+// http://localhost:3001/api/getTask/:id
+// http://localhost:3001/api/updateTask/:id
+// http://localhost:3001/api/deleteTask/:id
+
+
+
+
+
+
+
+
 
