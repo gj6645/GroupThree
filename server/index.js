@@ -3,9 +3,8 @@
 const express = require('express');
 const app = express();
 const mysql = require('mysql')
-const cors = require('cors');
 
-app.use(cors());
+const PORT = 3001;
 
 // Middleware
 app.use((req, res, next) => {
@@ -41,6 +40,8 @@ const db = mysql.createConnection({
 });
 
 
+
+
 // connect to database
 db.connect((err) => {
     if (err) {
@@ -49,17 +50,30 @@ db.connect((err) => {
     console.log('MySql Connected...');
 });
 
+// setInterval(function () {
+//     db.query('SELECT 1');
+// }, 5000);
+
+// set interval to never expire
+setInterval(function () {
+    db.query('SELECT 1');
+}, 30000);
+
 
 // create database
 app.get('/api/createDB', (req, res) => {
     // check if database exists
-    let sql = 'CREATE DATABASE CSC_4710_ToDo_Database';
+    let sql = 'CREATE DATABASE heroku_abb1c8b0518b179';
     db.query(sql, (err, result) => {
         if (err) throw err;
         console.log(result);
         res.send('Database created...');
+        connection.release();
     });
 });
+
+
+
 
 // create table in database
 app.get('/api/createTaskTable', (req, res) => {
@@ -87,6 +101,7 @@ app.post('/api/createTask', (req, res) => {
         res.send('Task inserted...');
     });
 });
+
 
 
 
@@ -154,11 +169,13 @@ app.delete('/api/deleteTask/:id', (req, res) => {
             console.log(err);
         }
     });
+
+    
 });
 
 
 
-app.listen(process.env.PORT || 3001, () => {
+app.listen(process.env.PORT || PORT, () => {
     console.log('Server is running on port 3001');
 });
 
@@ -171,35 +188,8 @@ app.listen(process.env.PORT || 3001, () => {
     - Display Task that have been marked as completed
     - Display Task that are overdue
     - Display Tasked based on Priority (e.g. Priority1, Priority2, Priority3)
+
     - Create more tables in database
-
+    
 */
-
-// Needs to be developed
-// http://localhost:3001/api/getTasksByDay/:day
-// http://localhost:3001/api/getTasksByPriority/:priority
-// http://localhost:3001/api/getTasksByCompleted/:completed
-// http://localhost:3001/api/getTasksByOverdue/:overdue
-// http://localhost:3001/api/getTasksByDayAndPriority/:day/:priority
-
-
-
-
-
-// Working api
-// http://localhost:3001/api/createDB
-// http://localhost:3001/api/createTaskTable
-// http://localhost:3001/api/createTask
-// http://localhost:3001/api/getTasks
-// http://localhost:3001/api/getTask/:id
-// http://localhost:3001/api/updateTask/:id
-// http://localhost:3001/api/deleteTask/:id
-
-
-
-
-
-
-
-
 
