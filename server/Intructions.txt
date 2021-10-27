@@ -1,0 +1,11 @@
+Instruction on how to run server
+
+Command:
+* npm start: Only used when database information is not hidden in a .env file and if your not making much changes in server.js
+* npm run watch-test: Only used when database information is not hidden in a .env file
+* npm run watch-dev: Only used when database information is hidden and stored in a .env.dev envrionment (Local DB)
+* npm run watch-prod: Only used when database information is hidden and stored in a .env.prod envrionment (Remote DB)
+
+
+
+
