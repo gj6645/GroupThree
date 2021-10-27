@@ -185,15 +185,32 @@ app.listen(process.env.PORT || PORT, () => {
 
 
 
-
 /*
     TODO: Create a new endpoint to handle the following:
     - Display Task bases on day (e.g. Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday)
     - Display Task that have been marked as completed
     - Display Task that are overdue
     - Display Tasked based on Priority (e.g. Priority1, Priority2, Priority3)
-
     - Create more tables in database
-    
 */
+
+// Needs to be developed
+// http://localhost:3001/api/getTasksByDay/:day
+// http://localhost:3001/api/getTasksByPriority/:priority
+// http://localhost:3001/api/getTasksByCompleted/:completed
+// http://localhost:3001/api/getTasksByOverdue/:overdue
+// http://localhost:3001/api/getTasksByDayAndPriority/:day/:priority
+
+
+
+
+
+// Working api
+// http://localhost:3001/api/createDB
+// http://localhost:3001/api/createTaskTable
+// http://localhost:3001/api/createTask
+// http://localhost:3001/api/getTasks
+// http://localhost:3001/api/getTask/:id
+// http://localhost:3001/api/updateTask/:id
+// http://localhost:3001/api/deleteTask/:id
 
