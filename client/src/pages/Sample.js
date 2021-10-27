@@ -11,7 +11,7 @@ export default function Sample() {
 
     // Create function to call API
     const createTask = () => {
-        Axios.post("http://localhost:3001/api/createTask", {
+        Axios.post("https://csc4710dbs.herokuapp.com/api/createTask", {
             title: title,
             description: description,
         }).then(() => {
