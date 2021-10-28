@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
+// import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Axios from "axios";
 import { useState } from "react"
@@ -13,7 +13,7 @@ import "./Main.css"
 import Stack from '@mui/material/Stack';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
+// import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Box from '@mui/material/Box';
 import 'date-fns'
@@ -23,9 +23,19 @@ import {
     MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
 
+// Notifications
+import Notification from "../components/Notification";
+
+
 
 export default function Main() {
     const [open, setOpen] = React.useState(false);
+    
+    //Notifications
+    const [notify, setNotify] = useState({isOpen: false, message: "", type: ""});
+    const handleNotify = () => {
+        setNotify({isOpen: true, message: "Form was Submitted Successfully", type: "success"});
+    };
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -55,6 +65,7 @@ export default function Main() {
 
     return (
 
+        <>
         <div className="text-center">
 
             <p className="text-center"> Main</p>
@@ -180,11 +191,17 @@ export default function Main() {
                                         onClick={() => {
                                             createTask();
                                             handleClose();
+                                            handleNotify();
                                         }}
                                     >Add Task</Button>
                     </DialogActions>
                 </Dialog>
             </div>
         </div>
+        <Notification 
+            notify={notify}
+            setNotify={setNotify}
+        />
+        </>
     );
 }
