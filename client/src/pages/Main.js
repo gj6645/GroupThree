@@ -1,24 +1,190 @@
-
 import React from "react"
 import "./Main.css"
-
+import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Axios from "axios";
+import { useState } from "react"
+import "./Main.css"
+import Stack from '@mui/material/Stack';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import Box from '@mui/material/Box';
+import 'date-fns'
+import DateMomentUtils from '@date-io/moment';
+import {
+    DateTimePicker,
+    MuiPickersUtilsProvider,
+} from '@material-ui/pickers';
 
 
 export default function Main() {
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const [title, setTitle] = React.useState("");
+    const [description, setDescription] = React.useState("");
+    const [date, setDate] = React.useState(new Date());
+    const [priority, setPriority] = React.useState('');
+
+
+    // Create function to call API
+    const createTask = () => {
+        Axios.post("https://csc4710dbs.herokuapp.com/api/createTask", {
+            title: title,
+            description: description,
+            date: date,
+            priority: priority
+        }).then(() => {
+            console.log("Added Task");
+        })
+    }
 
     return (
-        <>
+
         <div className="text-center">
 
             <p className="text-center"> Main</p>
             <a href="/authors">Click here for authors</a>
 
             <div className="text-center">
-            <a href="/sample">Click here to see sample on how api is working with UI</a>
+                <a href="/sample">Click here to see sample on how api is working with UI</a>
             </div>
 
-        </div>
 
-        </>
-    )
+
+            {/* pop up form */}
+            <div className="text-center">
+                <Button variant="outlined" onClick={handleClickOpen}>
+                   Add New Task
+                </Button>
+                <Dialog open={open} onClose={handleClose}>
+                    <DialogTitle>New Task</DialogTitle>
+                    <DialogContent>
+                        <div className="text-center">
+                            {/* add a pop up (make form first then pop up to connect button and form) */}
+                            <Box
+                                margin="auto"
+                                alignItems="center"
+                                justifyContent="center"
+                                className="text-center"
+                                component="form"
+                                sx={{
+                                    width: 500,
+                                    height: 500,
+                                }}
+                                 >
+                                <Stack spacing={3}>
+                                    {/* top of Form */}
+                                    <h2> Task Information </h2>
+
+
+                                    {/* task name */}
+                                    <Stack>
+                                        <InputLabel required id="taskName">
+                                            Name
+                                        </InputLabel>
+                                        <TextField
+                                            required
+                                            id="taskName"
+                                            type="text"
+                                            placeholder="Task Name"
+                                            onChange={(event) => {
+                                                setTitle(event.target.value);
+                                            }}
+                                        />
+                                    </Stack>
+
+                                    {/* task description */}
+                                    <Stack>
+                                        <InputLabel id="taskDescription">Description</InputLabel>
+                                        <TextField
+                                            id="taskDescription"
+                                            // label="taskDescription"
+                                            type="text"
+                                            multiline
+                                            rows={3}
+                                            placeholder="Task Description"
+                                            onChange={(event) => {
+                                                setDescription(event.target.value);
+                                            }}
+                                        />
+                                    </Stack>
+
+                                    {/* date and time  */}
+                                    <Stack>
+                                        <InputLabel required id="date">
+                                            Date
+                                        </InputLabel>
+                                        <MuiPickersUtilsProvider utils={DateMomentUtils}>
+                                            <DateTimePicker
+                                                disableToolbar
+                                                id="date-picker"
+                                                label="Date and Time picker"
+                                                value={date}
+                                                onChange={(event) => {
+                                                    setDate(event);
+                                                }}
+                                            />
+                                        </MuiPickersUtilsProvider>
+                                    </Stack>
+
+                                    {/* priority */}
+                                    <Stack spacing= {2}>
+                                        <InputLabel id="priority">Priority</InputLabel>
+                                        <Select
+                                            labelId="demo-simple-select-label"
+                                            id="demo-simple-select"
+                                            value={priority}
+                                            label="Priority"
+                                            onChange={(event) => {
+                                                setPriority(event.target.value);
+                                            }}
+                                            placeholder="priority"
+                                            display= "block"
+                                        >
+                                            <MenuItem value="">
+                                                <em>None</em>
+                                            </MenuItem>
+                                            <MenuItem value={1}>1</MenuItem>
+                                            <MenuItem value={2}>2</MenuItem>
+                                            <MenuItem value={3}>3</MenuItem>
+                                            <MenuItem value={4}>4</MenuItem>
+                                        </Select>
+                                    </Stack>
+                                </Stack>
+                            </Box >
+                        </div >
+                    </DialogContent>
+                    <DialogActions>
+                        <Button 
+                        onClick={handleClose}
+                        variant="contained">
+                            Cancel </Button>
+                        <Button
+                                        variant="contained"
+
+                                        onClick={() => {
+                                            createTask();
+                                            handleClose();
+                                        }}
+                                    >Add Task</Button>
+                    </DialogActions>
+                </Dialog>
+            </div>
+        </div>
+    );
 }
