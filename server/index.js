@@ -75,15 +75,28 @@ app.get('/api/createDB', (req, res) => {
 });
 
 
-// create table in database
-app.get('/api/createTaskTable', (req, res) => {
-    let sql = 'CREATE TABLE task(id int AUTO_INCREMENT, title VARCHAR(255), description VARCHAR(255), PRIMARY KEY(id))';
+// create task table in database
+app.get('/api/createTasksTable', (req, res) => {
+    let sql = "CREATE TABLE `tasks`(Tasks_id int AUTO_INCREMENT, `tasks_name` VARCHAR(255), `tasks_description` VARCHAR(255), `tasks_categories` VARCHAR(255), `Priority_id` int, `tasks_due_date` datetime, PRIMARY KEY(Tasks_id), FOREIGN KEY(Priority_id) REFERENCES priority(Priority_id))";
     db.query(sql, (err, result) => {
         if (err) throw err;
         console.log(result);
         res.send('Table created...');
     });
 });
+
+
+// create priority table in database
+app.get('/api/createPriorityTable', (req, res) => {
+    let sql = 'CREATE TABLE `priority`(Priority_id int AUTO_INCREMENT, `priority 1` int, `priority 2` int, `priority 3` int, `priority 4` int, PRIMARY KEY(Priority_id))';
+    db.query(sql, (err, result) => {
+        if (err) throw err;
+        console.log(result);
+        res.send('Table created...');
+    });
+});
+
+
 
 
 // POST API to insert tasks into database
