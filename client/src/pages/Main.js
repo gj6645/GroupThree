@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
+// import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Axios from "axios";
 import { useState } from "react"
@@ -13,7 +13,7 @@ import "./Main.css"
 import Stack from '@mui/material/Stack';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
+// import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Box from '@mui/material/Box';
 import 'date-fns'
@@ -23,9 +23,19 @@ import {
     MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
 
+// Notifications
+import Notification from "../components/Notification";
+
+
 
 export default function Main() {
     const [open, setOpen] = React.useState(false);
+    
+    //Notifications
+    const [notify, setNotify] = useState({isOpen: false, message: "", type: ""});
+    const handleNotify = () => {
+        setNotify({isOpen: true, message: "Form was Submitted Successfully", type: "success"});
+    };
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -39,6 +49,7 @@ export default function Main() {
     const [description, setDescription] = React.useState("");
     const [date, setDate] = React.useState(new Date());
     const [priority, setPriority] = React.useState('');
+    const [category, setCategory] = React.useState('');
 
 
     // Create function to call API
@@ -47,22 +58,25 @@ export default function Main() {
             title: title,
             description: description,
             date: date,
-            priority: priority
+            priority: priority,
+            category: category
         }).then(() => {
             console.log("Added Task");
         })
     }
 
+
     return (
 
+        <>
         <div className="text-center">
 
             <p className="text-center"> Main</p>
-            <a href="/authors">Click here for authors</a>
+            {/* <a href="/authors">Click here for authors</a> */}
 
-            <div className="text-center">
+            {/* <div className="text-center">
                 <a href="/sample">Click here to see sample on how api is working with UI</a>
-            </div>
+            </div> */}
 
 
 
@@ -71,6 +85,7 @@ export default function Main() {
                 <Button variant="outlined" onClick={handleClickOpen}>
                    Add New Task
                 </Button>
+
                 <Dialog open={open} onClose={handleClose}>
                     <DialogTitle>New Task</DialogTitle>
                     <DialogContent>
@@ -120,6 +135,21 @@ export default function Main() {
                                             placeholder="Task Description"
                                             onChange={(event) => {
                                                 setDescription(event.target.value);
+                                            }}
+                                        />
+                                    </Stack>
+
+                                    {/* Categories*/}
+                                    <Stack>
+                                        <InputLabel  id="categoryName">
+                                            Category
+                                        </InputLabel>
+                                        <TextField
+                                            id="categoryName"
+                                            type="text"
+                                            placeholder="Category Name"
+                                            onChange={(event) => {
+                                                setCategory(event.target.value);
                                             }}
                                         />
                                     </Stack>
@@ -180,11 +210,17 @@ export default function Main() {
                                         onClick={() => {
                                             createTask();
                                             handleClose();
+                                            handleNotify();
                                         }}
                                     >Add Task</Button>
                     </DialogActions>
                 </Dialog>
             </div>
         </div>
+        <Notification 
+            notify={notify}
+            setNotify={setNotify}
+        />
+        </>
     );
 }
