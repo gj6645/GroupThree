@@ -49,6 +49,7 @@ export default function Main() {
     const [description, setDescription] = React.useState("");
     const [date, setDate] = React.useState(new Date());
     const [priority, setPriority] = React.useState('');
+    const [category, setCategory] = React.useState('');
 
 
     // Create function to call API
@@ -57,11 +58,13 @@ export default function Main() {
             title: title,
             description: description,
             date: date,
-            priority: priority
+            priority: priority,
+            category: category
         }).then(() => {
             console.log("Added Task");
         })
     }
+
 
     return (
 
@@ -69,11 +72,11 @@ export default function Main() {
         <div className="text-center">
 
             <p className="text-center"> Main</p>
-            <a href="/authors">Click here for authors</a>
+            {/* <a href="/authors">Click here for authors</a> */}
 
-            <div className="text-center">
+            {/* <div className="text-center">
                 <a href="/sample">Click here to see sample on how api is working with UI</a>
-            </div>
+            </div> */}
 
 
 
@@ -82,6 +85,7 @@ export default function Main() {
                 <Button variant="outlined" onClick={handleClickOpen}>
                    Add New Task
                 </Button>
+
                 <Dialog open={open} onClose={handleClose}>
                     <DialogTitle>New Task</DialogTitle>
                     <DialogContent>
@@ -131,6 +135,21 @@ export default function Main() {
                                             placeholder="Task Description"
                                             onChange={(event) => {
                                                 setDescription(event.target.value);
+                                            }}
+                                        />
+                                    </Stack>
+
+                                    {/* Categories*/}
+                                    <Stack>
+                                        <InputLabel  id="categoryName">
+                                            Category
+                                        </InputLabel>
+                                        <TextField
+                                            id="categoryName"
+                                            type="text"
+                                            placeholder="Category Name"
+                                            onChange={(event) => {
+                                                setCategory(event.target.value);
                                             }}
                                         />
                                     </Stack>
