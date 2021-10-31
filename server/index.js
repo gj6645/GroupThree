@@ -98,15 +98,25 @@ app.get('/api/createPriorityTable', (req, res) => {
 
 
 
+/*
+ ****************** CRUD API HERE********************:
+*/
 
 // POST API to insert tasks into database
-// TODO: We need to add more attributes to the task table
 app.post('/api/createTask', (req, res) => {
-    const title = req.body.title;
-    const description = req.body.description;
+    const tasks_name = req.body.tasks_name;
+    const tasks_description = req.body.tasks_description;
+    const tasks_categories = req.body.tasks_categories;
+    // Add priority_id to the request body
+    const tasks_due_date = req.body.tasks_due_date;
+    
+    
 
-    db.query('INSERT INTO task (title, description) VALUES (?, ?)', 
-    [title, description], 
+    db.query('INSERT INTO tasks (tasks_name, tasks_description, tasks_categories, tasks_due_date) VALUES (?, ?, ?, ?)',
+    [   tasks_name, 
+        tasks_description, 
+        tasks_categories, 
+        tasks_due_date],
     (err, result) => {
         if (err) throw err;
         console.log(result);
@@ -117,9 +127,11 @@ app.post('/api/createTask', (req, res) => {
 
 
 
+
+
 // GET API to get all tasks from database
 app.get('/api/getTasks', (req, res) => {
-    db.query('SELECT * FROM task', 
+    db.query('SELECT * FROM tasks', 
     (err, rows, fields) => {
         if (!err) {
             //res.send(rows);
@@ -136,10 +148,10 @@ app.get('/api/getTasks', (req, res) => {
 
 
 // GET API to get a task from database
-app.get('/api/getTask/:id', (req, res) => {
-    const id = req.params.id;
-    db.query('SELECT * FROM task WHERE id = ?', 
-    [id], (err, rows, fields) => {
+app.get('/api/getTask/:Tasks_id', (req, res) => {
+    const Tasks_id = req.params.Tasks_id;
+    db.query('SELECT * FROM tasks WHERE Tasks_id = ?', 
+    [Tasks_id], (err, rows, fields) => {
         if (!err) {
             res.send(rows);
         } else {
@@ -151,29 +163,37 @@ app.get('/api/getTask/:id', (req, res) => {
 
 // PUT API to update a task in database
 // TODO: We need to add more attributes to the task table
-app.put('/api/updateTask/:id', (req, res) => {
-    const id = req.params.id;
-    const title = req.body.title;
-    const description = req.body.description;
+app.put('/api/updateTask/:Tasks_id', (req, res) => {
+    const Tasks_id = req.params.Tasks_id;
+    const tasks_name = req.body.tasks_name;
+    const tasks_description = req.body.tasks_description;
+    const tasks_categories = req.body.tasks_categories;
+    // Add priority_id to the request body
+    const tasks_due_date = req.body.tasks_due_date;
 
-    db.query('UPDATE task SET title = ?, description = ? WHERE id = ?',
-    [title, description, id], 
-    (err, rows, fields) => {
-        if (!err) {
-            res.send(rows);
-        } else {
-            console.log(err);
-        }
-    });
+
+    db.query('UPDATE tasks SET tasks_name = ?, tasks_description = ?, tasks_categories = ?, tasks_due_date = ? WHERE Tasks_id = ?',
+    [   tasks_name,
+        tasks_description,
+        tasks_categories,
+        tasks_due_date,
+        Tasks_id],
+
+    (err, result) => {
+        if (err) throw err;
+        console.log(result);
+        res.send('Task updated...');
+    }
+    );
 });
 
 
 
 // DELETE API to delete a task from database
-app.delete('/api/deleteTask/:id', (req, res) => {
-    const id = req.params.id;
-    db.query('DELETE FROM task WHERE id = ?', 
-    [id], 
+app.delete('/api/deleteTask/:Tasks_id', (req, res) => {
+    const Tasks_id = req.params.Tasks_id;
+    db.query('DELETE FROM tasks WHERE Tasks_id = ?', 
+    [Tasks_id], 
     (err, rows, fields) => {
         if (!err) {
             res.send(rows);
