@@ -74,9 +74,9 @@ export default function Main() {
             <p className="text-center"> Main</p>
             {/* <a href="/authors">Click here for authors</a> */}
 
-            {/* <div className="text-center">
+            <div className="text-center">
                 <a href="/sample">Click here to see sample on how api is working with UI</a>
-            </div> */}
+            </div>
 
 
 
