@@ -8,19 +8,14 @@ export default function Sample() {
 
     const [title, setTitle] = React.useState("");
     const [description, setDescription] = React.useState("");
-
-    const [tasks_name, setTasks_name] = React.useState("");
-    const [tasks_description, setTasks_description] = React.useState("");
     
 
 
     // Create function to call API
     const createTask = () => {
-        Axios.post("https://localhost:3001/api/createTask", {
-            name: tasks_name,
-            description: tasks_description
-            // title: title,
-            // description: description,
+        Axios.post("https://csc4710dbs.herokuapp.com/api/createTask", {
+            title: title,
+            description: description,
         }).then(() => {
             console.log("Added Task");
         })
@@ -37,14 +32,14 @@ export default function Sample() {
                 <input
                     type="text"
                     onChange={(event) => {
-                        setTasks_name(event.target.value);
+                        setTitle(event.target.value);
                     }}
                     placeholder="Enter a title" />
 
                 {/* create a body text field*/}
                 <input type="text"
                     onChange={(event) => {
-                        setTasks_description(event.target.value);
+                        setDescription(event.target.value);
                     }}
                     placeholder="Enter a description" />
 
