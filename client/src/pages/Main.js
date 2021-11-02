@@ -1,3 +1,5 @@
+
+   
 import React from "react"
 import "./Main.css"
 import Button from '@mui/material/Button';
@@ -45,21 +47,32 @@ export default function Main() {
         setOpen(false);
     };
 
-    const [title, setTitle] = React.useState("");
-    const [description, setDescription] = React.useState("");
-    const [date, setDate] = React.useState(new Date());
-    const [priority, setPriority] = React.useState('');
-    const [category, setCategory] = React.useState('');
+    // const [title, setTitle] = React.useState("");
+    // const [description, setDescription] = React.useState("");
+    // const [date, setDate] = React.useState(new Date());
+    // const [priority, setPriority] = React.useState('');
+    // const [category, setCategory] = React.useState('');
+
+    const [tasks_name, setTasks_name] = React.useState("");
+    const [tasks_description, setTasks_description] = React.useState("");
+    const [tasks_due_date, setTasks_due_date] = React.useState(new Date());
+    const [tasks_priority, setTasks_priority] = React.useState('');
+    const [tasks_categories, setTasks_categories] = React.useState('');
 
 
     // Create function to call API
     const createTask = () => {
         Axios.post("https://csc4710dbs.herokuapp.com/api/createTask", {
-            title: title,
-            description: description,
-            date: date,
-            priority: priority,
-            category: category
+            tasks_name: tasks_name,
+            tasks_description: tasks_description,
+            tasks_due_date: tasks_due_date,
+            tasks_priority: tasks_priority,
+            tasks_categories: tasks_categories
+            // title: title,
+            // description: description,
+            // date: date,
+            // priority: priority,
+            // category: category
         }).then(() => {
             console.log("Added Task");
         })
@@ -118,7 +131,7 @@ export default function Main() {
                                             type="text"
                                             placeholder="Task Name"
                                             onChange={(event) => {
-                                                setTitle(event.target.value);
+                                                setTasks_name(event.target.value);
                                             }}
                                         />
                                     </Stack>
@@ -134,7 +147,7 @@ export default function Main() {
                                             rows={3}
                                             placeholder="Task Description"
                                             onChange={(event) => {
-                                                setDescription(event.target.value);
+                                                setTasks_description(event.target.value);
                                             }}
                                         />
                                     </Stack>
@@ -149,7 +162,7 @@ export default function Main() {
                                             type="text"
                                             placeholder="Category Name"
                                             onChange={(event) => {
-                                                setCategory(event.target.value);
+                                                setTasks_categories(event.target.value);
                                             }}
                                         />
                                     </Stack>
@@ -164,9 +177,9 @@ export default function Main() {
                                                 disableToolbar
                                                 id="date-picker"
                                                 label="Date and Time picker"
-                                                value={date}
+                                                value={tasks_due_date}
                                                 onChange={(event) => {
-                                                    setDate(event);
+                                                    setTasks_due_date(event);
                                                 }}
                                             />
                                         </MuiPickersUtilsProvider>
@@ -178,10 +191,10 @@ export default function Main() {
                                         <Select
                                             labelId="demo-simple-select-label"
                                             id="demo-simple-select"
-                                            value={priority}
+                                            value={tasks_priority}
                                             label="Priority"
                                             onChange={(event) => {
-                                                setPriority(event.target.value);
+                                                setTasks_priority(event.target.value);
                                             }}
                                             placeholder="priority"
                                             display= "block"

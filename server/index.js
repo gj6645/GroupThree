@@ -1,5 +1,3 @@
-
-
 const express = require('express');
 const app = express();
 const mysql = require('mysql')
@@ -62,6 +60,12 @@ setInterval(function () {
 }, 30000);
 
 
+/*
+ *******************************************
+ ********* DATABASE AND TABLES API's **************
+ *******************************************
+*/
+
 // create database
 app.get('/api/createDB', (req, res) => {
     // check if database exists
@@ -77,7 +81,7 @@ app.get('/api/createDB', (req, res) => {
 
 // create task table in database
 app.get('/api/createTasksTable', (req, res) => {
-    let sql = "CREATE TABLE `tasks`(Tasks_id int AUTO_INCREMENT, `tasks_name` VARCHAR(255), `tasks_description` VARCHAR(255), `tasks_categories` VARCHAR(255), `Priority_id` int, `tasks_due_date` datetime, PRIMARY KEY(Tasks_id), FOREIGN KEY(Priority_id) REFERENCES priority(Priority_id))";
+    let sql = "CREATE TABLE tasks(Tasks_id int AUTO_INCREMENT, tasks_name VARCHAR(255), tasks_description VARCHAR(255), tasks_priority VARCHAR(255), Categories_id int, tasks_categories VARCHAR(10), tasks_due_date datetime, PRIMARY KEY(Tasks_id), FOREIGN KEY(Categories_id) REFERENCES categories(Categories_id))";
     db.query(sql, (err, result) => {
         if (err) throw err;
         console.log(result);
@@ -86,9 +90,9 @@ app.get('/api/createTasksTable', (req, res) => {
 });
 
 
-// create priority table in database
-app.get('/api/createPriorityTable', (req, res) => {
-    let sql = 'CREATE TABLE `priority`(Priority_id int AUTO_INCREMENT, `priority 1` int, `priority 2` int, `priority 3` int, `priority 4` int, PRIMARY KEY(Priority_id))';
+// create categories table in database
+app.get('/api/createCategoriesTable', (req, res) => {
+    let sql = 'CREATE TABLE `categories`(Categories_id int AUTO_INCREMENT, `tasks_categories` VARCHAR(255), PRIMARY KEY(Categories_id))';
     db.query(sql, (err, result) => {
         if (err) throw err;
         console.log(result);
@@ -97,29 +101,43 @@ app.get('/api/createPriorityTable', (req, res) => {
 });
 
 
-
+/*
+ *******************************************
+ ********* POST CRUD API HERE **************
+ *******************************************
+*/
 
 // POST API to insert tasks into database
-// TODO: We need to add more attributes to the task table
 app.post('/api/createTask', (req, res) => {
-    const title = req.body.title;
-    const description = req.body.description;
+    const tasks_name = req.body.tasks_name;
+    const tasks_description = req.body.tasks_description;
+    // using catergorie_id from categories table to insert into tasks table
+    const tasks_categories = req.body.tasks_categories;
+    const Categories_id = req.body.Categories_id;
+    const tasks_priority = req.body.tasks_priority;
+    const tasks_due_date = req.body.tasks_due_date;
 
-    db.query('INSERT INTO task (title, description) VALUES (?, ?)', 
-    [title, description], 
-    (err, result) => {
+
+    db.query('INSERT INTO tasks (tasks_name, tasks_description, tasks_categories, Categories_id, tasks_priority, tasks_due_date) VALUES (?, ?, ?, ?, ?, ?)', 
+    [tasks_name, tasks_description, tasks_categories, Categories_id, tasks_priority, tasks_due_date], (err, result) => {
         if (err) throw err;
         console.log(result);
         res.send('Task inserted...');
     });
+
 });
 
 
 
 
+/*
+ *******************************************
+ ********* GET CRUD API HERE **************
+ *******************************************
+*/
 // GET API to get all tasks from database
 app.get('/api/getTasks', (req, res) => {
-    db.query('SELECT * FROM task', 
+    db.query('SELECT * FROM tasks', 
     (err, rows, fields) => {
         if (!err) {
             //res.send(rows);
@@ -136,10 +154,10 @@ app.get('/api/getTasks', (req, res) => {
 
 
 // GET API to get a task from database
-app.get('/api/getTask/:id', (req, res) => {
-    const id = req.params.id;
-    db.query('SELECT * FROM task WHERE id = ?', 
-    [id], (err, rows, fields) => {
+app.get('/api/getTask/:Tasks_id', (req, res) => {
+    const Tasks_id = req.params.Tasks_id;
+    db.query('SELECT * FROM tasks WHERE Tasks_id = ?', 
+    [Tasks_id], (err, rows, fields) => {
         if (!err) {
             res.send(rows);
         } else {
@@ -149,31 +167,47 @@ app.get('/api/getTask/:id', (req, res) => {
 });
 
 
+
+/*
+ *******************************************
+ ********* UPDATE CRUD API HERE **************
+ *******************************************
+*/
 // PUT API to update a task in database
 // TODO: We need to add more attributes to the task table
-app.put('/api/updateTask/:id', (req, res) => {
-    const id = req.params.id;
-    const title = req.body.title;
-    const description = req.body.description;
+app.put('/api/updateTask/:Tasks_id', (req, res) => {
+    const Tasks_id = req.params.Tasks_id;
+    const tasks_name = req.body.tasks_name;
+    const tasks_description = req.body.tasks_description;
+    // using catergorie_id from categories table to insert into tasks table
+    const Categories_id = req.body.Categories_id;
+    const tasks_priority = req.body.tasks_priority;
+    const tasks_due_date = req.body.tasks_due_date;
+    
 
-    db.query('UPDATE task SET title = ?, description = ? WHERE id = ?',
-    [title, description, id], 
-    (err, rows, fields) => {
-        if (!err) {
-            res.send(rows);
-        } else {
-            console.log(err);
-        }
-    });
+
+    db.query('UPDATE tasks SET tasks_name = ?, tasks_description = ?, Categories_id = ?, tasks_priority = ?, tasks_due_date = ? WHERE Tasks_id = ?',
+    [tasks_name, tasks_description, Categories_id, tasks_priority, tasks_due_date, Tasks_id],
+
+    (err, result) => {
+        if (err) throw err;
+        console.log(result);
+        res.send('Task updated...');
+    }
+    );
 });
 
 
-
+/*
+ *******************************************
+ ********* DELETE CRUD API HERE **************
+ *******************************************
+*/
 // DELETE API to delete a task from database
-app.delete('/api/deleteTask/:id', (req, res) => {
-    const id = req.params.id;
-    db.query('DELETE FROM task WHERE id = ?', 
-    [id], 
+app.delete('/api/deleteTask/:Tasks_id', (req, res) => {
+    const Tasks_id = req.params.Tasks_id;
+    db.query('DELETE FROM tasks WHERE Tasks_id = ?', 
+    [Tasks_id], 
     (err, rows, fields) => {
         if (!err) {
             res.send(rows);
@@ -184,6 +218,8 @@ app.delete('/api/deleteTask/:id', (req, res) => {
 
     
 });
+
+
 
 
 
