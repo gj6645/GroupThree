@@ -87,6 +87,7 @@ app.get('/api/createTasksTable', (req, res) => {
         console.log(result);
         res.send('Table created...');
     });
+    db.end();
 });
 
 
@@ -98,6 +99,7 @@ app.get('/api/createCategoriesTable', (req, res) => {
         console.log(result);
         res.send('Table created...');
     });
+    db.end();
 });
 
 
@@ -115,6 +117,7 @@ app.post('/api/createTask', (req, res) => {
     const tasks_categories = req.body.tasks_categories;
     const Categories_id = req.body.Categories_id;
     const tasks_priority = req.body.tasks_priority;
+    // format date like this: YYYY-MM-DD HH:MM:SS
     const tasks_due_date = req.body.tasks_due_date;
 
 
@@ -125,6 +128,17 @@ app.post('/api/createTask', (req, res) => {
         res.send('Task inserted...');
     });
 
+});
+
+// POST API to insert categories into database and make available in tasks table
+app.post('/api/createCategory', (req, res) => {
+    const tasks_categories = req.body.tasks_categories;
+
+    db.query('INSERT INTO categories (tasks_categories) VALUES (?)', [tasks_categories], (err, result) => {
+        if (err) throw err;
+        console.log(result);
+        res.send('Category inserted...');
+    });
 });
 
 
@@ -152,6 +166,40 @@ app.get('/api/getTasks', (req, res) => {
 });
 
 
+// GET API to get tasks due today
+app.get('/api/getTasksToday', (req, res) => {
+    db.query('SELECT * FROM tasks WHERE tasks_due_date = CURDATE()',
+    (err, rows, fields) => {
+        if (!err) {
+            //res.send(rows);
+            res.header("Content-Type",'application/json');
+            //res.send(JSON.stringify(rows));
+            res.type('json').send(JSON.stringify(rows, null, 2) + '\n');
+        
+        } else {
+            console.log(err);
+        }
+    });
+});
+
+
+// GET API to get overdue tasks
+app.get('/api/getOverdueTasks', (req, res) => {
+    db.query('SELECT * FROM tasks WHERE tasks_due_date < CURDATE()',
+    (err, rows, fields) => {
+        if (!err) {
+            //res.send(rows);
+            res.header("Content-Type",'application/json');
+            //res.send(JSON.stringify(rows));
+            res.type('json').send(JSON.stringify(rows, null, 2) + '\n');
+        
+        } else {
+            console.log(err);
+        }
+    });
+});
+
+
 
 // GET API to get a task from database
 app.get('/api/getTask/:Tasks_id', (req, res) => {
@@ -163,6 +211,16 @@ app.get('/api/getTask/:Tasks_id', (req, res) => {
         } else {
             console.log(err);
         }
+    });
+});
+
+// GET API to get tasks based on dropdown category selection
+app.get('/api/getTasks/:category', (req, res) => {
+    const category = req.params.category;
+    db.query('SELECT * FROM tasks WHERE tasks_categories = ?', [category], (err, result) => {
+        if (err) throw err;
+        console.log(result);
+        res.send(result);
     });
 });
 
@@ -218,7 +276,6 @@ app.delete('/api/deleteTask/:Tasks_id', (req, res) => {
 
     
 });
-
 
 
 
