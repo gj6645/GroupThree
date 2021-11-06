@@ -22,7 +22,6 @@ import {
     DateTimePicker,
     MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
-
 // Notifications
 import Notification from "../components/Notification";
 // side bar 
@@ -30,15 +29,15 @@ import SideBar from "../components/SideBar";
 //header
 import Header from "../components/Header";
 import Toolbar from "@mui/material/Toolbar";
-import { Grid } from "@material-ui/core";
-
 
 
 export default function Main() {
+
     const [open, setOpen] = React.useState(false);
 
     //Notifications
     const [notify, setNotify] = useState({ isOpen: false, message: "", type: "" });
+
     const handleNotify = () => {
         setNotify({ isOpen: true, message: "Form was Submitted Successfully", type: "success" });
     };
@@ -76,13 +75,19 @@ export default function Main() {
 
         <>
             <div className="text-center">
+                <head>
+                    <link
+                        rel="stylesheet"
+                        href="https://fonts.googleapis.com/icon?family=Material+Icons"></link>
+                </head>
                 <Box sx={{ display: 'flex' }}>
                     {/* header */}
                     <Header />
                     {/* side bar */}
                     <SideBar />
-                   
+
                     <Box
+
                         component="main"
                         sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
                     >
@@ -91,8 +96,10 @@ export default function Main() {
 
                         {/* Button for add new task */}
                         <Button variant="contained" onClick={handleClickOpen}>
+                            <span class="material-icons">add</span>
                             Add New Task
                         </Button>
+
                         <Toolbar />
 
                         {/* First Data Table  */}
@@ -102,21 +109,16 @@ export default function Main() {
 
                         {/* Second Data Table */}
                         <h3> Overdue Tasks:</h3>
+
                         <hr></hr>
                         <Toolbar />
 
                     </Box>
                 </Box>
-                
-
-
-
 
                 {/* <div className="text-center">
                 <a href="/sample">Click here to see sample on how api is working with UI</a>
                 </div> */}
-
-
 
                 {/* pop up form */}
                 <div className="text-center">
@@ -124,7 +126,6 @@ export default function Main() {
                         <DialogTitle>New Task</DialogTitle>
                         <DialogContent>
                             <div className="text-center">
-
                                 <Box
                                     margin="auto"
                                     alignItems="center"
@@ -139,7 +140,6 @@ export default function Main() {
                                     <Stack spacing={3}>
                                         {/* top of Form */}
                                         <h2> Task Information </h2>
-
 
                                         {/* task name */}
                                         <Stack>
@@ -228,6 +228,7 @@ export default function Main() {
                                                 <MenuItem value={3}>3</MenuItem>
                                                 <MenuItem value={4}>4</MenuItem>
                                             </Select>
+                                            
                                         </Stack>
 
                                         {/* status */}
@@ -246,6 +247,8 @@ export default function Main() {
                                                 <MenuItem value={0}>Complete</MenuItem>
                                                 <MenuItem value={1}>Active</MenuItem>
                                             </Select>
+                                           
+                                            <br></br>
                                         </Stack>
                                     </Stack>
                                 </Box >
@@ -255,7 +258,9 @@ export default function Main() {
                             <Button
                                 onClick={handleClose}
                                 variant="contained">
-                                Cancel </Button>
+                                <span class="material-icons">cancel</span>
+                                Cancel
+                            </Button>
                             <Button
                                 variant="contained"
                                 onClick={() => {
@@ -263,7 +268,9 @@ export default function Main() {
                                     handleClose();
                                     handleNotify();
                                 }}
-                            >Add Task</Button>
+                            >
+                                <span class="material-icons">add</span>
+                                Add Task</Button>
                         </DialogActions>
                     </Dialog>
                 </div>
@@ -272,7 +279,7 @@ export default function Main() {
                 notify={notify}
                 setNotify={setNotify}
             />
-           
+
 
         </>
 
