@@ -2,7 +2,10 @@ import React from "react"
 import Cards from "../components/Cards"
 import "./Authors.css"
 
+
 export default function Authors() {
+
+   
 
     return (
         <>
@@ -15,6 +18,7 @@ export default function Authors() {
             </p>
 
         <Cards />
+
         </>
         
     )
