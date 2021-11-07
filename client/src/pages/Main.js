@@ -19,6 +19,8 @@ import Box from '@mui/material/Box';
 import 'date-fns'
 import DateMomentUtils from '@date-io/moment';
 import {
+    DatePicker,
+    KeyboardDatePicker,
     DateTimePicker,
     MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
@@ -29,6 +31,9 @@ import SideBar from "../components/SideBar";
 //header
 import Header from "../components/Header";
 import Toolbar from "@mui/material/Toolbar";
+
+
+
 
 
 export default function Main() {
@@ -52,7 +57,7 @@ export default function Main() {
 
     const [tasks_name, setTasks_name] = React.useState("");
     const [tasks_description, setTasks_description] = React.useState("");
-    const [tasks_due_date, setTasks_due_date] = React.useState(new Date());
+    const [tasks_due_date, setTasks_due_date] = React.useState(null);
     const [tasks_priority, setTasks_priority] = React.useState('');
     const [tasks_categories, setTasks_categories] = React.useState('');
     const [tasks_status, setTasks_status] = React.useState('');
@@ -106,6 +111,7 @@ export default function Main() {
                         <h3>Today's Tasks:</h3>
                         <hr></hr>
                         <Toolbar />
+                        
 
                         {/* Second Data Table */}
                         <h3> Overdue Tasks:</h3>
@@ -191,20 +197,24 @@ export default function Main() {
                                         {/* date and time  */}
                                         <Stack>
                                             <InputLabel required id="date">
-                                                Date
+                                                Due Date
                                             </InputLabel>
                                             <MuiPickersUtilsProvider utils={DateMomentUtils}>
-                                                <DateTimePicker
-                                                    disableToolbar
+                                                <DatePicker
+                                                    clearable
                                                     id="date-picker"
-                                                    label="Date and Time picker"
+                                                    format="YYYY-MM-DD"
+                                                    label="Choose date"
                                                     value={tasks_due_date}
-                                                    onChange={(event) => {
-                                                        setTasks_due_date(event);
-                                                    }}
+                                                    onChange={(newValue) => setTasks_due_date(newValue.format("YYYY-MM-DD"))}
+                                                    renderInput={(params) => (
+                                                        <TextField {...params} helperText="Select Due Date" />
+                                                    )}
                                                 />
                                             </MuiPickersUtilsProvider>
                                         </Stack>
+
+                                       
 
                                         {/* priority */}
                                         <Stack spacing={2}>
@@ -223,10 +233,10 @@ export default function Main() {
                                                 <MenuItem value="">
                                                     <em>None</em>
                                                 </MenuItem>
-                                                <MenuItem value={1}>1</MenuItem>
-                                                <MenuItem value={2}>2</MenuItem>
-                                                <MenuItem value={3}>3</MenuItem>
-                                                <MenuItem value={4}>4</MenuItem>
+                                                <MenuItem value={"Priority 1"}>1</MenuItem>
+                                                <MenuItem value={"Priority 2"}>2</MenuItem>
+                                                <MenuItem value={"Priority 3"}>3</MenuItem>
+                                                <MenuItem value={"Priority 4"}>4</MenuItem>
                                             </Select>
                                             
                                         </Stack>
@@ -244,8 +254,8 @@ export default function Main() {
                                                 placeholder="status"
                                                 display="block"
                                             >
-                                                <MenuItem value={0}>Complete</MenuItem>
-                                                <MenuItem value={1}>Active</MenuItem>
+                                                <MenuItem value={"Completed"}>Completed</MenuItem>
+                                                <MenuItem value={"Active"}>Active</MenuItem>
                                             </Select>
                                            
                                             <br></br>
