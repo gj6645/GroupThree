@@ -9,9 +9,7 @@ export default function Category() {
 
     return (
         <Box sx={{ display: 'flex' }}>
-            {/* header */}
             <Header />
-            {/* side bar */}
             <SideBar />
             <Box
                 component="main"

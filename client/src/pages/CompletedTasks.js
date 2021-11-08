@@ -11,9 +11,8 @@ export default function CompletedTasks() {
     return(
 
         <Box sx={{ display: 'flex' }}>
-            {/* header */}
+        
             <Header />
-            {/* side bar */}
             <SideBar />
             <Box
                 component="main"

@@ -47,13 +47,19 @@ export default function SideBar() {
                 <List>
 
                     <ListItemButton button component={Link} href="/">
-                        <span class="material-icons">home</span>
+                        <span class="material-icons">arrow_back</span>
                         {/* if we want to use home icon we put it here */}
-                        <ListItemText primary="Home" />
+                        
                     </ListItemButton>
 
                 </List>
                 <List>
+
+                    <ListItemButton button component={Link} href="/">
+                        <span class="material-icons">home</span>
+                        {/* if we want to use home icon we put it here */}
+                        <ListItemText primary="Home" />
+                    </ListItemButton>
 
                     <ListItemButton button component={Link} href="/alltasks">
                         <ListItemText primary="All Tasks" />
