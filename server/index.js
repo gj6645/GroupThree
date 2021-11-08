@@ -4,6 +4,7 @@ const mysql = require('mysql2')
 const cors = require('cors');
 
 
+
 const PORT = 3001;
 
 app.use(cors());
@@ -33,14 +34,13 @@ app.use((err, req, res, next) => {
 
 
 
+
 const db = mysql.createPool({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME
 });
-
-
 
 
 // set interval to never expire
@@ -74,6 +74,9 @@ app.get('/api/createDB', (req, res) => {
 });
 // create task table in database
 app.get('/api/createTasksTable', (req, res) => {
+    
+    // set auto increment to 1 and increment by 1
+    
     let sql = "CREATE TABLE tasks(Tasks_id int AUTO_INCREMENT, tasks_name VARCHAR(255), tasks_description VARCHAR(255), tasks_priority VARCHAR(255), Categories_id int, tasks_categories VARCHAR(10), tasks_status VARCHAR(255), tasks_due_date datetime, PRIMARY KEY(Tasks_id), FOREIGN KEY(Categories_id) REFERENCES categories(Categories_id))";
     db.query(sql, (err, result) => {
         if (err) throw err;
@@ -150,7 +153,10 @@ app.get('/api/getTask/:Tasks_id', (req, res) => {
 
 // GET API to get tasks due today
 app.get('/api/getTasksToday', (req, res) => {
-    db.query('SELECT * FROM tasks WHERE tasks_due_date = CURDATE() + 1',
+    
+   
+
+    db.query('SELECT * FROM tasks WHERE tasks_due_date = curdate()',
     (err, rows, fields) => {
         if (!err) {
             //res.send(rows);
@@ -166,7 +172,7 @@ app.get('/api/getTasksToday', (req, res) => {
 
 // GET API to get overdue tasks
 app.get('/api/getOverdueTasks', (req, res) => {
-    db.query('SELECT * FROM tasks WHERE tasks_due_date < CURDATE()',
+    db.query('SELECT * FROM tasks WHERE tasks_due_date < curdate()',
     (err, rows, fields) => {
         if (!err) {
             //res.send(rows);
@@ -210,7 +216,7 @@ app.put('/api/updateTask/:Tasks_id', (req, res) => {
     const tasks_status = req.body.tasks_status;
     const tasks_due_date = req.body.tasks_due_date;
     db.query('UPDATE tasks SET tasks_name = ?, tasks_description = ?, Categories_id = ?, tasks_priority = ?, tasks_status = ?, tasks_due_date = ? WHERE Tasks_id = ?',
-    [tasks_name, tasks_description, Categories_id, tasks_priority, tasks_status, tasks_due_date, Tasks_id],
+    [tasks_name, tasks_description, Categories_id, tasks_priority, task_status, tasks_due_date, Tasks_id],
     (err, result) => {
         if (err) throw err;
         console.log(result);
@@ -254,6 +260,9 @@ module.exports = db.promise();
     - Display Task based on Priority (e.g. Priority 1, Priority 2, Priority 3, Priority 4)
     - Display Task based on Status (e.g. Completed, Active)
 */
+
+// Auto reset auto increment value to 1
+// ALTER TABLE tasks AUTO_INCREMENT = 1;
 
 
 // API ENDPOINT that Needs to be developed
