@@ -3,6 +3,11 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import Main from "./pages/Main"
 import Authors from "./pages/Authors"
 import Sample from "./pages/Sample"
+import Category from "./pages/Category"
+import AllTasks from "./pages/AllTasks"
+import CompletedTasks from "./pages/CompletedTasks"
+import PriorityOptions from "./pages/PriorityOptions"
+import CategoryOptions from "./pages/CategoryOptions"
 
 
 
@@ -11,7 +16,12 @@ function App() {
     <div>
       <Router>
         <Switch>
-        <Route path="/sample"> <Sample /></Route>
+          <Route path="/priorityoptions"> <PriorityOptions /></Route>
+          <Route path="/categoryoptions"> <CategoryOptions /></Route>
+          <Route path="/completedtasks"> <CompletedTasks /> </Route>
+          <Route path="/category"> <Category /></Route>
+          <Route path="/alltasks"> <AllTasks /></Route>
+          <Route path="/sample"> <Sample /></Route>
           <Route path="/authors"> <Authors /> </Route>
           <Route path="/"> <Main /> </Route>
         </Switch>

@@ -47,19 +47,25 @@ export default function SideBar() {
                 <List>
 
                     <ListItemButton button component={Link} href="/">
-                        <span class="material-icons">home</span>
+                        <span class="material-icons">arrow_back</span>
                         {/* if we want to use home icon we put it here */}
-                        <ListItemText primary="Home" />
+                        
                     </ListItemButton>
 
                 </List>
                 <List>
 
-                    <ListItemButton button component={Link} href="/authors">
+                    <ListItemButton button component={Link} href="/">
+                        <span class="material-icons">home</span>
+                        {/* if we want to use home icon we put it here */}
+                        <ListItemText primary="Home" />
+                    </ListItemButton>
+
+                    <ListItemButton button component={Link} href="/alltasks">
                         <ListItemText primary="All Tasks" />
                     </ListItemButton>
 
-                    <ListItem button component={Link} href="/authors">
+                    <ListItem button component={Link} href="/category">
                         <ListItemText primary="Category" />
                     </ListItem>
 
@@ -71,14 +77,14 @@ export default function SideBar() {
                     </ListItemButton>
                     <Collapse in={open} timeout="auto" unmountOnExit>
                         <List component="div" disablePadding>
-                            <ListItemButton sx={{ pl: 4 }}>
-                                <ListItemText primary="Link1" />
+                            <ListItemButton button component={Link} href="/categoryoptions" sx={{ pl: 4 }}>
+                                <ListItemText primary="Category Options" />
                             </ListItemButton>
-                            <ListItemButton sx={{ pl: 4 }}>
-                                <ListItemText primary="Link2" />
+                            <ListItemButton button component={Link} href="/completedtasks" sx={{ pl: 4 }}>
+                                <ListItemText primary="Completed Tasks" />
                             </ListItemButton>
-                            <ListItemButton sx={{ pl: 4 }}>
-                                <ListItemText primary="Link3" />
+                            <ListItemButton button component={Link} href="/priorityoptions" sx={{ pl: 4 }}>
+                                <ListItemText primary="Priority Options" />
                             </ListItemButton>
                         </List>
                     </Collapse>

@@ -5,7 +5,6 @@ import TextField from '@mui/material/TextField';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-// import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Axios from "axios";
 import { useState } from "react"
@@ -13,15 +12,12 @@ import "./Main.css"
 import Stack from '@mui/material/Stack';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
-// import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Box from '@mui/material/Box';
 import 'date-fns'
 import DateMomentUtils from '@date-io/moment';
 import {
     DatePicker,
-    KeyboardDatePicker,
-    DateTimePicker,
     MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
 // Notifications
@@ -111,7 +107,7 @@ export default function Main() {
                         <h3>Today's Tasks:</h3>
                         <hr></hr>
                         <Toolbar />
-                        
+
 
                         {/* Second Data Table */}
                         <h3> Overdue Tasks:</h3>
@@ -150,7 +146,7 @@ export default function Main() {
                                         {/* task name */}
                                         <Stack>
                                             <InputLabel required id="taskName">
-                                                Name
+                                                Task Name
                                             </InputLabel>
                                             <TextField
                                                 required
@@ -165,7 +161,7 @@ export default function Main() {
 
                                         {/* task description */}
                                         <Stack>
-                                            <InputLabel id="taskDescription">Description</InputLabel>
+                                            <InputLabel id="taskDescription"> Task Description</InputLabel>
                                             <TextField
                                                 id="taskDescription"
                                                 // label="taskDescription"
@@ -179,20 +175,6 @@ export default function Main() {
                                             />
                                         </Stack>
 
-                                        {/* Categories*/}
-                                        <Stack>
-                                            <InputLabel id="categoryName">
-                                                Category
-                                            </InputLabel>
-                                            <TextField
-                                                id="categoryName"
-                                                type="text"
-                                                placeholder="Category Name"
-                                                onChange={(event) => {
-                                                    setTasks_categories(event.target.value);
-                                                }}
-                                            />
-                                        </Stack>
 
                                         {/* date and time  */}
                                         <Stack>
@@ -214,11 +196,26 @@ export default function Main() {
                                             </MuiPickersUtilsProvider>
                                         </Stack>
 
-                                       
+                                        {/* Categories*/}
+                                        <Stack>
+                                            <InputLabel id="categoryName">
+                                                Category
+                                            </InputLabel>
+                                            <TextField
+                                                id="categoryName"
+                                                type="text"
+                                                placeholder="Category Name"
+                                                onChange={(event) => {
+                                                    setTasks_categories(event.target.value);
+                                                }}
+                                            />
+                                        </Stack>
+
+
 
                                         {/* priority */}
-                                        <Stack spacing={2}>
-                                            <InputLabel id="priority">Priority</InputLabel>
+                                        <Stack>
+                                            <InputLabel id="priority">Priority Level</InputLabel>
                                             <Select
 
                                                 id="priority_select"
@@ -238,11 +235,11 @@ export default function Main() {
                                                 <MenuItem value={"Priority 3"}>3</MenuItem>
                                                 <MenuItem value={"Priority 4"}>4</MenuItem>
                                             </Select>
-                                            
+
                                         </Stack>
 
                                         {/* status */}
-                                        <Stack spacing={2}>
+                                        <Stack>
                                             <InputLabel id="status">Status</InputLabel>
                                             <Select
                                                 id="status_select"
@@ -257,7 +254,7 @@ export default function Main() {
                                                 <MenuItem value={"Completed"}>Completed</MenuItem>
                                                 <MenuItem value={"Active"}>Active</MenuItem>
                                             </Select>
-                                           
+
                                             <br></br>
                                         </Stack>
                                     </Stack>
