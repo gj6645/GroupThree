@@ -249,6 +249,20 @@ app.listen(process.env.PORT || PORT, () => {
 });
 
 
+// GET API to get nunber of tasks in database
+app.get('/api/getTasksCount', (req, res) => {
+    db.query('SELECT COUNT(*) FROM tasks',
+    (err, rows, fields) => {
+        if (!err) {
+            res.send(rows);
+
+        } else {
+            console.log(err);
+        }
+    });
+});
+
+
 module.exports = db.promise();
 
 
