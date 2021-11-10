@@ -1,22 +1,17 @@
-import React, { useState, useEffect } from "react"
-//tables
-import Datatable from '../components/datatable';
-import Table from "../components/Table";
+// import React, { useState, useEffect } from "react"
+// //tables
+// import Datatable from '../components/datatable';
+// import Table from "./tables/TodayTable";
 
-export default function UseEffect({ link }) {
-    //requirements for fetch 
-    // require('es6-promise').polyfill();
-    // require('isomorphic-fetch');
+// export default function UseEffect({ link }) {
+//     //requirements for fetch 
+//     // require('es6-promise').polyfill();
+//     // require('isomorphic-fetch');
     
-    //function for table
-    const [data,setData] = useState([])
-    useEffect(() => {
-        fetch('https://csc4710dbs.herokuapp.com/api/getTasks')
-          .then((response) => response.json())
-          .then((json) => setData(json));
-      }, []);
-        return(
-            //<Datatable data={(data)} />
-            < Table />
-        )
-}
+//     //function for table
+    
+//         return(
+//             //<Datatable data={(data)} />
+//              <Table />
+//         )
+// }

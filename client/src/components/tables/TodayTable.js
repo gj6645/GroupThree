@@ -7,89 +7,30 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-
-// const columns = [
-//   { id: 'name', label: 'Name', minWidth: 170 },
-//   { id: 'code', label: 'ISO\u00a0Code', minWidth: 100 },
-//   {
-//     id: 'population',
-//     label: 'Population',
-//     minWidth: 170,
-//     align: 'right',
-//     format: (value) => value.toLocaleString('en-US'),
-//   },
-//   {
-//     id: 'size',
-//     label: 'Size\u00a0(km\u00b2)',
-//     minWidth: 170,
-//     align: 'right',
-//     format: (value) => value.toLocaleString('en-US'),
-//   },
-//   {
-//     id: 'density',
-//     label: 'Density',
-//     minWidth: 170,
-//     align: 'right',
-//     format: (value) => value.toFixed(2),
-//   },
-// ];
+import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
+import Button from '@mui/material/Button';
+import axios, { Axios } from "axios";
 
 
 
-// Create columns for id, description, due date, priority, category, and status
+
+
+
+// Create columns for id, description, due date, priority, category, status and actions
 const columns = [
-    { id: 'id', label: 'ID', minWidth: 170 },
-    { id: 'description', label: 'Description', minWidth: 170 },
-    { id: 'dueDate', label: 'Due Date', minWidth: 170 },
-    { id: 'priority', label: 'Priority', minWidth: 170 },
-    { id: 'category', label: 'Category', minWidth: 170 },
-    { id: 'status', label: 'Status', minWidth: 170 },
+    { id: 'Tasks_id', label: 'ID', minWidth: 170 },
+    { id: 'tasks_description', label: 'Description', minWidth: 170 },
+    { id: 'tasks_due_date', label: 'Due Date', minWidth: 170 },
+    { id: 'tasks_priority', label: 'Priority', minWidth: 170 },
+    { id: 'tasks_categories', label: 'Category', minWidth: 170 },
+    { id: 'tasks_status', label: 'Status', minWidth: 170 },
+    //{ id: 'tasks_actions', label: 'Actions', minWidth: 17, align: 'right'},
 ];
 
     
 
 
-function createData(name, code, population, size) {
-  const density = population / size;
-  return { name, code, population, size, density };
-}
-
-// Create data for table
-// const rows = [
-//     {
-//         id: '1',
-//         description: 'Task 1',
-//         due_date: '2020-02-02',
-//         priority: 'High',
-//         category: 'Work',
-//         status: 'In Progress',
-//     },
-//     {
-//         id: '2',
-//         description: 'Task 2',
-//         due_date: '2020-02-02',
-//         priority: 'High',
-//         category: 'Work',
-//         status: 'In Progress',
-//     },
-//     {
-//         id: '3',
-//         description: 'Task 3',
-//         due_date: '2020-02-02',
-//         priority: 'High',
-//         category: 'Work',
-//         status: 'In Progress',
-//     },
-//     {
-//         id: '4',
-//         description: 'Task 4',
-//         due_date: '2020-02-02',
-//         priority: 'High',
-//         category: 'Work',
-//         status: 'In Progress',
-//     },
-
-//     ];
 
 export default function StickyHeadTable() {
     
@@ -97,6 +38,7 @@ export default function StickyHeadTable() {
     const [rows, setRows] = useState([]);
 
     useEffect(() => {
+        // Once GET Today's Tasks api is working, swap below with GET Today's Tasks api
         fetch('https://csc4710dbs.herokuapp.com/api/getTasks')
         .then((response) => response.json())
           .then((json) => setRows(json));
@@ -117,11 +59,29 @@ export default function StickyHeadTable() {
       setRowsPerPage(+event.target.value);
       setPage(0);
     };
+
+  // TODO: Function to update a task
+
+  const [TasksList, setTasksList] = useState([]);
+
+
+  // Function to delete a task
+    const deleteTask = (Tasks_id) => {
+        // Use api https://csc4710dbs.herokuapp.com/api/deleteTask/:Tasks_id to delete a task
+        axios.delete('https://csc4710dbs.herokuapp.com/api/deleteTask/${Tasks_id}').then(res => {
+            setTasksList(TasksList.filter((val) => {
+                return val.Tasks_id == Tasks_id;
+            }));
+        });
+    }
+
+    
   
     return (
-    
-        
+ 
     // return setRows data to paper sx
+    <>
+       
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
         <TableContainer sx={{ maxHeight: 440 }}>
             <Table stickyHeader aria-label="sticky table">
@@ -132,10 +92,15 @@ export default function StickyHeadTable() {
                                 key={column.id}
                                 align={column.align}
                                 style={{ minWidth: column.minWidth }}
+
+                                actionsColumnIndex={-1}
                             >
                                 {column.label}
+                                
                             </TableCell>
+
                         ))}
+                       
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -150,21 +115,50 @@ export default function StickyHeadTable() {
 
                         }
                     */}
+                    {/* For each row, add a edit and delete material ui button */}
+                    {/* Add <EditIcon />*/}
+                    
                     {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                         return (
-                            <TableRow hover role="checkbox" tabIndex={-1} key={row.id}  >
+                            <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+
                                 {columns.map((column) => {
                                     const value = row[column.id];
                                     return (
                                         <TableCell key={column.id} align={column.align}>
                                             {column.format && typeof value === 'number' ? column.format(value) : value}
                                         </TableCell>
+                                        
                                     );
+                                    
+                                    
                                 })}
+
+
+                                {/* Edit icon on each row*/}
+                                <TableCell
+                                    style={{ minWidth: 17, align: 'right', color: '#1972d8', size: 'x-small' }}
+                                >{row.Tasks_actions}
+                                <EditIcon />
+                                </TableCell>
+
+
+                                {/* Delete icon on each row*/}
+                                <TableCell
+                                style={{ minWidth: 17, align: 'right', color: '#1972d8', size: 'x-small' }}
+                                >{row.Tasks_actions}
+                                <Button> 
+                                <DeleteIcon
+                                    onClick={() => {deleteTask(row.Tasks_id)}}
+                                />
+                                </Button>
+                                </TableCell>
+                                
                             </TableRow>
+                            
                         );
                     })}
-
+                    
                     
                 </TableBody>
             </Table>
@@ -182,7 +176,7 @@ export default function StickyHeadTable() {
     </Paper>
 
 
-
+</>
     
     );
   }
