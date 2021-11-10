@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import "./Main.css"
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -7,7 +7,6 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Axios from "axios";
-import { useState } from "react"
 import "./Main.css"
 import Stack from '@mui/material/Stack';
 import InputLabel from '@mui/material/InputLabel';
@@ -28,12 +27,11 @@ import SideBar from "../components/SideBar";
 import Header from "../components/Header";
 import Toolbar from "@mui/material/Toolbar";
 
-
-
+//tables
+import UseEffect from '../useEffect/index';
 
 
 export default function Main() {
-
     const [open, setOpen] = React.useState(false);
 
     //Notifications
@@ -106,13 +104,13 @@ export default function Main() {
                         <h3>Today's Tasks:</h3>
                         <hr></hr>
                         <Toolbar />
-
+                        <UseEffect link={'https://csc4710dbs.herokuapp.com/api/getTasksToday'}/>
 
                         {/* Second Data Table */}
                         <h3> Overdue Tasks:</h3>
-
                         <hr></hr>
                         <Toolbar />
+                        <UseEffect link={'https://csc4710dbs.herokuapp.com/api/getOverdueTasks'}/>
 
                     </Box>
                 </Box>
