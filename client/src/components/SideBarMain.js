@@ -43,15 +43,7 @@ export default function SideBar() {
                 variant="permanent"
                 anchor="left"
             >
-                <List>
-
-                    <ListItemButton button component={Link} href="/">
-                        <span class="material-icons">arrow_back</span>
-                        {/* if we want to use home icon we put it here */}
-                        
-                    </ListItemButton>
-
-                </List>
+                <Toolbar />
                 <List>
 
                     <ListItemButton button component={Link} href="/">

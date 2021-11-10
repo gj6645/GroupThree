@@ -26,6 +26,7 @@ import SideBar from "../components/SideBar";
 //header
 import Header from "../components/Header";
 import Toolbar from "@mui/material/Toolbar";
+import SideBarMain from "../components/SideBarMain";
 
 //tables
 import UseEffect from '../useEffect/index';
@@ -82,7 +83,7 @@ export default function Main() {
                     {/* header */}
                     <Header />
                     {/* side bar */}
-                    <SideBar />
+                    <SideBarMain />
 
                     <Box
 
@@ -109,7 +110,7 @@ export default function Main() {
                         {/* Second Data Table */}
                         <h3> Overdue Tasks:</h3>
                         <hr></hr>
-                        <Toolbar />
+                         <Toolbar />
                         <UseEffect link={'https://csc4710dbs.herokuapp.com/api/getOverdueTasks'}/>
 
                     </Box>
