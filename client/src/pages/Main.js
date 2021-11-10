@@ -19,17 +19,22 @@ import {
     DatePicker,
     MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormControlLabel';
+import FormGroup from '@mui/material/FormGroup';
 // Notifications
 import Notification from "../components/Notification";
 // side bar 
-import SideBar from "../components/SideBar";
+import SideBarMain from "../components/SideBarMain";
 //header
 import Header from "../components/Header";
 import Toolbar from "@mui/material/Toolbar";
-import SideBarMain from "../components/SideBarMain";
+
+
 
 //tables
 import UseEffect from '../components/useEffect';
+
 
 
 export default function Main() {
@@ -50,7 +55,10 @@ export default function Main() {
         setOpen(false);
     };
 
-    
+    const reload = () => {
+        setTimeout(() => { window.location.reload(false); }, 500);
+    }
+
     const [tasks_description, setTasks_description] = React.useState("");
     const [tasks_due_date, setTasks_due_date] = React.useState(null);
     const [tasks_priority, setTasks_priority] = React.useState('');
@@ -105,13 +113,13 @@ export default function Main() {
                         <h3>Today's Tasks:</h3>
                         <hr></hr>
                         <Toolbar />
-                        <UseEffect link={'https://csc4710dbs.herokuapp.com/api/getTasksToday'}/>
+                        <UseEffect link={'https://csc4710dbs.herokuapp.com/api/getTasksToday'} />
 
                         {/* Second Data Table */}
                         <h3> Overdue Tasks:</h3>
                         <hr></hr>
-                         <Toolbar />
-                        <UseEffect link={'https://csc4710dbs.herokuapp.com/api/getOverdueTasks'}/>
+                        <Toolbar />
+                        <UseEffect link={'https://csc4710dbs.herokuapp.com/api/getOverdueTasks'} />
 
                     </Box>
                 </Box>
@@ -144,18 +152,21 @@ export default function Main() {
 
                                         {/* task description */}
                                         <Stack>
-                                            <InputLabel id="taskDescription"> Task Description</InputLabel>
-                                            <TextField
-                                                id="taskDescription"
-                                                // label="taskDescription"
-                                                type="text"
-                                                multiline
-                                                rows={3}
-                                                placeholder="Task Description"
-                                                onChange={(event) => {
-                                                    setTasks_description(event.target.value);
-                                                }}
-                                            />
+                                            <FormGroup>
+                                                <InputLabel id="taskDescription"> Task Description</InputLabel>
+                                                <FormControl required>
+                                                    <TextField
+                                                        id="taskDescription"
+                                                        // label="taskDescription"
+                                                        required
+                                                        type="text"
+                                                        placeholder="Task Description"
+                                                        onChange={(event) => {
+                                                            setTasks_description(event.target.value);
+                                                        }}
+                                                    />
+                                                </FormControl>
+                                            </FormGroup>
                                         </Stack>
 
 
@@ -257,6 +268,7 @@ export default function Main() {
                                     createTask();
                                     handleClose();
                                     handleNotify();
+                                    reload();
                                 }}
                             >
                                 <span class="material-icons">add</span>
