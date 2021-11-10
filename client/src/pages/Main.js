@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import "./Main.css"
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -7,7 +7,6 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Axios from "axios";
-import { useState } from "react"
 import "./Main.css"
 import Stack from '@mui/material/Stack';
 import InputLabel from '@mui/material/InputLabel';
@@ -20,20 +19,26 @@ import {
     DatePicker,
     MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormControlLabel';
+import FormGroup from '@mui/material/FormGroup';
+import Typography from '@mui/material/Typography';
+import Switch from '@mui/material/Switch';
+
 // Notifications
 import Notification from "../components/Notification";
 // side bar 
-import SideBar from "../components/SideBar";
+import SideBarMain from "../components/SideBarMain";
 //header
 import Header from "../components/Header";
 import Toolbar from "@mui/material/Toolbar";
 
 
 
-
+//tables
+import UseEffect from '../components/useEffect';
 
 export default function Main() {
-
     const [open, setOpen] = React.useState(false);
 
     //Notifications
@@ -51,7 +56,10 @@ export default function Main() {
         setOpen(false);
     };
 
-    
+    const reload = () => {
+        setTimeout(() => { window.location.reload(false); }, 1000);
+    }
+
     const [tasks_description, setTasks_description] = React.useState("");
     const [tasks_due_date, setTasks_due_date] = React.useState(null);
     const [tasks_priority, setTasks_priority] = React.useState('');
@@ -71,6 +79,8 @@ export default function Main() {
         })
     }
 
+
+
     return (
 
         <>
@@ -84,7 +94,7 @@ export default function Main() {
                     {/* header */}
                     <Header />
                     {/* side bar */}
-                    <SideBar />
+                    <SideBarMain />
 
                     <Box
 
@@ -96,7 +106,7 @@ export default function Main() {
 
                         {/* Button for add new task */}
                         <Button variant="contained" onClick={handleClickOpen}>
-                            <span class="material-icons">add</span>
+                            <span class="material-icons" style={{padding: "1px"}} >add</span>
                             Add New Task
                         </Button>
 
@@ -105,14 +115,16 @@ export default function Main() {
                         {/* First Data Table  */}
                         <h3>Today's Tasks:</h3>
                         <hr></hr>
-                        <Toolbar />
+                        <UseEffect link={'https://csc4710dbs.herokuapp.com/api/getTasksToday'} />
 
+                        {/* space between both tables */}
+                        <Toolbar />
 
                         {/* Second Data Table */}
                         <h3> Overdue Tasks:</h3>
-
                         <hr></hr>
-                        <Toolbar />
+                        
+                        <UseEffect link={'https://csc4710dbs.herokuapp.com/api/getOverdueTasks'} />
 
                     </Box>
                 </Box>
@@ -145,18 +157,21 @@ export default function Main() {
 
                                         {/* task description */}
                                         <Stack>
-                                            <InputLabel id="taskDescription"> Task Description</InputLabel>
-                                            <TextField
-                                                id="taskDescription"
-                                                // label="taskDescription"
-                                                type="text"
-                                                multiline
-                                                rows={3}
-                                                placeholder="Task Description"
-                                                onChange={(event) => {
-                                                    setTasks_description(event.target.value);
-                                                }}
-                                            />
+                                            <FormGroup>
+                                                <InputLabel id="taskDescription"> Task Description</InputLabel>
+                                                <FormControl required>
+                                                    <TextField
+                                                        id="taskDescription"
+                                                        // label="taskDescription"
+                                                        required
+                                                        type="text"
+                                                        placeholder="Task Description"
+                                                        onChange={(event) => {
+                                                            setTasks_description(event.target.value);
+                                                        }}
+                                                    />
+                                                </FormControl>
+                                            </FormGroup>
                                         </Stack>
 
 
@@ -241,11 +256,28 @@ export default function Main() {
 
                                             <br></br>
                                         </Stack>
+
+
+
+
                                     </Stack>
+
+                                    {/* just testing out what a switch would look like */}
+                                    {/* <br></br>
+                                    <Stack direction="row" spacing={1} alignItems="flex-start">
+                                        <Typography value={"Completed"}>Completed</Typography>
+                                        <Switch 
+                                         defaultChecked onChange={(event) => {
+                                            setTasks_status(event.target.value);
+                                        }} />
+                                        <Typography value={"Active"}>Active</Typography>
+                                    </Stack> */}
                                 </Box >
                             </div >
                         </DialogContent>
+
                         <DialogActions>
+
                             <Button
                                 onClick={handleClose}
                                 variant="contained">
@@ -258,10 +290,12 @@ export default function Main() {
                                     createTask();
                                     handleClose();
                                     handleNotify();
+                                    reload();
                                 }}
                             >
                                 <span class="material-icons">add</span>
                                 Add Task</Button>
+
                         </DialogActions>
                     </Dialog>
                 </div>
