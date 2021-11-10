@@ -52,7 +52,7 @@ export default function Main() {
         setOpen(false);
     };
 
-    const [tasks_name, setTasks_name] = React.useState("");
+    
     const [tasks_description, setTasks_description] = React.useState("");
     const [tasks_due_date, setTasks_due_date] = React.useState(null);
     const [tasks_priority, setTasks_priority] = React.useState('');
@@ -62,7 +62,6 @@ export default function Main() {
     // Create function to call API
     const createTask = () => {
         Axios.post("https://csc4710dbs.herokuapp.com/api/createTask", {
-            tasks_name: tasks_name,
             tasks_description: tasks_description,
             tasks_due_date: tasks_due_date,
             tasks_priority: tasks_priority,
@@ -144,21 +143,6 @@ export default function Main() {
                                         {/* top of Form */}
                                         <h2> Task Information </h2>
 
-                                        {/* task name */}
-                                        <Stack>
-                                            <InputLabel required id="taskName">
-                                                Task Name
-                                            </InputLabel>
-                                            <TextField
-                                                required
-                                                id="taskName"
-                                                type="text"
-                                                placeholder="Task Name"
-                                                onChange={(event) => {
-                                                    setTasks_name(event.target.value);
-                                                }}
-                                            />
-                                        </Stack>
 
                                         {/* task description */}
                                         <Stack>
