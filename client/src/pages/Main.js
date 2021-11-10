@@ -105,13 +105,13 @@ export default function Main() {
                         <h3>Today's Tasks:</h3>
                         <hr></hr>
                         <Toolbar />
-                        <UseEffect link={'https://csc4710dbs.herokuapp.com/api/getTasksToday'}/>
+                        {/* <UseEffect link={'https://csc4710dbs.herokuapp.com/api/getTasksToday'}/>
 
                         {/* Second Data Table */}
                         <h3> Overdue Tasks:</h3>
                         <hr></hr>
-                        <Toolbar />
-                        <UseEffect link={'https://csc4710dbs.herokuapp.com/api/getOverdueTasks'}/>
+                        {/* <Toolbar />
+                        <UseEffect link={'https://csc4710dbs.herokuapp.com/api/getOverdueTasks'}/> */} 
 
                     </Box>
                 </Box>
