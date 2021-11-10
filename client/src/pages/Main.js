@@ -29,7 +29,7 @@ import Toolbar from "@mui/material/Toolbar";
 import SideBarMain from "../components/SideBarMain";
 
 //tables
-import UseEffect from '../useEffect/index';
+import UseEffect from '../components/useEffect';
 
 
 export default function Main() {

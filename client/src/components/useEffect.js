@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 //tables
-import Datatable from '../datatable/index';
+import Datatable from '../components/datatable';
 
 export default function UseEffect({ link }) {
     //requirements for fetch 
