@@ -27,6 +27,7 @@ import SideBar from "../components/SideBar";
 //header
 import Header from "../components/Header";
 import Toolbar from "@mui/material/Toolbar";
+import SideBarMain from "../components/SideBarMain";
 
 
 
@@ -85,7 +86,7 @@ export default function Main() {
                     {/* header */}
                     <Header />
                     {/* side bar */}
-                    <SideBar />
+                    <SideBarMain />
 
                     <Box
 
