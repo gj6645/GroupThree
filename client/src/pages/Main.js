@@ -22,6 +22,9 @@ import {
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
+import Typography from '@mui/material/Typography';
+import Switch from '@mui/material/Switch';
+
 // Notifications
 import Notification from "../components/Notification";
 // side bar 
@@ -34,8 +37,6 @@ import Toolbar from "@mui/material/Toolbar";
 
 //tables
 import UseEffect from '../components/useEffect';
-
-
 
 export default function Main() {
     const [open, setOpen] = React.useState(false);
@@ -56,7 +57,7 @@ export default function Main() {
     };
 
     const reload = () => {
-        setTimeout(() => { window.location.reload(false); }, 500);
+        setTimeout(() => { window.location.reload(false); }, 1000);
     }
 
     const [tasks_description, setTasks_description] = React.useState("");
@@ -77,6 +78,8 @@ export default function Main() {
             console.log("Added Task");
         })
     }
+
+
 
     return (
 
@@ -103,7 +106,7 @@ export default function Main() {
 
                         {/* Button for add new task */}
                         <Button variant="contained" onClick={handleClickOpen}>
-                            <span class="material-icons">add</span>
+                            <span class="material-icons" style={{padding: "1px"}} >add</span>
                             Add New Task
                         </Button>
 
@@ -112,13 +115,15 @@ export default function Main() {
                         {/* First Data Table  */}
                         <h3>Today's Tasks:</h3>
                         <hr></hr>
-                        <Toolbar />
                         <UseEffect link={'https://csc4710dbs.herokuapp.com/api/getTasksToday'} />
+
+                        {/* space between both tables */}
+                        <Toolbar />
 
                         {/* Second Data Table */}
                         <h3> Overdue Tasks:</h3>
                         <hr></hr>
-                        <Toolbar />
+                        
                         <UseEffect link={'https://csc4710dbs.herokuapp.com/api/getOverdueTasks'} />
 
                     </Box>
@@ -251,11 +256,28 @@ export default function Main() {
 
                                             <br></br>
                                         </Stack>
+
+
+
+
                                     </Stack>
+
+                                    {/* just testing out what a switch would look like */}
+                                    {/* <br></br>
+                                    <Stack direction="row" spacing={1} alignItems="flex-start">
+                                        <Typography value={"Completed"}>Completed</Typography>
+                                        <Switch 
+                                         defaultChecked onChange={(event) => {
+                                            setTasks_status(event.target.value);
+                                        }} />
+                                        <Typography value={"Active"}>Active</Typography>
+                                    </Stack> */}
                                 </Box >
                             </div >
                         </DialogContent>
+
                         <DialogActions>
+
                             <Button
                                 onClick={handleClose}
                                 variant="contained">
@@ -273,6 +295,7 @@ export default function Main() {
                             >
                                 <span class="material-icons">add</span>
                                 Add Task</Button>
+
                         </DialogActions>
                     </Dialog>
                 </div>

@@ -7,7 +7,7 @@ import Toolbar from "@mui/material/Toolbar";
 
 
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 export default function Header() {
 
