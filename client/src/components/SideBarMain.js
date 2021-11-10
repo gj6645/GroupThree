@@ -14,7 +14,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
 
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 
 export default function SideBar() {
