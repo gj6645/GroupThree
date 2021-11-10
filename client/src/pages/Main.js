@@ -32,6 +32,9 @@ import SideBarMain from "../components/SideBarMain";
 //header
 import Header from "../components/Header";
 import Toolbar from "@mui/material/Toolbar";
+import TodayTable from "../components/tables/TodayTable";
+import OverdueTable from "../components/tables/OverdueTable";
+
 
 
 
@@ -115,7 +118,7 @@ export default function Main() {
                         {/* First Data Table  */}
                         <h3>Today's Tasks:</h3>
                         <hr></hr>
-                        <UseEffect link={'https://csc4710dbs.herokuapp.com/api/getTasksToday'} />
+                        <TodayTable />
 
                         {/* space between both tables */}
                         <Toolbar />
@@ -124,7 +127,7 @@ export default function Main() {
                         <h3> Overdue Tasks:</h3>
                         <hr></hr>
                         
-                        <UseEffect link={'https://csc4710dbs.herokuapp.com/api/getOverdueTasks'} />
+                        <OverdueTable />
 
                     </Box>
                 </Box>
