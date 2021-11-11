@@ -19,7 +19,7 @@ import axios, { Axios } from "axios";
 
 // Create columns for id, description, due date, priority, category, status and actions
 const columns = [
-    { id: 'Tasks_id', label: 'ID', minWidth: 170 },
+    //{ id: 'Tasks_id', label: 'ID', minWidth: 170 },
     { id: 'tasks_description', label: 'Description', minWidth: 170 },
     { id: 'tasks_due_date', label: 'Due Date', minWidth: 170 },
     { id: 'tasks_priority', label: 'Priority', minWidth: 170 },
@@ -68,10 +68,13 @@ export default function StickyHeadTable() {
   // Function to delete a task
     const deleteTask = (Tasks_id) => {
         // Use api https://csc4710dbs.herokuapp.com/api/deleteTask/:Tasks_id to delete a task
-        axios.delete('https://csc4710dbs.herokuapp.com/api/deleteTask/${Tasks_id}').then(res => {
+        axios.delete(`https://csc4710dbs.herokuapp.com/api/deleteTask/${Tasks_id}`).then(res => {
             setTasksList(TasksList.filter((val) => {
                 return val.Tasks_id == Tasks_id;
             }));
+
+            // refresh the page
+            window.location.reload();
         });
     }
 
@@ -147,9 +150,11 @@ export default function StickyHeadTable() {
                                 <TableCell
                                 style={{ minWidth: 17, align: 'right', color: '#1972d8', size: 'x-small' }}
                                 >{row.Tasks_actions}
-                                <Button> 
+                                <Button onClick={() => {
+                                        deleteTask(row.Tasks_id);
+                                    }}> 
                                 <DeleteIcon
-                                    onClick={() => {deleteTask(row.Tasks_id)}}
+                                    
                                 />
                                 </Button>
                                 </TableCell>

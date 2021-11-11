@@ -9,12 +9,14 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Button from '@mui/material/Button';
+import axios, { Axios } from "axios";
 
 
 
 // Create columns for id, description, due date, priority, category, status and actions
 const columns = [
-    { id: 'Tasks_id', label: 'ID', minWidth: 170 },
+    //{ id: 'Tasks_id', label: 'ID', minWidth: 170 },
     { id: 'tasks_description', label: 'Description', minWidth: 170 },
     { id: 'tasks_due_date', label: 'Due Date', minWidth: 170 },
     { id: 'tasks_priority', label: 'Priority', minWidth: 170 },
@@ -50,6 +52,26 @@ export default function StickyHeadTable() {
       setRowsPerPage(+event.target.value);
       setPage(0);
     };
+
+    // TODO: Function to update a task
+
+  const [TasksList, setTasksList] = useState([]);
+
+
+  // Function to delete a task
+    const deleteTask = (Tasks_id) => {
+        // Use api https://csc4710dbs.herokuapp.com/api/deleteTask/:Tasks_id to delete a task
+        axios.delete(`https://csc4710dbs.herokuapp.com/api/deleteTask/${Tasks_id}`).then(res => {
+            setTasksList(TasksList.filter((val) => {
+                return val.Tasks_id == Tasks_id;
+            }));
+
+            // refresh the page
+            window.location.reload();
+        });
+    }
+
+
   
     return (
     
@@ -113,7 +135,13 @@ export default function StickyHeadTable() {
                                 <TableCell
                                 style={{ minWidth: 17, align: 'right', color: '#1972d8', size: 'x-small' }}
                                 >{row.Tasks_actions}
-                                <DeleteIcon />
+                                <Button onClick={() => {
+                                        deleteTask(row.Tasks_id);
+                                    }}> 
+                                <DeleteIcon
+                                    
+                                />
+                                </Button>
                                 </TableCell>
                             </TableRow>
                         );
