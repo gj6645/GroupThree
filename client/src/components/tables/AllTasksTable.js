@@ -35,12 +35,9 @@ export default function StickyHeadTable() {
         fetch('https://csc4710dbs.herokuapp.com/api/getTasks')
         .then((response) => response.json())
           .then((json) => setRows(json));
-
-          
     }, []);
 
-
-
+    //changing table view
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(15);
   
