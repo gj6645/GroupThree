@@ -25,7 +25,6 @@ const columns = [
     //{ id: 'tasks_actions', label: 'Actions', minWidth: 170 },
 ];
 
-
 export default function StickyHeadTable() {
     
     // get rows from https://csc4710dbs.herokuapp.com/api/getTasks api
