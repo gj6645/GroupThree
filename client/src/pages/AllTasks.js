@@ -4,8 +4,8 @@ import SideBar from "../components/SideBar"
 import { Box } from "@mui/system"
 import Toolbar from "@mui/material/Toolbar";
 import UseEffect from '../components/useEffect';
+import AllTasksTable from '../components/tables/AllTasksTable';
 export default function AllTasks() {
-
 
 
     return(
@@ -22,7 +22,7 @@ export default function AllTasks() {
                 <Toolbar />
                 <h3>All Tasks</h3>
                 <hr></hr>
-                <UseEffect link={'https://csc4710dbs.herokuapp.com/api//api/getAllTasks'} />
+                <AllTasksTable/>
             </Box>
         </Box >
 
