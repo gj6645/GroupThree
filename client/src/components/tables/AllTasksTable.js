@@ -25,7 +25,6 @@ const columns = [
     //{ id: 'tasks_actions', label: 'Actions', minWidth: 170 },
 ];
 
-
 export default function StickyHeadTable() {
     
     // get rows from https://csc4710dbs.herokuapp.com/api/getTasks api
@@ -35,12 +34,9 @@ export default function StickyHeadTable() {
         fetch('https://csc4710dbs.herokuapp.com/api/getTasks')
         .then((response) => response.json())
           .then((json) => setRows(json));
-
-          
     }, []);
 
-
-
+    //changing table view
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(15);
   
@@ -78,7 +74,7 @@ export default function StickyHeadTable() {
         
     // return setRows data to paper sx
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-        <TableContainer sx={{ maxHeight: 440 }}>
+        <TableContainer sx={{ maxHeight: 660 }}>
             <Table stickyHeader aria-label="sticky table">
                 <TableHead>
                     <TableRow>
