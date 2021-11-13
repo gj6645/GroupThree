@@ -200,6 +200,19 @@ app.get('/api/getTasks/:category', (req, res) => {
 });
 
 
+// GET API to get tasks based on dropdown priority selection
+app.get('/api/getTasksByPriority/:priority', (req, res) => {
+    const priority = req.params.priority;
+    db.query('SELECT * FROM tasks WHERE tasks_priority = ?', [priority], (err, result) => {
+        if (err) throw err;
+        console.log(result);
+        res.send(result);
+    });
+});
+
+
+
+
 
 /*
  *******************************************
