@@ -17,8 +17,8 @@ import axios from "axios";
 // Create columns for id, description, due date, priority, category, status and actions
 const columns = [
     
-    { id: 'Categories_id', label: 'ID', minWidth: 170 },
-    { id: 'tasks_categories', label: 'Category Type', minWidth: 170 }
+    { id: 'Categories_id', label: 'ID', minWidth: 20 },
+    { id: 'tasks_categories', label: 'Category Type', minWidth: 20 }
     
     
 ];
@@ -106,7 +106,7 @@ export default function StickyHeadTable() {
                     {/* For each row, add a edit and delete material ui button */}
                     {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                         return (
-                            <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                            <TableRow hover role="checkbox" tabIndex={-1} key={row.code} >
                                 {columns.map((column) => {
                                     const value = row[column.id];
                                     return (
