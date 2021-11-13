@@ -4,7 +4,6 @@ const mysql = require('mysql2')
 const cors = require('cors');
 
 
-
 const PORT = 3001;
 
 app.use(cors());
@@ -52,6 +51,10 @@ setInterval(function () {
 setInterval(function () {
     db.query('SELECT * FROM tasks');
 }, 30000);
+
+
+
+
 
 
 
@@ -133,11 +136,14 @@ app.get('/api/getTasks', (req, res) => {
             res.header("Content-Type",'application/json');
             //res.send(JSON.stringify(rows));
             res.type('json').send(JSON.stringify(rows, null, 2) + '\n');
+            //res.send(rows);
         } else {
             console.log(err);
         }
     });
 });
+
+
 
 
 
@@ -248,19 +254,6 @@ app.listen(process.env.PORT || PORT, () => {
     console.log('Server is running on port 3001');
 });
 
-
-// GET API to get nunber of tasks in database
-app.get('/api/getTasksCount', (req, res) => {
-    db.query('SELECT COUNT(*) FROM tasks',
-    (err, rows, fields) => {
-        if (!err) {
-            res.send(rows);
-
-        } else {
-            console.log(err);
-        }
-    });
-});
 
 
 module.exports = db.promise();
