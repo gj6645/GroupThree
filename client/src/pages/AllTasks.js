@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React from "react"
 import Header from "../components/Header"
 import SideBar from "../components/SideBar"
 import { Box } from "@mui/system"

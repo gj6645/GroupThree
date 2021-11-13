@@ -59,7 +59,7 @@ export default function StickyHeadTable() {
         // Use api https://csc4710dbs.herokuapp.com/api/deleteTask/:Tasks_id to delete a task
         axios.delete(`https://csc4710dbs.herokuapp.com/api/deleteTask/${Tasks_id}`).then(res => {
             setTasksList(TasksList.filter((val) => {
-                return val.Tasks_id == Tasks_id;
+                return val.Tasks_id === Tasks_id;
             }));
 
             // refresh the page

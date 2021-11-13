@@ -16,22 +16,19 @@ import axios from "axios";
 
 // Create columns for id, description, due date, priority, category, status and actions
 const columns = [
-    //{ id: 'Tasks_id', label: 'ID', minWidth: 170 },
-    { id: 'tasks_description', label: 'Description', minWidth: 170 },
-    { id: 'tasks_due_date', label: 'Due Date', minWidth: 170 },
-    { id: 'tasks_priority', label: 'Priority', minWidth: 170 },
-    { id: 'tasks_categories', label: 'Category', minWidth: 170 },
-    { id: 'tasks_status', label: 'Status', minWidth: 170 },
-    //{ id: 'tasks_actions', label: 'Actions', minWidth: 170 },
+    
+    { id: 'Categories_id', label: 'ID', minWidth: 170 },
+    { id: 'tasks_categories', label: 'Category Type', minWidth: 170 }
+    
+    
 ];
 
 export default function StickyHeadTable() {
     
-    // get rows from https://csc4710dbs.herokuapp.com/api/getTasks api
     const [rows, setRows] = useState([]);
 
     useEffect(() => {
-        fetch('https://csc4710dbs.herokuapp.com/api/getTasks')
+        fetch('https://csc4710dbs.herokuapp.com/api/getCategories')
         .then((response) => response.json())
           .then((json) => setRows(json));
     }, []);
@@ -55,11 +52,11 @@ export default function StickyHeadTable() {
 
 
   // Function to delete a task
-    const deleteTask = (Tasks_id) => {
-        // Use api https://csc4710dbs.herokuapp.com/api/deleteTask/:Tasks_id to delete a task
-        axios.delete(`https://csc4710dbs.herokuapp.com/api/deleteTask/${Tasks_id}`).then(res => {
+    const deleteTask = (Categories_id) => {
+        
+        axios.delete(`https://csc4710dbs.herokuapp.com/api/deleteCategory/${Categories_id}`).then(res => {
             setTasksList(TasksList.filter((val) => {
-                return val.Tasks_id == Tasks_id;
+                return val.Tasks_id === Categories_id;
             }));
 
             // refresh the page
@@ -121,7 +118,7 @@ export default function StickyHeadTable() {
 
                                 {/* Edit icon on each row*/}
                                 <TableCell
-                                    style={{ minWidth: 17, align: 'right', color: '#1972d8', size: 'x-small' }}
+                                    style={{ minWidth: 17, align: 'right', color: '#1972d8', size: 'x-small', fontSize: 'small' }}
                                 >{row.Tasks_actions}
                                 <EditIcon />
                                 </TableCell>
@@ -129,10 +126,10 @@ export default function StickyHeadTable() {
 
                                 {/* Delete icon on each row*/}
                                 <TableCell
-                                style={{ minWidth: 17, align: 'right', color: '#1972d8', size: 'x-small' }}
+                                style={{ minWidth: 17, align: 'right', color: '#1972d8', size: 'x-small', fontSize: 'small' }}
                                 >{row.Tasks_actions}
                                 <Button onClick={() => {
-                                        deleteTask(row.Tasks_id);
+                                        deleteTask(row.Categories_id);
                                     }}> 
                                 <DeleteIcon/>
                                 </Button>
@@ -158,7 +155,5 @@ export default function StickyHeadTable() {
     </Paper>
 
 
-
-    
     );
   }
