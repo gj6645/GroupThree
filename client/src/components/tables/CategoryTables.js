@@ -16,33 +16,26 @@ import axios from "axios";
 
 // Create columns for id, description, due date, priority, category, status and actions
 const columns = [
-    //{ id: 'Tasks_id', label: 'ID', minWidth: 170 },
-    { id: 'tasks_description', label: 'Description', minWidth: 170 },
-    { id: 'tasks_due_date', label: 'Due Date', minWidth: 170 },
-    { id: 'tasks_priority', label: 'Priority', minWidth: 170 },
-    { id: 'tasks_categories', label: 'Category', minWidth: 170 },
-    { id: 'tasks_status', label: 'Status', minWidth: 170 },
-    //{ id: 'tasks_actions', label: 'Actions', minWidth: 170 },
+    
+    { id: 'Categories_id', label: 'ID', minWidth: 200 },
+    { id: 'tasks_categories', label: 'Category Type', minWidth: 800 }
+    
+    
 ];
-
 
 export default function StickyHeadTable() {
     
-    // get rows from https://csc4710dbs.herokuapp.com/api/getTasks api
     const [rows, setRows] = useState([]);
 
     useEffect(() => {
-        fetch('https://csc4710dbs.herokuapp.com/api/getOverdueTasks')
+        fetch('https://csc4710dbs.herokuapp.com/api/getCategories')
         .then((response) => response.json())
           .then((json) => setRows(json));
-
-          
     }, []);
 
-
-
+    //changing table view
     const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [rowsPerPage, setRowsPerPage] = React.useState(15);
   
     const handleChangePage = (event, newPage) => {
       setPage(newPage);
@@ -59,11 +52,11 @@ export default function StickyHeadTable() {
 
 
   // Function to delete a task
-    const deleteTask = (Tasks_id) => {
-        // Use api https://csc4710dbs.herokuapp.com/api/deleteTask/:Tasks_id to delete a task
-        axios.delete(`https://csc4710dbs.herokuapp.com/api/deleteTask/${Tasks_id}`).then(res => {
+    const deleteTask = (Categories_id) => {
+        
+        axios.delete(`https://csc4710dbs.herokuapp.com/api/deleteCategory/${Categories_id}`).then(res => {
             setTasksList(TasksList.filter((val) => {
-                return val.Tasks_id === Tasks_id;
+                return val.Tasks_id === Categories_id;
             }));
 
             // refresh the page
@@ -78,7 +71,7 @@ export default function StickyHeadTable() {
         
     // return setRows data to paper sx
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-        <TableContainer sx={{ maxHeight: 440 }}>
+        <TableContainer sx={{ maxHeight: 660 }}>
             <Table stickyHeader aria-label="sticky table">
                 <TableHead>
                     <TableRow>
@@ -113,7 +106,7 @@ export default function StickyHeadTable() {
                     {/* For each row, add a edit and delete material ui button */}
                     {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                         return (
-                            <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                            <TableRow hover role="checkbox" tabIndex={-1} key={row.code} >
                                 {columns.map((column) => {
                                     const value = row[column.id];
                                     return (
@@ -125,7 +118,7 @@ export default function StickyHeadTable() {
 
                                 {/* Edit icon on each row*/}
                                 <TableCell
-                                    style={{ minWidth: 17, align: 'right', color: '#1972d8', size: 'x-small' }}
+                                    style={{ minWidth: 17, align: 'right', color: '#1972d8', size: 'x-small', fontSize: 'small' }}
                                 >{row.Tasks_actions}
                                 <EditIcon />
                                 </TableCell>
@@ -133,14 +126,12 @@ export default function StickyHeadTable() {
 
                                 {/* Delete icon on each row*/}
                                 <TableCell
-                                style={{ minWidth: 17, align: 'right', color: '#1972d8', size: 'x-small' }}
+                                style={{ minWidth: 17, align: 'right', color: '#1972d8', size: 'x-small', fontSize: 'small' }}
                                 >{row.Tasks_actions}
                                 <Button onClick={() => {
-                                        deleteTask(row.Tasks_id);
+                                        deleteTask(row.Categories_id);
                                     }}> 
-                                <DeleteIcon
-                                    
-                                />
+                                <DeleteIcon/>
                                 </Button>
                                 </TableCell>
                             </TableRow>
@@ -152,7 +143,7 @@ export default function StickyHeadTable() {
             </Table>
         </TableContainer>
         <TablePagination
-            rowsPerPageOptions={[10, 25, 100]}
+            rowsPerPageOptions={[15, 25, 100]}
             component="div"
             count={rows.length}
             rowsPerPage={rowsPerPage}
@@ -164,7 +155,5 @@ export default function StickyHeadTable() {
     </Paper>
 
 
-
-    
     );
   }

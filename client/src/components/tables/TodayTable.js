@@ -10,7 +10,7 @@ import TableRow from '@mui/material/TableRow';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Button from '@mui/material/Button';
-import axios, { Axios } from "axios";
+import axios from "axios";
 
 
 
@@ -39,7 +39,7 @@ export default function StickyHeadTable() {
 
     useEffect(() => {
         // Once GET Today's Tasks api is working, swap below with GET Today's Tasks api
-        fetch('https://csc4710dbs.herokuapp.com/api/getTasks')
+        fetch('https://csc4710dbs.herokuapp.com/api/getTasksToday')
         .then((response) => response.json())
           .then((json) => setRows(json));
 
@@ -70,7 +70,7 @@ export default function StickyHeadTable() {
         // Use api https://csc4710dbs.herokuapp.com/api/deleteTask/:Tasks_id to delete a task
         axios.delete(`https://csc4710dbs.herokuapp.com/api/deleteTask/${Tasks_id}`).then(res => {
             setTasksList(TasksList.filter((val) => {
-                return val.Tasks_id == Tasks_id;
+                return val.Tasks_id === Tasks_id;
             }));
 
             // refresh the page
