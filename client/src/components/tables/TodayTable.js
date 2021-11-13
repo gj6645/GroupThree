@@ -10,7 +10,7 @@ import TableRow from '@mui/material/TableRow';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Button from '@mui/material/Button';
-import axios, { Axios } from "axios";
+import axios from "axios";
 
 
 
