@@ -174,7 +174,7 @@ app.get('/api/getTask/:Tasks_id', (req, res) => {
 // GET API to get tasks due today
 app.get('/api/getTasksToday', (req, res) => {
     
-    db.query('SELECT * FROM tasks WHERE tasks_due_date = curdate()',
+    db.query('SELECT * FROM tasks WHERE tasks_due_date = CAST(NOW() AS DATE) AND tasks_status = "ACTIVE"',
     (err, rows, fields) => {
         if (!err) {
             
