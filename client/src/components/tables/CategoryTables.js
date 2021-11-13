@@ -17,8 +17,8 @@ import axios from "axios";
 // Create columns for id, description, due date, priority, category, status and actions
 const columns = [
     
-    { id: 'Categories_id', label: 'ID', minWidth: 20 },
-    { id: 'tasks_categories', label: 'Category Type', minWidth: 20 }
+    { id: 'Categories_id', label: 'ID', minWidth: 200 },
+    { id: 'tasks_categories', label: 'Category Type', minWidth: 800 }
     
     
 ];
