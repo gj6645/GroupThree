@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import "./Main.css"
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -20,11 +20,7 @@ import {
     MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
 import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
-import Typography from '@mui/material/Typography';
-import Switch from '@mui/material/Switch';
-
 // Notifications
 import Notification from "../components/Notification";
 // side bar 
@@ -38,8 +34,6 @@ import OverdueTable from "../components/tables/OverdueTable";
 
 
 
-//tables
-import UseEffect from '../components/useEffect';
 
 export default function Main() {
     const [open, setOpen] = React.useState(false);
