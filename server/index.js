@@ -14,9 +14,9 @@ app.use(cors());
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept");
+        "Origin, X-Requested-With, Content-Type, Accept");
     next();
-    });
+});
 
 
 
@@ -89,7 +89,7 @@ app.get('/api/createCategoriesTable', (req, res) => {
 */
 // POST API to insert tasks into database
 app.post('/api/createTask', (req, res) => {
-    
+
     const tasks_description = req.body.tasks_description;
     const tasks_categories = req.body.tasks_categories;
     const Categories_id = req.body.Categories_id;
@@ -98,11 +98,11 @@ app.post('/api/createTask', (req, res) => {
     tasks_due_date
     const tasks_status = req.body.tasks_status;
     db.query('INSERT INTO tasks (tasks_description, tasks_categories, Categories_id, tasks_priority, tasks_status, tasks_due_date) VALUES (?, ?, ?, ?, ?, ?)',
-    [tasks_description, tasks_categories, Categories_id, tasks_priority, tasks_status, tasks_due_date], (err, result) => {
-        if (err) throw err;
-        console.log(result);
-        res.send('Task inserted...');
-    });
+        [tasks_description, tasks_categories, Categories_id, tasks_priority, tasks_status, tasks_due_date], (err, result) => {
+            if (err) throw err;
+            console.log(result);
+            res.send('Task inserted...');
+        });
 });
 
 
@@ -143,16 +143,16 @@ app.get('/api/getTasksFormatted', (req, res) => {
 
 app.get('/api/getTasks', (req, res) => {
     db.query('SELECT * FROM tasks',
-    (err, rows, fields) => {
-        if (!err) {
-            //res.send(rows);
-            res.header("Content-Type",'application/json');
-            //res.send(JSON.stringify(rows));
-            res.type('json').send(JSON.stringify(rows, null, 2) + '\n');
-        } else {
-            console.log(err);
-        }
-    });
+        (err, rows, fields) => {
+            if (!err) {
+                //res.send(rows);
+                res.header("Content-Type", 'application/json');
+                //res.send(JSON.stringify(rows));
+                res.type('json').send(JSON.stringify(rows, null, 2) + '\n');
+            } else {
+                console.log(err);
+            }
+        });
 });
 
 
@@ -161,47 +161,47 @@ app.get('/api/getTasks', (req, res) => {
 app.get('/api/getTask/:Tasks_id', (req, res) => {
     const Tasks_id = req.params.Tasks_id;
     db.query('SELECT * FROM tasks WHERE Tasks_id = ?',
-    [Tasks_id], (err, rows, fields) => {
-        if (!err) {
-            res.send(rows);
-        } else {
-            console.log(err);
-        }
-    });
+        [Tasks_id], (err, rows, fields) => {
+            if (!err) {
+                res.send(rows);
+            } else {
+                console.log(err);
+            }
+        });
 });
 
 
 // GET API to get tasks due today
 app.get('/api/getTasksToday', (req, res) => {
-    
+
     db.query('SELECT * FROM tasks WHERE tasks_due_date = CAST(NOW() AS DATE) AND tasks_status = "ACTIVE"',
-    (err, rows, fields) => {
-        if (!err) {
-            
-            res.header("Content-Type",'application/json');
-            
-            res.type('json').send(JSON.stringify(rows, null, 2) + '\n');
-        
-        } else {
-            console.log(err);
-        }
-    });
+        (err, rows, fields) => {
+            if (!err) {
+
+                res.header("Content-Type", 'application/json');
+
+                res.type('json').send(JSON.stringify(rows, null, 2) + '\n');
+
+            } else {
+                console.log(err);
+            }
+        });
 });
 
 // GET API to get overdue tasks
 app.get('/api/getOverdueTasks', (req, res) => {
     db.query('SELECT * FROM tasks WHERE tasks_due_date < curdate() AND tasks_status = "Active"',
-    (err, rows, fields) => {
-        if (!err) {
-            
-            res.header("Content-Type",'application/json');
-            
-            res.type('json').send(JSON.stringify(rows, null, 2) + '\n');
-        
-        } else {
-            console.log(err);
-        }
-    });
+        (err, rows, fields) => {
+            if (!err) {
+
+                res.header("Content-Type", 'application/json');
+
+                res.type('json').send(JSON.stringify(rows, null, 2) + '\n');
+
+            } else {
+                console.log(err);
+            }
+        });
 });
 
 
@@ -211,7 +211,7 @@ app.get('/api/getCategories', (req, res) => {
     db.query('SELECT * FROM categories', (err, rows, fields) => {
         if (!err) {
 
-            res.header("Content-Type",'application/json');
+            res.header("Content-Type", 'application/json');
 
             res.type('json').send(JSON.stringify(rows, null, 2) + '\n');
 
@@ -224,10 +224,7 @@ app.get('/api/getCategories', (req, res) => {
 
 // GET API to get tasks based on dropdown priority selection
 app.get('/api/getTasksByPriority/:priority', (req, res) => {
-    // for now im using this 
-    const priority = "Priority 1";
-    // should be this line below 
-    // const priority = req.params.priority;
+    const priority = req.params.priority;
     db.query('SELECT * FROM tasks WHERE tasks_priority = ?', [priority], (err, result) => {
         if (err) throw err;
         console.log(result);
@@ -252,12 +249,12 @@ app.put('/api/updateTask/:Tasks_id', (req, res) => {
     const tasks_status = req.body.tasks_status;
     const tasks_due_date = req.body.tasks_due_date;
     db.query('UPDATE tasks SET tasks_description = ?, Categories_id = ?, tasks_priority = ?, tasks_status = ?, tasks_due_date = ? WHERE Tasks_id = ?',
-    [tasks_description, Categories_id, tasks_priority, tasks_status, tasks_due_date, Tasks_id],
-    (err, result) => {
-        if (err) throw err;
-        console.log(result);
-        res.send('Task updated...');
-    }
+        [tasks_description, Categories_id, tasks_priority, tasks_status, tasks_due_date, Tasks_id],
+        (err, result) => {
+            if (err) throw err;
+            console.log(result);
+            res.send('Task updated...');
+        }
     );
 });
 
@@ -266,13 +263,13 @@ app.put('/api/updateCategory/:Categories_id', (req, res) => {
     const Categories_id = req.params.Categories_id;
     const tasks_categories = req.body.tasks_categories;
     db.query('UPDATE categories SET tasks_categories = ? WHERE Categories_id = ?',
-    [tasks_categories, Categories_id],
-    (err, result) => {
+        [tasks_categories, Categories_id],
+        (err, result) => {
 
-        if (err) throw err;
-        console.log(result);
-        res.send('Category updated...');
-    }
+            if (err) throw err;
+            console.log(result);
+            res.send('Category updated...');
+        }
     );
 });
 
@@ -287,14 +284,14 @@ app.put('/api/updateCategory/:Categories_id', (req, res) => {
 app.delete('/api/deleteTask/:Tasks_id', (req, res) => {
     const Tasks_id = req.params.Tasks_id;
     db.query('DELETE FROM tasks WHERE Tasks_id = ?',
-    [Tasks_id],
-    (err, rows, fields) => {
-        if (!err) {
-            res.send(rows);
-        } else {
-            console.log(err);
-        }
-    });
+        [Tasks_id],
+        (err, rows, fields) => {
+            if (!err) {
+                res.send(rows);
+            } else {
+                console.log(err);
+            }
+        });
 });
 
 
@@ -302,15 +299,15 @@ app.delete('/api/deleteTask/:Tasks_id', (req, res) => {
 app.delete('/api/deleteCategory/:Categories_id', (req, res) => {
     const Categories_id = req.params.Categories_id;
     db.query('DELETE FROM categories WHERE Categories_id = ?',
-    [Categories_id],
-    (err, rows, fields) => {
-        if (!err) {
-            res.send(rows);
+        [Categories_id],
+        (err, rows, fields) => {
+            if (!err) {
+                res.send(rows);
 
-        } else {
-            console.log(err);
-        }
-    });
+            } else {
+                console.log(err);
+            }
+        });
 });
 
 
