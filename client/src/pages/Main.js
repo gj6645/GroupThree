@@ -10,8 +10,6 @@ import Axios from "axios";
 import "./Main.css"
 import Stack from '@mui/material/Stack';
 import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import Select from '@mui/material/Select';
 import Box from '@mui/material/Box';
 import 'date-fns'
 import DateMomentUtils from '@date-io/moment';
@@ -30,8 +28,9 @@ import Header from "../components/Header";
 import Toolbar from "@mui/material/Toolbar";
 import TodayTable from "../components/tables/TodayTable";
 import OverdueTable from "../components/tables/OverdueTable";
-
-
+// Predetermined options
+import ButtonGroup from "@mui/material/ButtonGroup";
+import Slider from "@mui/material/Slider";
 
 
 
@@ -76,7 +75,18 @@ export default function Main() {
         })
     }
 
+    // useStates in order to dynamically change the button
+    const [completeButton, setCompleteButton] = React.useState('');
+    const [activeButton, setActiveButton] = React.useState('');
 
+    const priorityOptions = [
+        { value: 1, label: '1' },
+        { value: 2, label: '2' },
+        { value: 3, label: '3' },
+        { value: 4, label: '4' }
+      ];
+
+      
 
     return (
 
@@ -133,7 +143,7 @@ export default function Main() {
                 {/* pop up form */}
                 <div className="text-center">
                     <Dialog open={open} onClose={handleClose}>
-                        <DialogTitle>New Task</DialogTitle>
+                        <DialogTitle><h3>New Task</h3></DialogTitle>
                         <DialogContent>
                             <div className="text-center">
                                 <Box
@@ -144,25 +154,21 @@ export default function Main() {
                                     component="form"
                                     sx={{
                                         width: 500,
-                                        height: 500,
+                                        height: 450,
                                     }}
                                 >
                                     <Stack spacing={3}>
-                                        {/* top of Form */}
-                                        <h2> Task Information </h2>
-
-
                                         {/* task description */}
                                         <Stack>
                                             <FormGroup>
-                                                <InputLabel id="taskDescription"> Task Description</InputLabel>
-                                                <FormControl required>
+                                                <InputLabel required id="taskDescription">Task Description</InputLabel><br></br>
+                                                <FormControl>
                                                     <TextField
                                                         id="taskDescription"
                                                         // label="taskDescription"
                                                         required
                                                         type="text"
-                                                        placeholder="Task Description"
+                                                        placeholder=" Task Description"
                                                         onChange={(event) => {
                                                             setTasks_description(event.target.value);
                                                         }}
@@ -196,66 +202,78 @@ export default function Main() {
                                         <Stack>
                                             <InputLabel id="categoryName">
                                                 Category
-                                            </InputLabel>
+                                            </InputLabel><br></br>
                                             <TextField
                                                 id="categoryName"
                                                 type="text"
-                                                placeholder="Category Name"
+                                                placeholder=" Category Name"
                                                 onChange={(event) => {
                                                     setTasks_categories(event.target.value);
                                                 }}
                                             />
                                         </Stack>
 
-
-
                                         {/* priority */}
                                         <Stack>
                                             <InputLabel id="priority">Priority Level</InputLabel>
-                                            <Select
-
-                                                id="priority_select"
+                                            {/* For Testing Purposes
+                                                <TextField
+                                                InputProps={{readOnly: true}}
+                                                id="statusBox"
+                                                type="text"
                                                 value={tasks_priority}
-                                                label="Priority"
+                                                variant="filled"
+                                            />*/}
+                                            <Slider
+                                                aria-label="Restricted priorities"
+                                                defaultValue={1}
+                                                step={null}
+                                                marks={priorityOptions}
+                                                min={1}
+                                                max={4}
                                                 onChange={(event) => {
-                                                    setTasks_priority(event.target.value);
+                                                    setTasks_priority("Priority " + event.target.value);
                                                 }}
-                                                placeholder="priority"
-                                                display="block"
-                                            >
-                                                <MenuItem value="">
-                                                    <em>None</em>
-                                                </MenuItem>
-                                                <MenuItem value={"Priority 1"}>1</MenuItem>
-                                                <MenuItem value={"Priority 2"}>2</MenuItem>
-                                                <MenuItem value={"Priority 3"}>3</MenuItem>
-                                                <MenuItem value={"Priority 4"}>4</MenuItem>
-                                            </Select>
-
+                                            />
                                         </Stack>
 
                                         {/* status */}
-                                        <Stack>
-                                            <InputLabel id="status">Status</InputLabel>
-                                            <Select
+                                        <Stack alignItems="center">
+                                            <InputLabel id="status">Status</InputLabel><br></br>
+                                            {/* For Testing Purposes
+                                                <TextField
+                                                InputProps={{readOnly: true}}
+                                                id="statusBox"
+                                                type="text"
+                                                value={tasks_status}
+                                                variant="filled"
+                                            />*/}
+                                            <ButtonGroup
                                                 id="status_select"
                                                 value={tasks_status}
                                                 label="status"
-                                                onChange={(event) => {
+                                                onClick={(event) => {
                                                     setTasks_status(event.target.value);
+                                                    if (event.target.value === "Active")
+                                                    {
+                                                        setActiveButton("contained");
+                                                        setCompleteButton("outlined");
+                                                    }
+                                                    else
+                                                    {
+                                                        setActiveButton("outlined");
+                                                        setCompleteButton("contained");
+                                                    }
                                                 }}
                                                 placeholder="status"
                                                 display="block"
                                             >
-                                                <MenuItem value={"Completed"}>Completed</MenuItem>
-                                                <MenuItem value={"Active"}>Active</MenuItem>
-                                            </Select>
+                                                <Button variant={activeButton} value={"Active"}>Active</Button>
+                                                <Button variant={completeButton} value={"Completed"}>Completed</Button>
+                                            </ButtonGroup>
 
                                             <br></br>
                                         </Stack>
-
-
-
 
                                     </Stack>
 
