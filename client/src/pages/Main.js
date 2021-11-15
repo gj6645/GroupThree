@@ -79,6 +79,7 @@ export default function Main() {
     const [completeButton, setCompleteButton] = React.useState('');
     const [activeButton, setActiveButton] = React.useState('');
 
+    // Labels and values for the priority slider
     const priorityOptions = [
         { value: 1, label: '1' },
         { value: 2, label: '2' },
@@ -190,7 +191,7 @@ export default function Main() {
                                                     format="YYYY-MM-DD"
                                                     label="Choose date"
                                                     value={tasks_due_date}
-                                                    onChange={(newValue) => setTasks_due_date(newValue.format("YYYY-MM-DD"))}
+                                                    onChange={(newValue) => (newValue ? setTasks_due_date(newValue.format("YYYY-MM-DD")) : setTasks_due_date(null))}
                                                     renderInput={(params) => (
                                                         <TextField {...params} helperText="Select Due Date" />
                                                     )}
