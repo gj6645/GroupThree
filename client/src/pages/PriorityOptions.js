@@ -4,6 +4,7 @@ import Header from "../components/Header"
 import SideBar from "../components/SideBar"
 import { Box } from "@mui/system"
 import Toolbar from "@mui/material/Toolbar";
+import PriorityTable from '../components/tables/PriorityTable';
 
 export default function PriorityOptions() {
 
@@ -21,6 +22,10 @@ export default function PriorityOptions() {
                 <Toolbar />
                 <h3>Priority Options</h3>
                 <hr></hr>
+                <Toolbar />
+                <PriorityTable />
+
+               
 
             </Box>
         </Box >
