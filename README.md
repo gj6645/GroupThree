@@ -1,5 +1,7 @@
-# GroupThree: CSC4710 Database Project
 
+# GroupThree: CSC4710 Database Project
+**_Contributors:_** Eisha Akbar, Tanvir Ahmed, Chris Gumieny, Caleb Obi, and Viona Veseli
+##
 ## ToDo List version 2-- App Description
 Create a web application to store a to-do list.
 
@@ -44,8 +46,48 @@ Each task category consists of
 | Netlify | Hosting & Domain Setup |
 
 ## Architecture Diagram
-![Image of Architecture Diagram](https://user-images.githubusercontent.com/82237730/137406076-e6d619fa-e129-4aa3-b9d1-73e68d74ab5e.png)
+![Image of Architecture Diagram](https://user-images.githubusercontent.com/82237730/142081881-732fc3bc-afa9-4136-b7bb-ae82a67a6e5e.png)
 
+## API Endpoints
+```sh
+   /api/createTasksTable
+   ```
+```sh
+   /api/createCategoriesTable
+   ```
+```sh
+   /api/createTask
+```
+```sh
+   /api/createCategory
+   ```
+```sh
+   /api/getTasks
+   ```
+```sh
+   /api/getTasksToday
+   ```
+```sh
+   /api/getOverdueTasks
+   ```
+```sh
+   /api/getCategories
+   ```
+```sh
+   /api/getTasksByPriority/:priority
+```
+```sh
+   /api/updateTask/:Tasks_id
+   ```
+```sh
+   /api/updateCategory/:Categories_id
+   ```
+```sh
+   /api/deleteTask/:Tasks_id
+   ```
+```sh
+   /api/deleteCategory/:Categories_id
+   ```   
 ## Resources
 - [React Card] - Cards contain content and actions about a single subject.
 
