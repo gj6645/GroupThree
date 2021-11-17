@@ -221,6 +221,7 @@ app.get('/api/getTasks/:tasks_categories', (req, res) => {
 });
 
 
+
 app.get('/api/getTasksByPriority/:tasks_priority', (req, res) => {
     const tasks_priority = req.params.tasks_priority;
     db.query('SELECT * FROM tasks WHERE tasks_priority = ?', [tasks_priority], (err, result) => {
@@ -253,8 +254,6 @@ app.get('/api/getCompletedTasks', (req, res) => {
             }
         });
 });
-
-
 
 
 /*
