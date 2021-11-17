@@ -55,25 +55,27 @@ export default function StickyHeadTable() {
     // Mechanism  to update a task
     const [newCategory, setNewCategory] = useState('');
 
-    
-
     const updateCategory = (id) => {
-        // Using update api to update a task using /api/updateCategory/:Categories_id
-        axios.put('https://csc4710dbs.herokuapp.com/api/updateCategory/' + id, {
-            Categories_id: id,
-            tasks_categories: newCategory
-        }).then(res => {
-            console.log(res);
-            console.log(res.data);
-            setNewCategory('');
-            
-        }
-        ).catch(err => {
-            console.log(err);
-        }
-        );
+        axios.put('https://csc4710dbs.herokuapp.com/api/updateCategory', {
+            id: id,
+            category: newCategory
+        }).then((response) => {
+            setTasksList(
+                TasksList.map((val) => {
+                    return val.id === id
+                        ? {
+                            id: val.id,
+                            category: newCategory
+                        }
+                        : val;
+                })
+            );
+        });
+    };
 
-    }
+
+
+
 
     const [open, setOpen] = React.useState(false);
 
@@ -94,8 +96,7 @@ export default function StickyHeadTable() {
 
     const reload = () => {
         setTimeout(() => { window.location.reload(false); }, 1000);
-    }
-               
+    }      
 
 
 
