@@ -233,6 +233,23 @@ app.get('/api/getTasksByPriority/:priority', (req, res) => {
 });
 
 
+// GET API to get tasks completed
+app.get('/api/getCompletedTasks', (req, res) => {
+
+    db.query('SELECT * FROM tasks WHERE tasks_status = "Completed"',
+        (err, rows, fields) => {
+            if (!err) {
+
+                res.header("Content-Type", 'application/json');
+
+                res.type('json').send(JSON.stringify(rows, null, 2) + '\n');
+
+            } else {
+                console.log(err);
+            }
+        });
+});
+
 
 /*
  *******************************************
