@@ -1,7 +1,13 @@
-
 # GroupThree: CSC4710 Database Project
-**_Contributors:_** Eisha Akbar, Tanvir Ahmed, Chris Gumieny, Caleb Obi, and Viona Veseli
-##
+**_Contributors:_** 
+|      Name     | Role |
+|:-------------:|:----:|
+|  Eisha Akbar  |      |
+|  Tanvir Ahmed |      |
+| Chris Gumieny |      |
+|   Caleb Obi   |      |
+|  Viona Veseli |      |
+
 ## ToDo List version 2-- App Description
 Create a web application to store a to-do list.
 
@@ -9,9 +15,8 @@ Create a web application to store a to-do list.
 - No user identification needed 
 - The current user can see all the tasks
 
-### Data 
-  **_Tasks_**
-Each task consists of
+### Tasks
+Each task consists of:
 - Task description (required)
 - Due date (required)
 - Task category (optional)
@@ -20,8 +25,7 @@ Each task consists of
 > (Optional) means: optional to the user. So, the user does not have to provided that information. However, the database must store that information, if provided.
 
 ### Categories
-Each task category consists of
-- Name
+- Each task category has a name.
 
 ### Functionalities
 -	The current user can create, and edit tasks.
@@ -48,48 +52,24 @@ Each task category consists of
 ## Architecture Diagram
 ![Image of Architecture Diagram](https://user-images.githubusercontent.com/82237730/142081881-732fc3bc-afa9-4136-b7bb-ae82a67a6e5e.png)
 
+## Entity Relationship Diagram
+
 ## API Endpoints
 ```sh
    /api/createTasksTable
-   ```
-```sh
    /api/createCategoriesTable
-   ```
-```sh
    /api/createTask
-```
-```sh
    /api/createCategory
-   ```
-```sh
    /api/getTasks
-   ```
-```sh
    /api/getTasksToday
-   ```
-```sh
    /api/getOverdueTasks
-   ```
-```sh
    /api/getCategories
-   ```
-```sh
    /api/getTasksByPriority/:priority
-```
-```sh
    /api/updateTask/:Tasks_id
-   ```
-```sh
    /api/updateCategory/:Categories_id
-   ```
-```sh
    /api/deleteTask/:Tasks_id
-   ```
-```sh
    /api/deleteCategory/:Categories_id
    ```   
 ## Resources
-- [React Card] - Cards contain content and actions about a single subject.
+- [React Card](https://mui.com/components/cards/) - Cards contain content and actions about a single subject.
 
-
-[React Card]: <https://mui.com/components/cards/>
