@@ -43,7 +43,6 @@ const db = mysql.createPool({
 
 
 
-
 /*
  *******************************************
  ********* DATABASE AND TABLES API's **************
@@ -238,6 +237,26 @@ app.get('/api/getTasksByPriority/:tasks_priority', (req, res) => {
 });
 
 
+// GET API to get tasks completed
+app.get('/api/getCompletedTasks', (req, res) => {
+
+    db.query('SELECT * FROM tasks WHERE tasks_status = "Completed"',
+        (err, rows, fields) => {
+            if (!err) {
+
+                res.header("Content-Type", 'application/json');
+
+                res.type('json').send(JSON.stringify(rows, null, 2) + '\n');
+
+            } else {
+                console.log(err);
+            }
+        });
+});
+
+
+
+
 /*
  *******************************************
  ********* UPDATE CRUD API HERE **************
@@ -295,6 +314,22 @@ app.put('/api/updateCategory/:Categories_id', (req, res) => {
     }
     );
 });
+
+app.put('/api/updateCategory', (req, res) => {
+    const Categories_id = req.body.Categories_id;
+    const tasks_categories = req.body.tasks_categories;
+    db.query('UPDATE categories SET tasks_categories = ? WHERE Categories_id = ?',
+    [tasks_categories, Categories_id],
+    (err, result) => {
+
+        if (err) throw err;
+        console.log(result);
+        res.send('Category updated...');
+    }
+    );
+});
+
+
 
 
 
