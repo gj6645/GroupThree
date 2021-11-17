@@ -11,6 +11,12 @@ import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Button from '@mui/material/Button';
 import axios from "axios";
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogTitle from '@mui/material/DialogTitle';
+import TextField from '@mui/material/TextField';
+import Notification from "../Notification";
 
 
 
@@ -46,13 +52,56 @@ export default function StickyHeadTable() {
       setPage(0);
     };
 
-    // TODO: Function to update a task
+    // Mechanism  to update a task
+    const [newCategory, setNewCategory] = useState('');
 
+    
+
+    const updateCategory = (id) => {
+        // Using update api to update a task using /api/updateCategory/:Categories_id
+        axios.put('https://csc4710dbs.herokuapp.com/api/updateCategory/' + id, {
+            Categories_id: id,
+            tasks_categories: newCategory
+        }).then(res => {
+            console.log(res);
+            console.log(res.data);
+            setNewCategory('');
+            
+        }
+        ).catch(err => {
+            console.log(err);
+        }
+        );
+
+    }
+
+    const [open, setOpen] = React.useState(false);
+
+    //Notifications
+    const [notify, setNotify] = useState({ isOpen: false, message: "", type: "" });
+
+    const handleNotify = () => {
+        setNotify({ isOpen: true, message: "Form was Submitted Successfully", type: "success" });
+    };
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    };
+
+    const reload = () => {
+        setTimeout(() => { window.location.reload(false); }, 1000);
+    }
+               
+
+
+
+// Mechanism to delete a task
   const [TasksList, setTasksList] = useState([]);
-
-
-  // Function to delete a task
-    const deleteTask = (Categories_id) => {
+    const deleteCategory = (Categories_id) => {
         
         axios.delete(`https://csc4710dbs.herokuapp.com/api/deleteCategory/${Categories_id}`).then(res => {
             setTasksList(TasksList.filter((val) => {
@@ -68,8 +117,7 @@ export default function StickyHeadTable() {
   
     return (
     
-        
-    // return setRows data to paper sx
+  <>
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
         <TableContainer sx={{ maxHeight: 660 }}>
             <Table stickyHeader aria-label="sticky table">
@@ -92,17 +140,6 @@ export default function StickyHeadTable() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {/* 
-                        Rows: {
-                            Tasks_id,
-                            Tasks_description,
-                            Tasks_due_date,
-                            Tasks_priority,
-                            Tasks_category,
-                            Tasks_status
-
-                        }
-                    */}
                     {/* For each row, add a edit and delete material ui button */}
                     {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                         return (
@@ -115,12 +152,15 @@ export default function StickyHeadTable() {
                                         </TableCell>
                                     );
                                 })}
+                            
 
                                 {/* Edit icon on each row*/}
                                 <TableCell
                                     style={{ minWidth: 17, align: 'right', color: '#1972d8', size: 'x-small', fontSize: 'small' }}
                                 >{row.Tasks_actions}
+                                <Button onClick={handleClickOpen}> 
                                 <EditIcon />
+                                </Button>
                                 </TableCell>
 
 
@@ -129,11 +169,12 @@ export default function StickyHeadTable() {
                                 style={{ minWidth: 17, align: 'right', color: '#1972d8', size: 'x-small', fontSize: 'small' }}
                                 >{row.Tasks_actions}
                                 <Button onClick={() => {
-                                        deleteTask(row.Categories_id);
+                                        deleteCategory(row.Categories_id);
                                     }}> 
                                 <DeleteIcon/>
                                 </Button>
                                 </TableCell>
+
                             </TableRow>
                         );
                     })}
@@ -154,6 +195,56 @@ export default function StickyHeadTable() {
         />
     </Paper>
 
+    {/* Popup model to update a catefory*/}
+    <Dialog open={open} onClose={handleClose}  >
+    <DialogTitle>
+                    <h3>
+                        Update Category
+                    </h3>
+                </DialogTitle>
+        <DialogContent
+        sx={{
+            width: 500,
+            height: 200,
+        }}>
+            <TextField
+            
+                autoFocus
+                margin="dense"
+                id="name"
+                label="Category"
+                type="text"
+                fullWidth
+                value={newCategory}
+                onChange={(e) => {
+                    setNewCategory(e.target.value);
+                }}
+            />
+        </DialogContent>
+        <DialogActions>
+            <Button variant="contained" onClick={handleClose} color="primary">
+            <span class="material-icons">cancel</span>
+                Cancel
+            </Button>
+
+            <Button variant="contained" onClick={() => {
+                updateCategory();
+                handleClose();
+                handleNotify();
+                reload();
+            }} color="primary">
+                <span class="material-icons">add</span>
+                Update
+            </Button>
+        </DialogActions>
+    </Dialog>
+    <Notification
+                notify={notify}
+                setNotify={setNotify}
+            />
+
+
+</>
 
     );
   }
