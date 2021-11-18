@@ -1,13 +1,13 @@
 # GroupThree: CSC4710 Database Project!
 
+---
 **_Contributors:_** 
-|      Name     | Role |
-|:-------------:|:----:|
-|  Eisha Akbar  |      |
-|  Tanvir Ahmed |      |
-| Chris Gumieny |      |
-|   Caleb Obi   |      |
-|  Viona Veseli |      |
+  - **Eisha Akbar**, studying Computer Technology 
+  - **Tanvir Ahmed**, studying Computer Science
+  - **Chris Gumieny**, studying Computer Science 
+  - **Caleb Obi**, studying Computer Science
+  - **Viona Veseli**, studying Computer Science
+---
 
 ## ToDo List version 2-- App Description
 Create a web application to store a to-do list.
@@ -53,7 +53,7 @@ Each task consists of:
 ## Architecture Diagram
 ![Image of Architecture Diagram](https://user-images.githubusercontent.com/82237730/142081881-732fc3bc-afa9-4136-b7bb-ae82a67a6e5e.png)
 
-## Entity Relationship Diagram
+<!--- Entity Relationship Diagram-->
 
 ## API Endpoints
 ```sh
