@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS `categories` (
+  `Categories_id` int(4) unsigned NOT NULL AUTO_INCREMENT,
+  `tasks_categories` varchar(25) NOT NULL,
+  PRIMARY KEY (`Categories_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci

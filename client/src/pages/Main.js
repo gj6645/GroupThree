@@ -30,6 +30,7 @@ import OverdueTable from "../components/tables/OverdueTable";
 // Predetermined options
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Slider from "@mui/material/Slider";
+import { MenuItem, Select } from "@mui/material";
 
 
 
@@ -78,6 +79,15 @@ export default function Main() {
         })
     }
 
+    // Function to call https://csc4710dbs.herokuapp.com/api/getCategories and map through the tasks_categories and make a dropdown menu
+    const [categories, setCategories] = useState([]);
+    const getCategories = () => {
+        Axios.get("https://csc4710dbs.herokuapp.com/api/getCategories").then(res => {
+            setCategories(res.data);
+        })
+    }
+
+
     // useStates in order to dynamically change the button
     const [completeButton, setCompleteButton] = React.useState('');
     const [activeButton, setActiveButton] = React.useState('');
@@ -89,6 +99,7 @@ export default function Main() {
         { value: 3, label: '3' },
         { value: 4, label: '4' }
       ];
+
 
       
 
@@ -116,7 +127,10 @@ export default function Main() {
                         <br></br>
 
                         {/* Button for add new task */}
-                        <Button variant="contained" onClick={handleClickOpen}>
+                        <Button variant="contained" onClick={() => {
+                                    handleClickOpen();
+                                    getCategories();
+                                }}>
                             <span class="material-icons" style={{padding: "1px"}} >add</span>
                             Add New Task
                         </Button>
@@ -203,7 +217,28 @@ export default function Main() {
                                         </Stack>
 
                                         {/* Categories*/}
+                                        {/* Create a dropdown for categories*/}
                                         <Stack>
+                                            <InputLabel required id="categories">
+                                                Categories
+                                            </InputLabel>
+                                            <FormControl>
+                                                <Select
+                                                    labelId="categories"
+                                                    id="categories"
+                                                    value={tasks_categories}
+                                                    onChange={(event) => {
+                                                        setTasks_categories(event.target.value);
+                                                    }}
+                                                >
+                                                    {categories.map((category) => (
+                                                        <MenuItem value={category.tasks_categories}>{category.tasks_categories}</MenuItem>
+                                                    ))}
+                                                </Select>
+                                            </FormControl>
+                                        </Stack>
+
+                                        {/* <Stack>
                                             <InputLabel id="categoryName">
                                                 Category
                                             </InputLabel><br></br>
@@ -215,7 +250,7 @@ export default function Main() {
                                                     setTasks_categories(event.target.value);
                                                 }}
                                             />
-                                        </Stack>
+                                        </Stack> */}
 
                                         {/* priority */}
                                         <Stack>
