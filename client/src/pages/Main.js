@@ -7,7 +7,6 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Axios from "axios";
-import "./Main.css"
 import Stack from '@mui/material/Stack';
 import InputLabel from '@mui/material/InputLabel';
 import Box from '@mui/material/Box';
@@ -54,6 +53,10 @@ export default function Main() {
 
     const reload = () => {
         setTimeout(() => { window.location.reload(false); }, 1000);
+    }
+
+    const cancelReload = () => {
+        setTimeout(() => { window.location.reload(false); }, 1);
     }
 
     const [tasks_description, setTasks_description] = React.useState("");
@@ -295,7 +298,11 @@ export default function Main() {
                         <DialogActions>
 
                             <Button
-                                onClick={handleClose}
+                                //onClick={handleClose}
+                                onClick={() => {
+                                    handleClose();
+                                    cancelReload();
+                                }}
                                 variant="contained">
                                 <span class="material-icons">cancel</span>
                                 Cancel
