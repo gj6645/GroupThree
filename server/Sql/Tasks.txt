@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS `tasks` (
   `Tasks_id` int unsigned NOT NULL AUTO_INCREMENT,
   `tasks_description` varchar(255) NOT NULL,
-  `tasks_priority` int unsigned DEFAULT NULL,
+  `tasks_priority` int(1) unsigned DEFAULT NULL,
   `tasks_status` varchar(25) DEFAULT NULL,
   `tasks_due_date` varchar(10) NOT NULL,
   `tasks_categories` int unsigned DEFAULT NULL,
