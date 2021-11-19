@@ -84,7 +84,10 @@ export default function Main() {
     const getCategories = () => {
         Axios.get("https://csc4710dbs.herokuapp.com/api/getCategories").then(res => {
             setCategories(res.data);
-        })
+        }).then(() => {
+            console.log(categories);
+        }
+        )
     }
 
 
