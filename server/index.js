@@ -42,6 +42,12 @@ const db = mysql.createPool({
 });
 
 
+// SET timezone to EST
+db.query('SET time_zone = "America/New_York"', function (err, results, fields) {
+    if (err) throw err;
+    console.log('Timezone set to EST');
+});
+
 
 /*
  *******************************************
@@ -83,17 +89,6 @@ app.get('/api/createCategoriesTable', (req, res) => {
 });
 
 
-// API to join tasks and categories table
-app.get('/api/joinTasksAndCategories', (req, res) => {
-    let sql = 'SELECT * FROM tasks INNER JOIN categories ON tasks.Categories_id = categories.Categories_id';
-    db.query(sql, (err, result) => {
-        if (err) throw err;
-        console.log(result);
-        res.send(result);
-    });
-});
-
-
 
 /*
  *******************************************
@@ -107,7 +102,6 @@ app.post('/api/createTask', (req, res) => {
     const Categories_id = req.body.Categories_id;
     const tasks_priority = req.body.tasks_priority;
     const tasks_due_date = req.body.tasks_due_date;
-    tasks_due_date
     const tasks_status = req.body.tasks_status;
     db.query('INSERT INTO tasks (tasks_description, tasks_categories, Categories_id, tasks_priority, tasks_status, tasks_due_date) VALUES (?, ?, ?, ?, ?, ?)',
     [tasks_description, tasks_categories, Categories_id, tasks_priority, tasks_status, tasks_due_date], (err, result) => {
@@ -157,7 +151,7 @@ app.get('/api/getTasks', (req, res) => {
 // GET API to get tasks due today
 app.get('/api/getTasksToday', (req, res) => {
     
-    db.query('SELECT * FROM tasks WHERE tasks_due_date = curdate() AND tasks_status = "Active"',
+    db.query('SELECT * FROM tasks WHERE tasks_due_date = curdate() AND tasks_status = "Active" ORDER BY tasks_priority ASC', 
     (err, rows, fields) => {
         if (!err) {
             
@@ -171,9 +165,10 @@ app.get('/api/getTasksToday', (req, res) => {
     });
 });
 
+
 // GET API to get overdue tasks
 app.get('/api/getOverdueTasks', (req, res) => {
-    db.query('SELECT * FROM tasks WHERE tasks_due_date < curdate() AND tasks_status = "Active"',
+    db.query('SELECT * FROM tasks WHERE tasks_due_date < curdate() AND tasks_status = "Active" ORDER BY tasks_priority ASC',
     (err, rows, fields) => {
         if (!err) {
             
@@ -208,7 +203,7 @@ app.get('/api/getCategories', (req, res) => {
 // GET API to get tasks based on dropdown category selection
 app.get('/api/getTasks/:tasks_categories', (req, res) => {
     const tasks_categories = req.params.tasks_categories;
-    db.query('SELECT * FROM tasks WHERE tasks_categories = ?', [tasks_categories], (err, result) => {
+    db.query('SELECT * FROM tasks WHERE tasks_categories = ? ORDER BY tasks_priority ASC, tasks_due_date ASC', [tasks_categories], (err, result) => {
         
         if (!err){
             res.header("Content-Type",'application/json');
@@ -219,7 +214,6 @@ app.get('/api/getTasks/:tasks_categories', (req, res) => {
         }
     });
 });
-
 
 
 app.get('/api/getTasksByPriority/:tasks_priority', (req, res) => {
@@ -241,7 +235,7 @@ app.get('/api/getTasksByPriority/:tasks_priority', (req, res) => {
 // GET API to get tasks completed
 app.get('/api/getCompletedTasks', (req, res) => {
 
-    db.query('SELECT * FROM tasks WHERE tasks_status = "Completed"',
+    db.query('SELECT * FROM tasks WHERE tasks_status = "Completed" ORDER BY tasks_due_date ASC',
         (err, rows, fields) => {
             if (!err) {
 
@@ -254,6 +248,8 @@ app.get('/api/getCompletedTasks', (req, res) => {
             }
         });
 });
+
+
 
 
 /*

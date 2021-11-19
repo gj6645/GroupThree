@@ -1,0 +1,11 @@
+CREATE TABLE IF NOT EXISTS `tasks` (
+  `Tasks_id` int unsigned NOT NULL AUTO_INCREMENT,
+  `tasks_description` varchar(255) NOT NULL,
+  `tasks_priority` int(1) unsigned DEFAULT NULL,
+  `tasks_status` varchar(25) DEFAULT NULL,
+  `tasks_due_date` varchar(10) NOT NULL,
+  `tasks_categories` int unsigned DEFAULT NULL,
+  PRIMARY KEY (`Tasks_id`),
+  KEY `tasks_categories_idx` (`tasks_categories`),
+  CONSTRAINT `tasks_categories` FOREIGN KEY (`tasks_categories`) REFERENCES `categories` (`Categories_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci

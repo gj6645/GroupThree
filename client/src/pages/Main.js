@@ -7,7 +7,6 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Axios from "axios";
-import "./Main.css"
 import Stack from '@mui/material/Stack';
 import InputLabel from '@mui/material/InputLabel';
 import Box from '@mui/material/Box';
@@ -31,6 +30,7 @@ import OverdueTable from "../components/tables/OverdueTable";
 // Predetermined options
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Slider from "@mui/material/Slider";
+import { MenuItem, Select } from "@mui/material";
 
 
 
@@ -56,6 +56,10 @@ export default function Main() {
         setTimeout(() => { window.location.reload(false); }, 1000);
     }
 
+    const cancelReload = () => {
+        setTimeout(() => { window.location.reload(false); }, 1);
+    }
+
     const [tasks_description, setTasks_description] = React.useState("");
     const [tasks_due_date, setTasks_due_date] = React.useState(null);
     const [tasks_priority, setTasks_priority] = React.useState('');
@@ -72,8 +76,27 @@ export default function Main() {
             tasks_status: tasks_status
         }).then(() => {
             console.log("Added Task");
-        })
+        }).catch(err => {
+            console.log(err);
+        }
+        );
     }
+
+    // Function to call https://csc4710dbs.herokuapp.com/api/getCategories and map through the tasks_categories and make a dropdown menu
+    const [categories, setCategories] = useState([]);
+    const getCategories = () => {
+        Axios.get("https://csc4710dbs.herokuapp.com/api/getCategories").then(res => {
+            setCategories(res.data);
+        }).then(() => {
+            console.log(categories);
+        }
+        )
+        .catch(err => {
+            console.log(err);
+        }
+        )
+    }
+
 
     // useStates in order to dynamically change the button
     const [completeButton, setCompleteButton] = React.useState('');
@@ -86,6 +109,7 @@ export default function Main() {
         { value: 3, label: '3' },
         { value: 4, label: '4' }
       ];
+
 
       
 
@@ -113,7 +137,10 @@ export default function Main() {
                         <br></br>
 
                         {/* Button for add new task */}
-                        <Button variant="contained" onClick={handleClickOpen}>
+                        <Button variant="contained" onClick={() => {
+                                    handleClickOpen();
+                                    getCategories();
+                                }}>
                             <span class="material-icons" style={{padding: "1px"}} >add</span>
                             Add New Task
                         </Button>
@@ -200,7 +227,28 @@ export default function Main() {
                                         </Stack>
 
                                         {/* Categories*/}
+                                        {/* Create a dropdown for categories*/}
                                         <Stack>
+                                            <InputLabel required id="categories">
+                                                Categories
+                                            </InputLabel>
+                                            <FormControl>
+                                                <Select
+                                                    labelId="categories"
+                                                    id="categories"
+                                                    value={tasks_categories}
+                                                    onChange={(event) => {
+                                                        setTasks_categories(event.target.value);
+                                                    }}
+                                                >
+                                                    {categories.map((category) => (
+                                                        <MenuItem value={category.tasks_categories}>{category.tasks_categories}</MenuItem>
+                                                    ))}
+                                                </Select>
+                                            </FormControl>
+                                        </Stack>
+
+                                        {/* <Stack>
                                             <InputLabel id="categoryName">
                                                 Category
                                             </InputLabel><br></br>
@@ -212,7 +260,7 @@ export default function Main() {
                                                     setTasks_categories(event.target.value);
                                                 }}
                                             />
-                                        </Stack>
+                                        </Stack> */}
 
                                         {/* priority */}
                                         <Stack>
@@ -295,7 +343,11 @@ export default function Main() {
                         <DialogActions>
 
                             <Button
-                                onClick={handleClose}
+                                //onClick={handleClose}
+                                onClick={() => {
+                                    handleClose();
+                                    cancelReload();
+                                }}
                                 variant="contained">
                                 <span class="material-icons">cancel</span>
                                 Cancel
