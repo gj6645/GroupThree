@@ -76,7 +76,10 @@ export default function Main() {
             tasks_status: tasks_status
         }).then(() => {
             console.log("Added Task");
-        })
+        }).catch(err => {
+            console.log(err);
+        }
+        );
     }
 
     // Function to call https://csc4710dbs.herokuapp.com/api/getCategories and map through the tasks_categories and make a dropdown menu
@@ -86,6 +89,10 @@ export default function Main() {
             setCategories(res.data);
         }).then(() => {
             console.log(categories);
+        }
+        )
+        .catch(err => {
+            console.log(err);
         }
         )
     }
