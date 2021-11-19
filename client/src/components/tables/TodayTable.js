@@ -41,7 +41,7 @@ export default function StickyHeadTable() {
         // Once GET Today's Tasks api is working, swap below with GET Today's Tasks api
         fetch('https://csc4710dbs.herokuapp.com/api/getTasksToday')
         .then((response) => response.json())
-        .then((json) => setRows(json).catch(error => console.log(error)));
+          .then((json) => setRows(json)).catch(error => console.log(error));
 
           
     }, []);

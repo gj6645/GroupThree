@@ -36,7 +36,7 @@ export default function StickyHeadTable() {
     useEffect(() => {
         fetch('https://csc4710dbs.herokuapp.com/api/getCategories')
         .then((response) => response.json())
-          .then((json) => setRows(json));
+        .then((json) => setRows(json)).catch(error => console.log(error));
     }, []);
 
     //changing table view

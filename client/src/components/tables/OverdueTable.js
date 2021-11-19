@@ -34,9 +34,11 @@ export default function StickyHeadTable() {
     useEffect(() => {
         fetch('https://csc4710dbs.herokuapp.com/api/getOverdueTasks')
         .then((response) => response.json())
-          .then((json) => setRows(json).catch(error => console.log(error)));
+        .then((json) => setRows(json)).catch(error => console.log(error));
 
+          
     }, []);
+
 
 
     const [page, setPage] = React.useState(0);
