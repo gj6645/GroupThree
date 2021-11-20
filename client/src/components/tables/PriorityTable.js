@@ -12,6 +12,9 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Button from '@mui/material/Button';
 import axios, { Axios } from "axios";
 import { MenuItem, FormControl, Select, InputLabel } from "@mui/material";
+import Toolbar from "@mui/material/Toolbar";
+import Box from '@mui/material/Box';
+import "./PriorityTable.css"
 
 
 
@@ -81,7 +84,7 @@ export default function StickyHeadTable() {
     // If priority 2 is picked, call API https://csc4710dbs.herokuapp.com/api/getTasksByPriority/:tasks_priority and pass in priority 2 and display the tasks for that priority
     // If priority 3 is picked, call API https://csc4710dbs.herokuapp.com/api/getTasksByPriority/:tasks_priority and pass in priority 3 and display the tasks for that priority
     // If priority 4 is picked, call API https://csc4710dbs.herokuapp.com/api/getTasksByPriority/:tasks_priority and pass in priority 4 and display the tasks for that priority
-    
+
     const prioritySelection = (event) => {
         if (event.target.value === "Priority 1") {
             axios.get("https://csc4710dbs.herokuapp.com/api/getTasksByPriority/Priority 1")
@@ -127,84 +130,101 @@ export default function StickyHeadTable() {
 
     return (
 
-        // return setRows data to paper sx
-        <>
-        {/* Create a priority dropdown and get value for each value and display table based on what was picked */}
-        <Paper>
-            <TableContainer>
-                <Table stickyHeader aria-label="sticky table">
-                    <TableHead>
-                        <TableRow>
-                            {columns.map((column) => (
-                                <TableCell
-                                    key={column.id}
-                                    align={column.align}
-                                    style={{ minWidth: column.minWidth }}
-                                >
-                                    {column.label}
-                                </TableCell>
-                            ))}
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                            return (
-                                <TableRow hover role="checkbox" tabIndex={-1} key={row.Tasks_id}>
-                                    {columns.map((column) => {
-                                        const value = row[column.id];
-                                        return (
-                                            <TableCell key={column.id} align={column.align}>
-                                                {column.format && typeof value === 'number' ? column.format(value) : value}
-                                            </TableCell>
-                                        );
-                                    })}
-                                    <TableCell align="right">
-                                        <Button variant="contained" color="primary" onClick={() => deleteTask(row.Tasks_id)}>Delete</Button>
-                                    </TableCell>
-                                </TableRow>
-                            );
-                        })}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-            <TablePagination
-                rowsPerPageOptions={[10, 25, 100]}
-                component="div"
-                count={rows.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onChangePage={handleChangePage}
-                onChangeRowsPerPage={handleChangeRowsPerPage}
-            />
-        </Paper>
-        <br></br>
-        <br></br>
-        <br></br>
-        <br></br>
 
-        <div>
-            <FormControl
-            sx={{
-                width: "100"
-            }}
-            >
-                <InputLabel id="demo-simple-select-label">Priority</InputLabel>
-                <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={prioritySelection}
-                    onChange={prioritySelection}
+        <>
+            <div>
+                <Box
+                    margin="auto"
+                    alignItems="center"
+                    justifyContent="center"
+                    className="text-center"
+                    component="form"
                     sx={{
-                        width: "100"}}
-                    
+                        width: 500,
+                        height: 150,
+                    }}
                 >
-                    <MenuItem value={"Priority 1"}>Priority 1</MenuItem>
-                    <MenuItem value={"Priority 2"}>Priority 2</MenuItem>
-                    <MenuItem value={"Priority 3"}>Priority 3</MenuItem>
-                    <MenuItem value={"Priority 4"}>Priority 4</MenuItem>
-                </Select>
-            </FormControl>
-        </div>
+                    {/* <FormControl
+                        sx={{
+                            width: "100"
+                        }}
+                    > */}
+                    <InputLabel id="demo-simple-select-label">Priority</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={prioritySelection}
+                        onChange={prioritySelection}
+                        sx={{
+                            width: "300"
+                        }}
+                    >
+                        <MenuItem value={"Priority 1"}>Priority 1</MenuItem>
+                        <MenuItem value={"Priority 2"}>Priority 2</MenuItem>
+                        <MenuItem value={"Priority 3"}>Priority 3</MenuItem>
+                        <MenuItem value={"Priority 4"}>Priority 4</MenuItem>
+                    </Select>
+                    {/* </FormControl> */}
+
+                </Box>
+            </div>
+
+
+            {/* // return setRows data to paper sx */}
+            {/* Create a priority dropdown and get value for each value and display table based on what was picked */}
+            <Paper>
+                <TableContainer>
+                    <Table stickyHeader aria-label="sticky table">
+                        <TableHead>
+                            <TableRow>
+                                {columns.map((column) => (
+                                    <TableCell
+                                        key={column.id}
+                                        align={column.align}
+                                        style={{ minWidth: column.minWidth }}
+                                    >
+                                        {column.label}
+                                    </TableCell>
+                                ))}
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                                return (
+                                    <TableRow hover role="checkbox" tabIndex={-1} key={row.Tasks_id}>
+                                        {columns.map((column) => {
+                                            const value = row[column.id];
+                                            return (
+                                                <TableCell key={column.id} align={column.align}>
+                                                    {column.format && typeof value === 'number' ? column.format(value) : value}
+                                                </TableCell>
+                                            );
+                                        })}
+                                        <TableCell align="right">
+                                            <Button variant="contained" color="primary" onClick={() => deleteTask(row.Tasks_id)}>Delete</Button>
+                                        </TableCell>
+                                    </TableRow>
+                                );
+                            })}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                <TablePagination
+                    rowsPerPageOptions={[10, 25, 100]}
+                    component="div"
+                    count={rows.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onChangePage={handleChangePage}
+                    onChangeRowsPerPage={handleChangeRowsPerPage}
+                />
+            </Paper>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+
+
         </>
     );
 }
