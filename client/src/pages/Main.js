@@ -230,12 +230,13 @@ export default function Main() {
                                         {/* Create a dropdown for categories*/}
                                         <Stack>
                                             <InputLabel required id="categories">
-                                                Categories
+                                            Pick a Category
                                             </InputLabel>
                                             <FormControl>
                                                 <Select
                                                     labelId="categories"
                                                     id="categories"
+                                                    placeholder="Pick a Categories"
                                                     value={tasks_categories}
                                                     onChange={(event) => {
                                                         setTasks_categories(event.target.value);
