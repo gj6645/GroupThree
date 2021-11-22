@@ -7,8 +7,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
 import Button from '@mui/material/Button';
 import axios from "axios";
 import Dialog from '@mui/material/Dialog';
@@ -20,19 +18,19 @@ import Notification from "../Notification";
 
 
 
-// Create columns for id, description, due date, priority, category, status and actions
+
+// Create columns for id and category
 const columns = [
     
     //{ id: 'Categories_id', label: 'ID', minWidth: 170 },
     { id: 'tasks_categories', label: 'Category Type', minWidth: 500 }
-    
+   
     
 ];
 
 export default function StickyHeadTable() {
     
     const [rows, setRows] = useState([]);
-
     useEffect(() => {
         fetch('https://csc4710dbs.herokuapp.com/api/getCategories')
         .then((response) => response.json())
@@ -52,30 +50,7 @@ export default function StickyHeadTable() {
       setPage(0);
     };
 
-    // Mechanism  to update a task
-    const [newCategory, setNewCategory] = useState('');
-
-    const updateCategory = (id) => {
-        axios.put('https://csc4710dbs.herokuapp.com/api/updateCategory', {
-            id: id,
-            category: newCategory
-        }).then((response) => {
-            setTasksList(
-                TasksList.map((val) => {
-                    return val.id === id
-                        ? {
-                            id: val.id,
-                            category: newCategory
-                        }
-                        : val;
-                })
-            );
-        });
-    };
-
-
-
-
+    
 
     const [open, setOpen] = React.useState(false);
 
@@ -83,7 +58,7 @@ export default function StickyHeadTable() {
     const [notify, setNotify] = useState({ isOpen: false, message: "", type: "" });
 
     const handleNotify = () => {
-        setNotify({ isOpen: true, message: "Form was Submitted Successfully", type: "success" });
+        setNotify({ isOpen: true, message: "Category was Updated Successfully", type: "success" });
     };
 
     const handleClickOpen = () => {
@@ -95,8 +70,31 @@ export default function StickyHeadTable() {
     };
 
     const reload = () => {
-        setTimeout(() => { window.location.reload(false); }, 1000);
+        setTimeout(() => { window.location.reload(false); }, 100);
     }      
+
+
+
+    // Mechanism  to update a task
+    const [newCategory, setNewCategory] = useState('');
+
+    // Function to update a task based on the task id
+    const updateCategory = (Categories_id) => {
+        
+        axios.put(`https://csc4710dbs.herokuapp.com/api/updateCategory/${Categories_id}`, {
+            Categories_id: Categories_id,
+            tasks_categories: newCategory
+        })
+        .then(res => {
+            console.log(res);
+            setRows(rows.map(row => (row.Categories_id === Categories_id ? { Categories_type: newCategory } : row)));
+            setNewCategory('');
+            Notification('Category Updated', 'success');
+        })
+        .catch(error => {
+            console.log(error);
+        });
+    };
 
 
 
@@ -156,31 +154,26 @@ export default function StickyHeadTable() {
                             
 
                                 {/* Edit icon on each row*/}
-                                <TableCell
-                                    style={{ minWidth: 17, align: 'right', color: '#1972d8', size: 'x-small', fontSize: 'small' }}
-                                >{row.Tasks_actions}
-                                <Button onClick={handleClickOpen}> 
-                                <EditIcon />
-                                </Button>
-                                </TableCell>
+                                <TableCell align="right" >
+                                            <Button variant="contained" color="primary" onClick={handleClickOpen}><span class="material-icons">update</span>
+                                              Edit</Button>
+                                    </TableCell>
+
 
 
                                 {/* Delete icon on each row*/}
-                                <TableCell
-                                style={{ minWidth: 17, align: 'right', color: '#1972d8', size: 'x-small', fontSize: 'small' }}
-                                >{row.Tasks_actions}
-                                <Button onClick={() => {
+                                <TableCell align="right">
+                                            <Button variant="contained" color="primary" onClick={() => {
                                         deleteCategory(row.Categories_id);
-                                    }}> 
-                                <DeleteIcon/>
-                                </Button>
-                                </TableCell>
+                                    }}><span class="material-icons">delete</span>
+                                     Delete</Button>
+                                        </TableCell>
 
                             </TableRow>
                         );
                     })}
                     
-                    
+   
                 </TableBody>
             </Table>
         </TableContainer>
@@ -195,57 +188,59 @@ export default function StickyHeadTable() {
 
         />
     </Paper>
+    {/*Map through rows to get Categories_id*/}
+    {rows.map((row) => {
+                        return (
+                            <Dialog open={open} onClose={handleClose}  >
+                                 <DialogTitle>
+                        <h3>
+                            Update Category
+                        </h3>
+                    </DialogTitle>
+                                <DialogContent
+                                sx={{
+                                    width: 500,
+                                    height: 200,
+                                }}
+                                >
+                                    
+                                    <TextField
+                                        autoFocus
+                                        margin="dense"
+                                        id="name"
+                                        label="Category"
+                                        type="text"
+                                        fullWidth
+                                        value={newCategory}
+                                        onChange={(e) => setNewCategory(e.target.value)}
+                                    />
+                                </DialogContent>
+                                <DialogActions>
+                                <Button variant="contained" onClick={handleClose} color="primary">
+                                <span class="material-icons">cancel</span>
+                                        Cancel
+                                    </Button>
+                                    <Button variant="contained" onClick={() => {
+                                        updateCategory(row.Categories_id);
+                                        handleClose();
+                                        handleNotify();
+                                        reload();
 
-    {/* Popup model to update a catefory*/}
-    <Dialog open={open} onClose={handleClose}  >
-    <DialogTitle>
-                    <h3>
-                        Update Category
-                    </h3>
-                </DialogTitle>
-        <DialogContent
-        sx={{
-            width: 500,
-            height: 200,
-        }}>
-            <TextField
-            
-                autoFocus
-                margin="dense"
-                id="name"
-                label="Category"
-                type="text"
-                fullWidth
-                value={newCategory}
-                onChange={(e) => {
-                    setNewCategory(e.target.value);
-                }}
-            />
-        </DialogContent>
-        <DialogActions>
-            <Button variant="contained" onClick={handleClose} color="primary">
-            <span class="material-icons">cancel</span>
-                Cancel
-            </Button>
+                                    }} color="primary">
+                                         <span class="material-icons">add</span>
+                                        Update
+                                    </Button>
+                                </DialogActions>
+                            </Dialog>
+                        );
+                    })}
 
-            <Button variant="contained" onClick={() => {
-                updateCategory();
-                handleClose();
-                handleNotify();
-                reload();
-            }} color="primary">
-                <span class="material-icons">add</span>
-                Update
-            </Button>
-        </DialogActions>
-    </Dialog>
+
     <Notification
                 notify={notify}
                 setNotify={setNotify}
             />
 
-
 </>
-
     );
   }
