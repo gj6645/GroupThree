@@ -2,11 +2,11 @@
 
 ---
 **_Contributors:_** 
-  - **Eisha Akbar**, studying Computer Technology 
-  - **Tanvir Ahmed**, studying Computer Science
-  - **Chris Gumieny**, studying Computer Science 
-  - **Caleb Obi**, studying Computer Science
-  - **Viona Veseli**, studying Computer Science
+  - **Eisha Akbar**, studying Computer Technology (Software Engineer)
+  - **Tanvir Ahmed**, studying Computer Science (Software Engineer)
+  - **Chris Gumieny**, studying Computer Science (Software Engineer)
+  - **Caleb Obi**, studying Computer Science (Lead Software Engineer)
+  - **Viona Veseli**, studying Computer Science (Software Engineer)
 ---
 
 ## ToDo List version 2-- App Description
@@ -48,7 +48,7 @@ Each task consists of:
 | Express.js | API Development |
 | Firebase | Temporary Deployment |
 | Heroku (Clear DB) | Remote MYSQL & Deployment |
-| Netlify | Hosting & Domain Setup |
+| Firebase | Hosting & Domain Setup |
 
 ## Architecture Diagram
 ![Image of Architecture Diagram](https://user-images.githubusercontent.com/82237730/142081881-732fc3bc-afa9-4136-b7bb-ae82a67a6e5e.png)
@@ -71,6 +71,5 @@ Each task consists of:
    /api/deleteTask/:Tasks_id
    /api/deleteCategory/:Categories_id
    ```   
-## Resources
-- [React Card](https://mui.com/components/cards/) - Cards contain content and actions about a single subject.
+
 
