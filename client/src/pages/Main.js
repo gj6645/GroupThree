@@ -229,8 +229,9 @@ export default function Main() {
                                         {/* Categories*/}
                                         {/* Create a dropdown for categories*/}
                                         <Stack>
-                                            <InputLabel required id="categories">
-                                            Pick a Category
+                                            <InputLabel>
+                                            Pick a Category (Optional)
+                                            <br></br>
                                             </InputLabel>
                                             <FormControl>
                                                 <Select
@@ -265,7 +266,7 @@ export default function Main() {
 
                                         {/* priority */}
                                         <Stack>
-                                            <InputLabel id="priority">Priority Level</InputLabel>
+                                            <InputLabel id="priority">Priority Level (Optional) </InputLabel>
                                             {/* For Testing Purposes
                                                 <TextField
                                                 InputProps={{readOnly: true}}

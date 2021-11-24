@@ -118,6 +118,7 @@ const prioritySelection = (event) => {
                 >
                 
                     <InputLabel id="demo-simple-select-label">Filter Tasks by Priority</InputLabel>
+                    <br></br>
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
