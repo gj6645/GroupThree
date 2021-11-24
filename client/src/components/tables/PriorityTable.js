@@ -11,7 +11,7 @@ import axios from "axios";
 import { MenuItem, Select, InputLabel } from "@mui/material";
 import Box from '@mui/material/Box';
 import "./PriorityTable.css";
-import DateMomentUtils from '@date-io/moment';
+
 
 
 
@@ -63,9 +63,6 @@ export default function StickyHeadTable() {
     };
 
 
-    // Map through tasks_categories and display in dropdown menu
-    
-
 
 // Function to filter a task by priority
 const prioritySelection = (event) => {
@@ -94,46 +91,11 @@ const prioritySelection = (event) => {
                     console.log(err);
                 });
         }
+
+        
+
     }
 }
-
-
-
-
-const dueDateSelection = (event) => {
-    // Create an empty array to store the due dates
-    const dueDateArray = [];
-
-    // Loop through the rows and push the due dates into the dueDateArray
-    for (let i = 0; i < rows.length; i++) {
-        dueDateArray.push(rows[i].tasks_due_date);
-    }
-
-    // if the due date is equal to the event, call the API https://csc4710dbs.herokuapp.com/api/getTasksByDueDate/:tasks_due_date and pass in the due date and display the tasks for that due date
-    for (let i = 0; i < dueDateArray.length; i++) {
-        if (dueDateArray[i] === event.target.value) {
-            axios.get(`https://csc4710dbs.herokuapp.com/api/getTasksByDueDate/${event.target.value}`)
-                .then(res => {
-                    setRows(res.data);
-                })
-                .catch(err => {
-                    console.log(err);
-                });
-        }
-
-        if (event.target.value === "") {
-            axios.get("https://csc4710dbs.herokuapp.com/api/getCompletedTasks")
-                .then(res => {
-                    setRows(res.data);
-                })
-                .catch(err => {
-                    console.log(err);
-                });
-        }
-    }
-}
-
-
 
 
 
@@ -141,31 +103,6 @@ const dueDateSelection = (event) => {
 
 
         <>
-        {/* Create a date picker */}
-        <Box display="flex" justifyContent="center" m={1} p={1}>
-            <InputLabel id="demo-simple-select-label">Due Date</InputLabel>
-            <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
-                value={dueDateSelection}
-                onChange={dueDateSelection}
-            >
-                <MenuItem value="">
-                    <em>None</em>
-                </MenuItem>
-                {/*Map through due dates*/}
-                {rows.map((row) => (
-                    <MenuItem value={row.tasks_due_date}>{row.tasks_due_date}</MenuItem>
-                ))}
-
-            </Select>
-        </Box>
-
-        
-
-       
-
-
 
             <div>
                 <Box
