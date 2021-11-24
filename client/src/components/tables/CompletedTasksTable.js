@@ -8,6 +8,7 @@ import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import axios from "axios";
+import { InputLabel } from "@mui/material";
 
 //datepicker
 //required for date picker
@@ -63,6 +64,7 @@ export default function StickyHeadTable() {
 
     //used for setting date
     const [value, setValue] = React.useState(new Date());
+
 
     const handleChange = (newValue) => {
      console.log(newValue);
@@ -126,6 +128,7 @@ export default function StickyHeadTable() {
                         });
                 }
         })
+        
         .catch(err => {
             console.log(err);
         console.log(dueDateArray);
@@ -143,7 +146,7 @@ export default function StickyHeadTable() {
     
         <Box
                     sx={{
-                        height: 30,
+                        height: 70,
                     }}
                 />
         <Box
@@ -154,15 +157,17 @@ export default function StickyHeadTable() {
                     component="form"
                     sx={{
                         width: 500,
-                        height: 100,
+                        height: 150,
                     }}
                 >
+                    <InputLabel id="demo-simple-select-label">Filter Tasks by Completion Date</InputLabel>
+                    <br></br>
         <MuiPickersUtilsProvider utils={DateMomentUtils}>
             <DatePicker
                 clearable
                 id="date-picker"
                 format="YYYY-MM-DD"
-                label="Choose date"
+                //label="Choose date"
                 value={value}
                 onChange={(newValue) => (newValue ? handleChange(newValue.format("YYYY-MM-DD")) : handleChange(null))}
                 renderInput={(params) => (
