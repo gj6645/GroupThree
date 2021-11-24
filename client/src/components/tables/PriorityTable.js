@@ -7,14 +7,14 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
-import Button from '@mui/material/Button';
-import axios, { Axios } from "axios";
-import { MenuItem, FormControl, Select, InputLabel } from "@mui/material";
-import Toolbar from "@mui/material/Toolbar";
+import axios from "axios";
+import { MenuItem, Select, InputLabel } from "@mui/material";
 import Box from '@mui/material/Box';
-import "./PriorityTable.css"
+import "./PriorityTable.css";
+
+
+
+
 
 
 
@@ -28,7 +28,7 @@ const columns = [
     { id: 'tasks_priority', label: 'Priority', minWidth: 170 },
     { id: 'tasks_categories', label: 'Category', minWidth: 170 },
     { id: 'tasks_status', label: 'Status', minWidth: 170 },
-    //{ id: 'tasks_actions', label: 'Actions', minWidth: 17, align: 'right'},
+    
 ];
 
 
@@ -51,7 +51,7 @@ export default function StickyHeadTable() {
 
 
     const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
+    const [rowsPerPage, setRowsPerPage] = React.useState(15);
 
     const handleChangePage = (event, newPage) => {
         setPage(newPage);
@@ -62,69 +62,40 @@ export default function StickyHeadTable() {
         setPage(0);
     };
 
-    // TODO: Function to update a task
-    const [TasksList, setTasksList] = useState([]);
 
 
-    // Function to delete a task
-    const deleteTask = (Tasks_id) => {
-        // Use api https://csc4710dbs.herokuapp.com/api/deleteTask/:Tasks_id to delete a task
-        axios.delete(`https://csc4710dbs.herokuapp.com/api/deleteTask/${Tasks_id}`).then(res => {
-            setTasksList(TasksList.filter((val) => {
-                return val.Tasks_id === Tasks_id;
-            }));
+// Function to filter a task by priority
+const prioritySelection = (event) => {
+        
+    // Create an array to store priority 1, 2, 3, 4
+    const priorityArray = ["Priority 1", "Priority 2", "Priority 3", "Priority 4"];
 
-            // refresh the page
-            window.location.reload();
-        });
+    // Loop through the priority array and if the priority is equal to the event, call the API https://csc4710dbs.herokuapp.com/api/getTasksByPriority/:tasks_priority and pass in the priority and display the tasks for that priority
+    for (let i = 0; i < priorityArray.length; i++) {
+        if (priorityArray[i] === event.target.value) {
+            axios.get(`https://csc4710dbs.herokuapp.com/api/getTasksByPriority/${event.target.value}`)
+                .then(res => {
+                    setRows(res.data);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }
+        
+        if (event.target.value === "None") {
+            axios.get("https://csc4710dbs.herokuapp.com/api/getTasks")
+                .then(res => {
+                    setRows(res.data);
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }
+
+        
+
     }
-
-
-    // If priority 1 is picked, call API https://csc4710dbs.herokuapp.com/api/getTasksByPriority/:tasks_priority and pass in priority 1 and display the tasks for that priority
-    // If priority 2 is picked, call API https://csc4710dbs.herokuapp.com/api/getTasksByPriority/:tasks_priority and pass in priority 2 and display the tasks for that priority
-    // If priority 3 is picked, call API https://csc4710dbs.herokuapp.com/api/getTasksByPriority/:tasks_priority and pass in priority 3 and display the tasks for that priority
-    // If priority 4 is picked, call API https://csc4710dbs.herokuapp.com/api/getTasksByPriority/:tasks_priority and pass in priority 4 and display the tasks for that priority
-
-    const prioritySelection = (event) => {
-        if (event.target.value === "Priority 1") {
-            axios.get("https://csc4710dbs.herokuapp.com/api/getTasksByPriority/Priority 1")
-                .then(res => {
-                    setRows(res.data);
-                })
-                .catch(err => {
-                    console.log(err);
-                });
-        }
-        else if (event.target.value === "Priority 2") {
-            axios.get("https://csc4710dbs.herokuapp.com/api/getTasksByPriority/Priority 2")
-                .then(res => {
-                    setRows(res.data);
-                })
-                .catch(err => {
-                    console.log(err);
-                });
-        }
-        else if (event.target.value === "Priority 3") {
-            axios.get("https://csc4710dbs.herokuapp.com/api/getTasksByPriority/Priority 3")
-
-                .then(res => {
-                    setRows(res.data);
-                })
-                .catch(err => {
-                    console.log(err);
-                });
-        }
-        else if (event.target.value === "Priority 4") {
-            axios.get("https://csc4710dbs.herokuapp.com/api/getTasksByPriority/Priority 4")
-                .then(res => {
-                    setRows(res.data);
-                })
-                .catch(err => {
-                    console.log(err);
-                });
-        }
-    }
-
+}
 
 
 
@@ -132,6 +103,7 @@ export default function StickyHeadTable() {
 
 
         <>
+
             <div>
                 <Box
                     margin="auto"
@@ -144,12 +116,8 @@ export default function StickyHeadTable() {
                         height: 150,
                     }}
                 >
-                    {/* <FormControl
-                        sx={{
-                            width: "100"
-                        }}
-                    > */}
-                    <InputLabel id="demo-simple-select-label">Priority</InputLabel>
+                
+                    <InputLabel id="demo-simple-select-label">Filter Tasks by Priority</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
@@ -159,12 +127,13 @@ export default function StickyHeadTable() {
                             width: "300"
                         }}
                     >
+                        <MenuItem value={"None"}>None</MenuItem>
                         <MenuItem value={"Priority 1"}>Priority 1</MenuItem>
                         <MenuItem value={"Priority 2"}>Priority 2</MenuItem>
                         <MenuItem value={"Priority 3"}>Priority 3</MenuItem>
                         <MenuItem value={"Priority 4"}>Priority 4</MenuItem>
+                        
                     </Select>
-                    {/* </FormControl> */}
 
                 </Box>
             </div>
@@ -200,9 +169,7 @@ export default function StickyHeadTable() {
                                                 </TableCell>
                                             );
                                         })}
-                                        <TableCell align="right">
-                                            <Button variant="contained" color="primary" onClick={() => deleteTask(row.Tasks_id)}>Delete</Button>
-                                        </TableCell>
+                                        
                                     </TableRow>
                                 );
                             })}
@@ -210,7 +177,7 @@ export default function StickyHeadTable() {
                     </Table>
                 </TableContainer>
                 <TablePagination
-                    rowsPerPageOptions={[10, 25, 100]}
+                    rowsPerPageOptions={[15, 25, 100]}
                     component="div"
                     count={rows.length}
                     rowsPerPage={rowsPerPage}
