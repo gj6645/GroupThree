@@ -59,6 +59,9 @@ export default function StickyHeadTable() {
     };
 
 
+    // Map through tasks_categories and display in dropdown menu
+    
+
 
 // Function to filter a task by priority
     const prioritySelection = (event) => {

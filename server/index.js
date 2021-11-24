@@ -231,6 +231,22 @@ app.get('/api/getTasksByPriority/:tasks_priority', (req, res) => {
     );
 });
 
+// GET API to get tasks based on due date selection
+app.get('/api/getTasksByDueDate/:tasks_due_date', (req, res) => {
+    const tasks_due_date = req.params.tasks_due_date;
+    db.query('SELECT * FROM tasks WHERE tasks_due_date = ?', [tasks_due_date], (err, result) => {
+        
+        if (!err){
+            res.header("Content-Type",'application/json');
+            res.type('json').send(JSON.stringify(result, null, 2) + '\n');
+        }
+        else {
+            console.log(err);
+        }
+    }
+    );
+});
+
 
 // GET API to get tasks completed
 app.get('/api/getCompletedTasks', (req, res) => {
