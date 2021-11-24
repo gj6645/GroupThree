@@ -3,7 +3,7 @@ import Header from "../components/Header"
 import SideBar from "../components/SideBar"
 import { Box } from "@mui/system"
 import Toolbar from "@mui/material/Toolbar";
-
+import CompletedTasksTable from "../components/tables/CompletedTasksTable"; 
 export default function CompletedTasks() {
 
 
@@ -21,6 +21,7 @@ export default function CompletedTasks() {
                 <Toolbar />
                 <h3>Completed Tasks</h3>
                 <hr></hr>
+                <CompletedTasksTable/>
             </Box>
         </Box >
 
