@@ -64,7 +64,7 @@ export default function Main() {
     const [tasks_due_date, setTasks_due_date] = React.useState(null);
     const [tasks_priority, setTasks_priority] = React.useState('');
     const [tasks_categories, setTasks_categories] = React.useState('');
-    const [tasks_status, setTasks_status] = React.useState('');
+    const [tasks_status, setTasks_status] = React.useState("Active");
 
     // Create function to call API
     const createTask = () => {
@@ -299,7 +299,7 @@ export default function Main() {
                                                 value={tasks_status}
                                                 label="status"
                                                 onClick={(event) => {
-                                                    setTasks_status(event.target.value);
+                                                    setTasks_status("Active");
                                                 }}
                                                 placeholder="status"
                                                 display="block"
