@@ -97,11 +97,6 @@ export default function Main() {
         )
     }
 
-
-    // useStates in order to dynamically change the button
-    const [completeButton, setCompleteButton] = React.useState('');
-    const [activeButton, setActiveButton] = React.useState('');
-
     // Labels and values for the priority slider
     const priorityOptions = [
         { value: 1, label: '1' },
@@ -305,22 +300,12 @@ export default function Main() {
                                                 label="status"
                                                 onClick={(event) => {
                                                     setTasks_status(event.target.value);
-                                                    if (event.target.value === "Active")
-                                                    {
-                                                        setActiveButton("contained");
-                                                        setCompleteButton("outlined");
-                                                    }
-                                                    else
-                                                    {
-                                                        setActiveButton("outlined");
-                                                        setCompleteButton("contained");
-                                                    }
                                                 }}
                                                 placeholder="status"
                                                 display="block"
                                             >
-                                                <Button variant={activeButton} value={"Active"}>Active</Button>
-                                                <Button variant={completeButton} value={"Completed"}>Completed</Button>
+                                                <Button variant={"contained"} value={"Active"}>Active</Button>
+                                                <Button disabled value={"Completed"}>Completed</Button>
                                             </ButtonGroup>
 
                                             <br></br>
