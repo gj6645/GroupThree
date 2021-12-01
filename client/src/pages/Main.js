@@ -64,7 +64,7 @@ export default function Main() {
     const [tasks_due_date, setTasks_due_date] = React.useState(null);
     const [tasks_priority, setTasks_priority] = React.useState('');
     const [tasks_categories, setTasks_categories] = React.useState('');
-    const [tasks_status, setTasks_status] = React.useState('');
+    const [tasks_status, setTasks_status] = React.useState("Active");
 
     // Create function to call API
     const createTask = () => {
@@ -96,11 +96,6 @@ export default function Main() {
         }
         )
     }
-
-
-    // useStates in order to dynamically change the button
-    const [completeButton, setCompleteButton] = React.useState('');
-    const [activeButton, setActiveButton] = React.useState('');
 
     // Labels and values for the priority slider
     const priorityOptions = [
@@ -304,23 +299,13 @@ export default function Main() {
                                                 value={tasks_status}
                                                 label="status"
                                                 onClick={(event) => {
-                                                    setTasks_status(event.target.value);
-                                                    if (event.target.value === "Active")
-                                                    {
-                                                        setActiveButton("contained");
-                                                        setCompleteButton("outlined");
-                                                    }
-                                                    else
-                                                    {
-                                                        setActiveButton("outlined");
-                                                        setCompleteButton("contained");
-                                                    }
+                                                    setTasks_status("Active");
                                                 }}
                                                 placeholder="status"
                                                 display="block"
                                             >
-                                                <Button variant={activeButton} value={"Active"}>Active</Button>
-                                                <Button variant={completeButton} value={"Completed"}>Completed</Button>
+                                                <Button variant={"contained"} value={"Active"}>Active</Button>
+                                                <Button disabled value={"Completed"}>Completed</Button>
                                             </ButtonGroup>
 
                                             <br></br>
