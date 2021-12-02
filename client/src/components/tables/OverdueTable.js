@@ -28,7 +28,7 @@ const columns = [
 
 export default function StickyHeadTable() {
     
-    // get rows from https://csc4710dbs.herokuapp.com/api/getTasks api
+    
     const [rows, setRows] = useState([]);
 
     useEffect(() => {
@@ -73,9 +73,7 @@ export default function StickyHeadTable() {
 
 
   
-    return (
-    
-        
+    return ( 
     // return setRows data to paper sx
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
         <TableContainer sx={{ maxHeight: 440 }}>
@@ -99,17 +97,6 @@ export default function StickyHeadTable() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {/* 
-                        Rows: {
-                            Tasks_id,
-                            Tasks_description,
-                            Tasks_due_date,
-                            Tasks_priority,
-                            Tasks_category,
-                            Tasks_status
-
-                        }
-                    */}
                     {/* For each row, add a edit and delete material ui button */}
                     {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                         return (
@@ -146,8 +133,6 @@ export default function StickyHeadTable() {
                             </TableRow>
                         );
                     })}
-                    
-                    
                 </TableBody>
             </Table>
         </TableContainer>
@@ -162,9 +147,5 @@ export default function StickyHeadTable() {
 
         />
     </Paper>
-
-
-
-    
     );
   }

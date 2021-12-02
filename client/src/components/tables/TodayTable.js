@@ -13,10 +13,6 @@ import Button from '@mui/material/Button';
 import axios from "axios";
 
 
-
-
-
-
 // Create columns for id, description, due date, priority, category, status and actions
 const columns = [
     //{ id: 'Tasks_id', label: 'ID', minWidth: 170 },
@@ -27,8 +23,6 @@ const columns = [
     { id: 'tasks_status', label: 'Status', minWidth: 170 },
     //{ id: 'tasks_actions', label: 'Actions', minWidth: 17, align: 'right'},
 ];
-
-    
 
 
 
@@ -47,7 +41,6 @@ export default function StickyHeadTable() {
     }, []);
 
 
-
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
   
@@ -60,7 +53,6 @@ export default function StickyHeadTable() {
       setPage(0);
     };
 
-  // TODO: Function to update a task
 
   const [TasksList, setTasksList] = useState([]);
 
@@ -81,10 +73,7 @@ export default function StickyHeadTable() {
     
   
     return (
- 
-    // return setRows data to paper sx
-    <>
-       
+    <>  
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
         <TableContainer sx={{ maxHeight: 440 }}>
             <Table stickyHeader aria-label="sticky table">
@@ -103,24 +92,9 @@ export default function StickyHeadTable() {
                             </TableCell>
 
                         ))}
-                       
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {/* 
-                        Rows: {
-                            Tasks_id,
-                            Tasks_description,
-                            Tasks_due_date,
-                            Tasks_priority,
-                            Tasks_category,
-                            Tasks_status
-
-                        }
-                    */}
-                    {/* For each row, add a edit and delete material ui button */}
-                    {/* Add <EditIcon />*/}
-                    
                     {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                         return (
                             <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>

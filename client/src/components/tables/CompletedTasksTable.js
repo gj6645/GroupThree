@@ -9,19 +9,14 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import axios from "axios";
 import { InputLabel } from "@mui/material";
-
-//datepicker
-//required for date picker
-import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
-
 import DateMomentUtils from '@date-io/moment';
 import {
     DatePicker,
     MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
 
-import Toolbar from "@mui/material/Toolbar";
+
 import Box from '@mui/material/Box';
 // Create columns for id, description, due date, priority, category, status and actions
 const columns = [
@@ -34,9 +29,7 @@ const columns = [
     //{ id: 'tasks_actions', label: 'Actions', minWidth: 170 },
 ];
 
-
 export default function StickyHeadTable() {
-    
     // get rows from https://csc4710dbs.herokuapp.com/api/getTasks api
     const [rows, setRows] = useState([]);
 
@@ -44,8 +37,6 @@ export default function StickyHeadTable() {
         fetch('https://csc4710dbs.herokuapp.com/api/getCompletedTasks')
         .then((response) => response.json())
         .then((json) => setRows(json)).catch(error => console.log(error));
-
-          
     }, []);
 
 
@@ -135,15 +126,9 @@ export default function StickyHeadTable() {
         });
         index=-10;
     }
-
-
   
     return (
-    
         <>
-    {/* // return setRows data to paper sx */}
-       
-    
         <Box
                     sx={{
                         height: 70,
@@ -199,17 +184,6 @@ export default function StickyHeadTable() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {/* 
-                        Rows: {
-                            Tasks_id,
-                            Tasks_description,
-                            Tasks_due_date,
-                            Tasks_priority,
-                            Tasks_category,
-                            Tasks_status
-
-                        }
-                    */}
                     {/* For each row, add a edit and delete material ui button */}
                     {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                         return (

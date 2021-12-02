@@ -8,9 +8,6 @@ import Toolbar from "@mui/material/Toolbar";
 
 
 export default function Authors() {
-
-
-
     return (
         <>
             <Box sx={{ display: 'flex' }}>

@@ -24,9 +24,6 @@ export default function PriorityOptions() {
                 <hr></hr>
                 <Toolbar />
                 <PriorityTable />
-
-               
-
             </Box>
         </Box >
     )

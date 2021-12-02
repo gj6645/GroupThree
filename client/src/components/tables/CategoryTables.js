@@ -17,15 +17,11 @@ import TextField from '@mui/material/TextField';
 import Notification from "../Notification";
 
 
-
-
 // Create columns for id and category
 const columns = [
     
     //{ id: 'Categories_id', label: 'ID', minWidth: 170 },
-    { id: 'tasks_categories', label: 'Category Type', minWidth: 500 }
-   
-    
+    { id: 'tasks_categories', label: 'Category Type', minWidth: 500 }  
 ];
 
 export default function StickyHeadTable() {
@@ -112,8 +108,6 @@ export default function StickyHeadTable() {
         });
     }
 
-
-  
     return (
     
   <>
@@ -240,7 +234,6 @@ export default function StickyHeadTable() {
                 notify={notify}
                 setNotify={setNotify}
             />
-
 </>
     );
   }

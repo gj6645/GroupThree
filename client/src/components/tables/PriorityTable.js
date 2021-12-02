@@ -13,13 +13,6 @@ import Box from '@mui/material/Box';
 import "./PriorityTable.css";
 
 
-
-
-
-
-
-
-
 // Create columns for id, description, due date, priority, category, status and actions
 const columns = [
     //{ id: 'Tasks_id', label: 'ID', minWidth: 170 },
@@ -91,19 +84,13 @@ const prioritySelection = (event) => {
                     console.log(err);
                 });
         }
-
-        
-
     }
 }
 
 
 
     return (
-
-
         <>
-
             <div>
                 <Box
                     margin="auto"

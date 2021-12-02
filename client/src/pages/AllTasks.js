@@ -8,7 +8,6 @@ export default function AllTasks() {
 
 
     return(
-
         <Box sx={{ display: 'flex' }}>
             {/* header */}
             <Header />
