@@ -78,6 +78,11 @@ export default function SideBar() {
                 <Toolbar />
                 <Toolbar />
                 <List>
+                    <ListItem button component={Link} href="/usermanual">
+                        <ListItemText primary="User Manual" />
+                    </ListItem>
+                </List>
+                <List>
                     <ListItem button component={Link} href="/authors">
                         <ListItemText primary="About Us" />
                     </ListItem>

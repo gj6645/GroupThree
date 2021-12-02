@@ -7,6 +7,7 @@ import AllTasks from "./pages/AllTasks"
 import CompletedTasks from "./pages/CompletedTasks"
 import PriorityOptions from "./pages/PriorityOptions"
 import CategoryOptions from "./pages/CategoryOptions"
+import UserManual from "./pages/UserManual"
 
 
 
@@ -20,6 +21,7 @@ function App() {
           <Route path="/completedtasks"> <CompletedTasks /> </Route>
           <Route path="/category"> <Category /></Route>
           <Route path="/alltasks"> <AllTasks /></Route>
+          <Route path="/usermanual"> < UserManual/></Route>
           <Route path="/authors"> <Authors /> </Route>
           <Route path="/"> <Main /> </Route>
         </Switch>
