@@ -15,8 +15,6 @@ import {
     DatePicker,
     MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
-
-
 import Box from '@mui/material/Box';
 // Create columns for id, description, due date, priority, category, status and actions
 const columns = [
@@ -29,7 +27,9 @@ const columns = [
     //{ id: 'tasks_actions', label: 'Actions', minWidth: 170 },
 ];
 
+
 export default function StickyHeadTable() {
+    
     // get rows from https://csc4710dbs.herokuapp.com/api/getTasks api
     const [rows, setRows] = useState([]);
 
@@ -37,6 +37,8 @@ export default function StickyHeadTable() {
         fetch('https://csc4710dbs.herokuapp.com/api/getCompletedTasks')
         .then((response) => response.json())
         .then((json) => setRows(json)).catch(error => console.log(error));
+
+          
     }, []);
 
 
@@ -54,14 +56,28 @@ export default function StickyHeadTable() {
     };
 
     //used for setting date
-    const [value, setValue] = React.useState(new Date());
+    const [value, setValue] = React.useState(null);
 
 
     const handleChange = (newValue) => {
      console.log(newValue);
      setValue(newValue);
      dueDateSelection(newValue);
+     handleCancel();
+     handleClear();
    };
+
+   // Handle cancel on date picker
+    const handleCancel = () => {
+        setValue(null);
+        window.location.reload();
+    };
+
+    // Handle clear on date picker
+    const handleClear = () => {
+        setValue(null);
+        window.location.reload();
+    };
 
    // Mechanism to filter a task by due date
    const dueDateSelection = (event) => {
@@ -126,8 +142,11 @@ export default function StickyHeadTable() {
         });
         index=-10;
     }
+
+
   
     return (
+    
         <>
         <Box
                     sx={{
@@ -217,9 +236,6 @@ export default function StickyHeadTable() {
 
         />
     </Paper>
-
-
     </>
-    
     );
   }
