@@ -4,6 +4,8 @@ import SideBar from "../components/SideBar"
 import { Box } from "@mui/system"
 import Toolbar from "@mui/material/Toolbar";
 
+
+
 export default function UserManual() {
     return (
         <>
