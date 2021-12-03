@@ -4,6 +4,7 @@ import Header from "../components/Header"
 import SideBar from "../components/SideBar"
 import { Box } from "@mui/system"
 import Toolbar from "@mui/material/Toolbar";
+import CategoryOptionsTable from "../components/tables/CategoryOptionsTable"
 
 export default function CategoryOptions() {
 
@@ -18,7 +19,7 @@ export default function CategoryOptions() {
                 <Toolbar />
                 <h3>Category Options</h3>
                 <hr></hr>
-
+                <CategoryOptionsTable/>
             </Box>
         </Box >
     )

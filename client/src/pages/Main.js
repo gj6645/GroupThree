@@ -102,7 +102,8 @@ export default function Main() {
         { value: 1, label: '1' },
         { value: 2, label: '2' },
         { value: 3, label: '3' },
-        { value: 4, label: '4' }
+        { value: 4, label: '4' },
+        { value: 5, label: 'None' }
       ];
 
 
@@ -272,11 +273,11 @@ export default function Main() {
                                             />*/}
                                             <Slider
                                                 aria-label="Restricted priorities"
-                                                defaultValue={1}
+                                                defaultValue={5}
                                                 step={null}
                                                 marks={priorityOptions}
                                                 min={1}
-                                                max={4}
+                                                max={5}
                                                 onChange={(event) => {
                                                     setTasks_priority("Priority " + event.target.value);
                                                 }}
