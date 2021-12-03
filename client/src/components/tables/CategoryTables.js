@@ -57,7 +57,8 @@ export default function StickyHeadTable() {
         setNotify({ isOpen: true, message: "Category was Updated Successfully", type: "success" });
     };
 
-    const handleClickOpen = () => {
+    const handleClickOpen = (id) => {
+        setTaskId(id);
         setOpen(true);
     };
 
@@ -73,6 +74,7 @@ export default function StickyHeadTable() {
 
     // Mechanism  to update a task
     const [newCategory, setNewCategory] = useState('');
+    const [taskId, setTaskId] = useState('');
 
     // Function to update a task based on the task id
     const updateCategory = (Categories_id) => {
@@ -149,7 +151,12 @@ export default function StickyHeadTable() {
 
                                 {/* Edit icon on each row*/}
                                 <TableCell align="right" >
-                                            <Button variant="contained" color="primary" onClick={handleClickOpen}><span class="material-icons">update</span>
+                                            <Button variant="contained" 
+                                            color="primary" 
+                                            onClick={() => {
+                                                handleClickOpen(row.Categories_id);
+                                            }}>
+                                            <span class="material-icons">update</span>
                                               Edit</Button>
                                     </TableCell>
 
@@ -202,7 +209,6 @@ export default function StickyHeadTable() {
                                         autoFocus
                                         margin="dense"
                                         id="name"
-                                        label="Category"
                                         type="text"
                                         fullWidth
                                         value={newCategory}
@@ -215,7 +221,7 @@ export default function StickyHeadTable() {
                                         Cancel
                                     </Button>
                                     <Button variant="contained" onClick={() => {
-                                        updateCategory(row.Categories_id);
+                                        updateCategory(taskId);
                                         handleClose();
                                         handleNotify();
                                         reload();
