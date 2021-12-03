@@ -46,7 +46,6 @@ Each task consists of:
 | React.js | UI Development |
 | Node.js | Server Development |
 | Express.js | API Development |
-| Firebase | Temporary Deployment |
 | Heroku (Clear DB) | Remote MYSQL & Deployment |
 | Firebase | Hosting & Domain Setup |
 

@@ -1,13 +1,12 @@
-import React from "react"
-import Cards from "../components/Cards"
-import "./Authors.css"
+import React from 'react'
 import Header from "../components/Header"
 import SideBar from "../components/SideBar"
 import { Box } from "@mui/system"
 import Toolbar from "@mui/material/Toolbar";
 
 
-export default function Authors() {
+
+export default function UserManual() {
     return (
         <>
             <Box sx={{ display: 'flex' }}>
@@ -21,16 +20,13 @@ export default function Authors() {
                 >
 
                     <Toolbar />
-                    <h3>Authors</h3>
+                    <h3>User Manual</h3>
                     <hr></hr>
                     {/* Paragraph */}
                     
                     <p className="text-center">
-                        Here are all the contributors to the development of CSC 4710 Todo Application.
+                        Eisha Akbar Honors Project.
                     </p>
-                    <div id= "cards">
-                    <Cards />
-                    </div>
                 </Box>
             </Box >
 

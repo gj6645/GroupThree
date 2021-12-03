@@ -74,25 +74,14 @@ export default function SideBar() {
                             </ListItemButton>
                         </List>
                     </Collapse>
-
-                    {/* <InputLabel id="priority">Report List</InputLabel>
-                    <Select
-
-                        id="priority_select"
-                        label="Report List"
-                        placeholder="Report List"
-
-                    >
-
-                        <MenuItem value={1}>1</MenuItem>
-                        <MenuItem value={2}>2</MenuItem>
-                        <MenuItem value={3}>3</MenuItem>
-                        <MenuItem value={4}>4</MenuItem>
-                    </Select> */}
-
                 </List>
                 <Toolbar />
                 <Toolbar />
+                <List>
+                    <ListItem button component={Link} href="/usermanual">
+                        <ListItemText primary="User Manual" />
+                    </ListItem>
+                </List>
                 <List>
                     <ListItem button component={Link} href="/authors">
                         <ListItemText primary="About Us" />

@@ -49,7 +49,6 @@ export default function StickyHeadTable() {
       setPage(0);
     };
 
-    // TODO: Function to update a task
 
   const [TasksList, setTasksList] = useState([]);
 
@@ -68,10 +67,7 @@ export default function StickyHeadTable() {
     }
 
 
-  
     return (
-    
-        
     // return setRows data to paper sx
     <Paper sx={{ width: '100%', overflow: 'hidden' }}>
         <TableContainer sx={{ maxHeight: 660 }}>
@@ -91,21 +87,9 @@ export default function StickyHeadTable() {
                             </TableCell>
 
                         ))}
-                       
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {/* 
-                        Rows: {
-                            Tasks_id,
-                            Tasks_description,
-                            Tasks_due_date,
-                            Tasks_priority,
-                            Tasks_category,
-                            Tasks_status
-
-                        }
-                    */}
                     {/* For each row, add a edit and delete material ui button */}
                     {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                         return (

@@ -4,7 +4,6 @@ const mysql = require('mysql2')
 const cors = require('cors');
 
 
-
 const PORT = 3001;
 
 app.use(cors());
@@ -42,11 +41,34 @@ const db = mysql.createPool({
 });
 
 
-// SET timezone to EST
-db.query('SET time_zone = "America/New_York"', function (err, results, fields) {
-    if (err) throw err;
-    console.log('Timezone set to EST');
+// Handle DB Crashing and restart it
+db.on('error', (err) => {
+    console.log(err);
+    if (err.code === 'PROTOCOL_CONNECTION_LOST') {
+        db.connect((err) => {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            console.log('DB reconnected!');
+        });
+    } else {
+        console.error(err);
+    }
 });
+
+// Handle API crashing and restart it
+app.on('error', (err) => {
+    console.log(err);
+    if (err.code === 'ECONNRESET') {
+        app.listen(PORT, () => {
+            console.log('Server restarted!');
+        });
+    } else {
+        console.error(err);
+    }
+});
+
 
 
 /*
@@ -130,7 +152,7 @@ app.post('/api/createCategory', (req, res) => {
  ********* GET CRUD API HERE **************
  *******************************************
 */
-
+// GET API to get all tasks from database
 app.get('/api/getTasks', (req, res) => {
     db.query('SELECT * FROM tasks',
     (err, rows, fields) => {
@@ -147,10 +169,8 @@ app.get('/api/getTasks', (req, res) => {
 
 
 
-
-// GET API to get tasks due today
+// GET API to get all tasks due today from database
 app.get('/api/getTasksToday', (req, res) => {
-    
     db.query('SELECT * FROM tasks WHERE tasks_due_date = curdate() AND tasks_status = "Active" ORDER BY tasks_priority ASC', 
     (err, rows, fields) => {
         if (!err) {
@@ -166,8 +186,8 @@ app.get('/api/getTasksToday', (req, res) => {
 });
 
 
-// GET API to get overdue tasks
-app.get('/api/getOverdueTasks', (req, res) => {
+// GET API to get all overdue tasks from database
+app.get('/api/getOverdueTasks', function(req, res, next) {
     db.query('SELECT * FROM tasks WHERE tasks_due_date < curdate() AND tasks_status = "Active" ORDER BY tasks_priority ASC',
     (err, rows, fields) => {
         if (!err) {
@@ -184,7 +204,7 @@ app.get('/api/getOverdueTasks', (req, res) => {
 
 
 
-// GET API to get all categories and render as a dropdown in a form
+// GET API to get all categories from database
 app.get('/api/getCategories', (req, res) => {
     db.query('SELECT * FROM categories', (err, rows, fields) => {
         if (!err) {
@@ -216,6 +236,7 @@ app.get('/api/getTasks/:tasks_categories', (req, res) => {
 });
 
 
+// GET API to get tasks based on priority selection
 app.get('/api/getTasksByPriority/:tasks_priority', (req, res) => {
     const tasks_priority = req.params.tasks_priority;
     db.query('SELECT * FROM tasks WHERE tasks_priority = ?', [tasks_priority], (err, result) => {
@@ -231,26 +252,9 @@ app.get('/api/getTasksByPriority/:tasks_priority', (req, res) => {
     );
 });
 
-// GET API to get tasks based on due date selection
-app.get('/api/getTasksByDueDate/:tasks_due_date', (req, res) => {
-    const tasks_due_date = req.params.tasks_due_date;
-    db.query('SELECT * FROM tasks WHERE tasks_due_date = ?', [tasks_due_date], (err, result) => {
-        
-        if (!err){
-            res.header("Content-Type",'application/json');
-            res.type('json').send(JSON.stringify(result, null, 2) + '\n');
-        }
-        else {
-            console.log(err);
-        }
-    }
-    );
-});
-
 
 // GET API to get tasks completed
 app.get('/api/getCompletedTasks', (req, res) => {
-
     db.query('SELECT * FROM tasks WHERE tasks_status = "Completed" ORDER BY tasks_due_date ASC',
         (err, rows, fields) => {
             if (!err) {
@@ -264,6 +268,22 @@ app.get('/api/getCompletedTasks', (req, res) => {
             }
         });
 });
+
+// GET API to get tasks by due date selection
+app.get('/api/getTasksByDueDate/:tasks_due_date', (req, res) => {
+    const tasks_due_date = req.params.tasks_due_date;
+    db.query('SELECT * FROM tasks WHERE tasks_due_date = ? AND tasks_status = "Completed" ORDER BY tasks_due_date ASC', [tasks_due_date], (err, result) => {
+            
+            if (!err){
+                res.header("Content-Type",'application/json');
+                res.type('json').send(JSON.stringify(result, null, 2) + '\n');
+            }
+            else {
+                console.log(err);
+            }
+        });
+});
+    
 
 
 
@@ -342,8 +362,6 @@ app.put('/api/updateCategory', (req, res) => {
 
 
 
-
-
 /*
  *******************************************
  ********* DELETE CRUD API HERE **************
@@ -390,30 +408,3 @@ app.listen(process.env.PORT || PORT, () => {
 module.exports = db.promise();
 
 
-
-
-/*
-    TODO: Create a new endpoint to handle the following:
-    - Display Task that have based on date selected by the user
-    - Display Task based on Status (e.g. Completed, Active)
-*/
-
-
-// API ENDPOINT that Needs to be developed
-// http://localhost:3001/api/getTasksByDay/:day
-// http://localhost:3001/api/getTasksByCompleted/:completed
-// http://localhost:3001/api/getTasksByActive/:active
-
-
-
-// Working api
-// http://localhost:3001/api/createDB
-// http://localhost:3001/api/createTaskTable
-// http://localhost:3001/api/createTask
-// http://localhost:3001/api/getTasks
-// http://localhost:3001/api/getTask/:id
-// http://localhost:3001/api/getTasksToday
-// http://localhost:3001/api/getOverdueTasks
-// http://localhost:3001/api/getTasks/:category
-// http://localhost:3001/api/updateTask/:id
-// http://localhost:3001/api/deleteTask/:id

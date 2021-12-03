@@ -9,19 +9,12 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import axios from "axios";
 import { InputLabel } from "@mui/material";
-
-//datepicker
-//required for date picker
-import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
-
 import DateMomentUtils from '@date-io/moment';
 import {
     DatePicker,
     MuiPickersUtilsProvider,
 } from '@material-ui/pickers';
-
-import Toolbar from "@mui/material/Toolbar";
 import Box from '@mui/material/Box';
 // Create columns for id, description, due date, priority, category, status and actions
 const columns = [
@@ -63,14 +56,28 @@ export default function StickyHeadTable() {
     };
 
     //used for setting date
-    const [value, setValue] = React.useState(new Date());
+    const [value, setValue] = React.useState(null);
 
 
     const handleChange = (newValue) => {
      console.log(newValue);
      setValue(newValue);
      dueDateSelection(newValue);
+     handleCancel();
+     handleClear();
    };
+
+   // Handle cancel on date picker
+    const handleCancel = () => {
+        setValue(null);
+        window.location.reload();
+    };
+
+    // Handle clear on date picker
+    const handleClear = () => {
+        setValue(null);
+        window.location.reload();
+    };
 
    // Mechanism to filter a task by due date
    const dueDateSelection = (event) => {
@@ -141,9 +148,6 @@ export default function StickyHeadTable() {
     return (
     
         <>
-    {/* // return setRows data to paper sx */}
-       
-    
         <Box
                     sx={{
                         height: 70,
@@ -199,17 +203,6 @@ export default function StickyHeadTable() {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {/* 
-                        Rows: {
-                            Tasks_id,
-                            Tasks_description,
-                            Tasks_due_date,
-                            Tasks_priority,
-                            Tasks_category,
-                            Tasks_status
-
-                        }
-                    */}
                     {/* For each row, add a edit and delete material ui button */}
                     {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
                         return (
@@ -243,9 +236,6 @@ export default function StickyHeadTable() {
 
         />
     </Paper>
-
-
     </>
-    
     );
   }

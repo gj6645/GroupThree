@@ -55,9 +55,7 @@ export default function Category() {
         })
     }
 
-
     return (
-
         <>
         <div className="text-center">
 
@@ -68,11 +66,8 @@ export default function Category() {
                 component="main"
                 sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
             >
-
                 <Toolbar />
                 <br></br>
-                                
-
                         {/* Button for add new task */}
                         <Button variant="contained" onClick={handleClickOpen} >
                             <span class="material-icons" style={{padding: "1px"}} >add</span>

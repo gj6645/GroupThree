@@ -15,7 +15,6 @@ export default function CategoryOptions() {
                 component="main"
                 sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
             >
-
                 <Toolbar />
                 <h3>Category Options</h3>
                 <hr></hr>
