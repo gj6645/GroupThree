@@ -52,7 +52,9 @@ Each task consists of:
 ## Architecture Diagram
 ![Image of Architecture Diagram](https://user-images.githubusercontent.com/82237730/142081881-732fc3bc-afa9-4136-b7bb-ae82a67a6e5e.png)
 
-<!--- Entity Relationship Diagram-->
+## Entity Relationship Diagram
+![ERD Image](https://user-images.githubusercontent.com/82237730/144655619-fe58422f-e46d-495e-a6e7-4375d1fa5e20.png)
+> The relationship between the two entities-- categories and tasks is one to zero or many. Task_Categories attribute refers to the different categories while Categroies_ID refers to the id associated with the category. Task_Description refer to the name of the task. Task_Status indicates whether a task is active or complete. Task_priority refers to the different priority levels for each task. Task_Due_Date insicates the date a task is due. 
 
 ## API Endpoints
 ```sh
