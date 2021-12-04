@@ -37,7 +37,7 @@ import { MenuItem, Select } from "@mui/material";
 export default function Main() {
     const [open, setOpen] = React.useState(false);
     const [tasks_description, setTasks_description] = React.useState("");
-    const [tasks_due_date, setTasks_due_date] = React.useState(null);
+    const [tasks_due_date, setTasks_due_date] = React.useState('');
     const [tasks_priority, setTasks_priority] = React.useState('');
     const [tasks_categories, setTasks_categories] = React.useState('');
     const [tasks_status, setTasks_status] = React.useState("Active");
@@ -51,7 +51,7 @@ export default function Main() {
             setError(true);
             return;
         }
-        else if (tasks_due_date === null) {
+        else if (tasks_due_date === "") {
             setError(true);
             return;
         }
@@ -145,7 +145,7 @@ export default function Main() {
                         <h3> Home </h3>
                         <hr></hr>
                         <br></br>
-                        
+
                         {/* Button for add new task */}
                         <Button variant="contained" onClick={() => {
                             handleClickOpen();
@@ -217,7 +217,7 @@ export default function Main() {
                                             <InputLabel required id="date">
                                                 Due Date
                                             </InputLabel>
-                                            <MuiPickersUtilsProvider utils={DateMomentUtils}>
+                                            {/* <MuiPickersUtilsProvider utils={DateMomentUtils}>
                                                 <DatePicker
                                                     clearable
                                                     error={error}
@@ -230,7 +230,20 @@ export default function Main() {
                                                         <TextField {...params} helperText="Select Due Date" />
                                                     )}
                                                 />
-                                            </MuiPickersUtilsProvider>
+                                            </MuiPickersUtilsProvider> */}
+
+                                            <TextField
+                                                id="date-picker"
+                                                error={error}
+                                                required
+                                                format="YYYY-MM-DD"
+                                                type="date"
+                                                value={tasks_due_date}
+                                                placeholder=" Select Due Date"
+                                                onChange={(event) => {
+                                                    setTasks_due_date(event.target.value);
+                                                }}
+                                            />
                                         </Stack>
 
                                         {/* Categories*/}

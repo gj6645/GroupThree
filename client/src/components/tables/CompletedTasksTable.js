@@ -141,11 +141,6 @@ export default function StickyHeadTable() {
     return (
         <>
             <Box
-                sx={{
-                    height: 70,
-                }}
-            />
-            <Box
                 margin="auto"
                 alignItems="center"
                 justifyContent="center"
@@ -156,9 +151,10 @@ export default function StickyHeadTable() {
                     height: 150,
                 }}
             >
+                <br></br>
                 <InputLabel id="demo-simple-select-label">Filter Tasks by Completion Date</InputLabel>
                 <br></br>
-                <MuiPickersUtilsProvider utils={DateMomentUtils}>
+                {/* <MuiPickersUtilsProvider utils={DateMomentUtils}>
                     <DatePicker
                         clearable
                         id="date-picker"
@@ -170,8 +166,20 @@ export default function StickyHeadTable() {
                             <TextField {...params} helperText="Select Due Date" />
                         )}
                     />
-                </MuiPickersUtilsProvider>
+                </MuiPickersUtilsProvider> */}
+
+                <TextField
+                    id="date-picker"
+                    format="YYYY-MM-DD"
+                    type="date"
+                    value={value}
+                    placeholder=" Select Due Date"
+                    onChange={(event) => {
+                        handleChange(event.target.value);
+                    }}
+                />
             </Box>
+            <br></br>
 
             <Paper sx={{ width: '100%', overflow: 'hidden' }}>
                 <TableContainer sx={{ maxHeight: 660 }}>

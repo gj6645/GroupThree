@@ -45,16 +45,12 @@ export default function SideBar() {
 
                     <ListItemButton button component={Link} href="/">
                         <span class="material-icons" >arrow_back</span>
-                        {/* if we want to use home icon we put it here */}
-
                     </ListItemButton>
 
                 </List>
                 <List>
-
                     <ListItemButton button component={Link} href="/">
                         <span class="material-icons">home</span>
-                        {/* if we want to use home icon we put it here */}
                         <ListItemText primary="Home" />
                     </ListItemButton>
 
@@ -66,8 +62,6 @@ export default function SideBar() {
                         <ListItemText primary="Category" />
                     </ListItem>
 
-                    {/* make a select */}
-                    {/* add real links */}
                     <ListItemButton onClick={handleClickOpenSideBar}>
                         <ListItemText primary="Report List" />
                         {open ? <span class="material-icons">expand_less</span> : <span class="material-icons">expand_more</span>}
