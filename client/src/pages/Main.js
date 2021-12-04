@@ -46,14 +46,12 @@ export default function Main() {
     //error
     const [error, setError] = React.useState(false);
 
-
-
     const handleSubmit = () => {
         if (tasks_description === "") {
             setError(true);
             return;
         }
-        else if(tasks_due_date === null){
+        else if (tasks_due_date === null) {
             setError(true);
             return;
         }
@@ -85,8 +83,6 @@ export default function Main() {
     const cancelReload = () => {
         setTimeout(() => { window.location.reload(false); }, 1);
     }
-
-
 
     // Create function to call API
     const createTask = () => {
@@ -128,11 +124,7 @@ export default function Main() {
         { value: 5, label: 'None' }
     ];
 
-
-
-
     return (
-
         <>
             <div className="text-center">
                 <head>
@@ -147,7 +139,6 @@ export default function Main() {
                     <SideBarMain />
 
                     <Box
-
                         component="main"
                         sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
                     >
@@ -182,18 +173,12 @@ export default function Main() {
                     </Box>
                 </Box>
 
-                {/* <div className="text-center">
-                <a href="/sample">Click here to see sample on how api is working with UI</a>
-                </div> */}
-
-                {/* pop up form */}
                 <div className="text-center">
                     <Dialog open={open} onClose={handleClose}>
                         <DialogTitle><h3>New Task</h3></DialogTitle>
                         <DialogContent>
 
                             <div className="text-center">
-                                <form>
                                     <Box
                                         margin="auto"
                                         alignItems="center"
@@ -226,7 +211,6 @@ export default function Main() {
                                                     </FormControl>
                                                 </FormGroup>
                                             </Stack>
-
 
                                             {/* date and time  */}
                                             <Stack>
@@ -278,14 +262,6 @@ export default function Main() {
                                             {/* priority */}
                                             <Stack>
                                                 <InputLabel id="priority">Priority Level (Optional) </InputLabel>
-                                                {/* For Testing Purposes
-                                                <TextField
-                                                InputProps={{readOnly: true}}
-                                                id="statusBox"
-                                                type="text"
-                                                value={tasks_priority}
-                                                variant="filled"
-                                            />*/}
                                                 <Slider
                                                     aria-label="Restricted priorities"
                                                     defaultValue={5}
@@ -302,14 +278,6 @@ export default function Main() {
                                             {/* status */}
                                             <Stack alignItems="center">
                                                 <InputLabel id="status">Status</InputLabel><br></br>
-                                                {/* For Testing Purposes
-                                                <TextField
-                                                InputProps={{readOnly: true}}
-                                                id="statusBox"
-                                                type="text"
-                                                value={tasks_status}
-                                                variant="filled"
-                                            />*/}
                                                 <ButtonGroup
                                                     id="status_select"
                                                     value={tasks_status}
@@ -323,21 +291,16 @@ export default function Main() {
                                                     <Button variant={"contained"} value={"Active"}>Active</Button>
                                                     <Button disabled value={"Completed"}>Completed</Button>
                                                 </ButtonGroup>
-
                                                 <br></br>
                                             </Stack>
-
                                         </Stack>
-
                                     </Box >
-                                </form>
+                               
                             </div >
                         </DialogContent>
 
                         <DialogActions>
-
                             <Button
-                                //onClick={handleClose}
                                 onClick={() => {
                                     handleClose();
                                     cancelReload();
@@ -355,7 +318,6 @@ export default function Main() {
                             >
                                 <span class="material-icons">add</span>
                                 Add Task</Button>
-
                         </DialogActions>
                     </Dialog>
                 </div>
@@ -364,10 +326,7 @@ export default function Main() {
                 notify={notify}
                 setNotify={setNotify}
             />
-
-
         </>
-
     );
 
 }
