@@ -141,10 +141,11 @@ export default function Main() {
                     <Box
                         component="main"
                         sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
-                    >
-                        <Toolbar />
+                    > <Toolbar />
+                        <h3> Home </h3>
+                        <hr></hr>
                         <br></br>
-
+                        
                         {/* Button for add new task */}
                         <Button variant="contained" onClick={() => {
                             handleClickOpen();
@@ -157,16 +158,17 @@ export default function Main() {
                         <Toolbar />
 
                         {/* First Data Table  */}
-                        <h3>Today's Tasks:</h3>
-                        <hr></hr>
+                        <h4>Today's Tasks:</h4>
+
                         <TodayTable />
 
                         {/* space between both tables */}
                         <Toolbar />
 
                         {/* Second Data Table */}
-                        <h3> Overdue Tasks:</h3>
-                        <hr></hr>
+                        <h4> Overdue Tasks:</h4>
+
+
 
                         <OverdueTable />
 
@@ -308,7 +310,7 @@ export default function Main() {
                             </Button>
                             <Button
                                 variant="contained"
-                                height= "75px"
+                                height="75px"
                                 onClick={() => {
                                     handleSubmit();
 

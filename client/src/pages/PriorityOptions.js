@@ -22,7 +22,7 @@ export default function PriorityOptions() {
                 <Toolbar />
                 <h3>Priority Options</h3>
                 <hr></hr>
-                <Toolbar />
+                <br></br>
                 <PriorityTable />
             </Box>
         </Box >

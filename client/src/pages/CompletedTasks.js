@@ -21,6 +21,7 @@ export default function CompletedTasks() {
                 <Toolbar />
                 <h3>Completed Tasks</h3>
                 <hr></hr>
+                
                 <CompletedTasksTable />
             </Box>
         </Box >

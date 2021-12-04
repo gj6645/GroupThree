@@ -67,6 +67,9 @@ export default function Category() {
                         sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
                     >
                         <Toolbar />
+                        
+                        <h3>Categories</h3>
+                        <hr></hr>
                         <br></br>
                         {/* Button for add new task */}
                         <Button variant="contained" onClick={handleClickOpen} >
@@ -76,12 +79,8 @@ export default function Category() {
                         <br></br>
                         <br></br>
                         <br></br>
-
-                        <h3>Categories</h3>
-
                         <br></br>
 
-                        <hr></hr>
                         <CategoryTables />
                     </Box>
                 </Box >

@@ -105,7 +105,6 @@ export default function StickyHeadTable() {
     }
 
     return (
-
         <>
             <Paper sx={{ width: '100%', overflow: 'hidden' }}>
                 <TableContainer sx={{ maxHeight: 660 }}>
@@ -139,8 +138,8 @@ export default function StickyHeadTable() {
                                             );
                                         })}
 
-
                                         {/* Edit icon on each row*/}
+                                       
                                         <TableCell align="right" >
                                             <Button variant="contained"
                                                 color="primary"
@@ -150,17 +149,17 @@ export default function StickyHeadTable() {
                                                 <span class="material-icons">update</span>
                                                 Edit</Button>
                                         </TableCell>
-
-
+                                       
 
                                         {/* Delete icon on each row*/}
+                                       
                                         <TableCell align="right">
                                             <Button variant="contained" color="primary" onClick={() => {
                                                 deleteCategory(row.Categories_id);
                                             }}><span class="material-icons">delete</span>
                                                 Delete</Button>
                                         </TableCell>
-
+                                        
                                     </TableRow>
                                 );
                             })}

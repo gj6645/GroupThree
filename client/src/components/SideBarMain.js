@@ -28,12 +28,14 @@ export default function SideBar() {
             </head>
             <Drawer
                 sx={{
+                    backgroundcolor: "black",
                     width: drawerWidth,
                     flexShrink: 0,
                     "& .MuiDrawer-paper": {
                         width: drawerWidth,
                         boxSizing: "border-box"
                     }
+                   
                 }}
                 variant="permanent"
                 anchor="left"

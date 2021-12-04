@@ -19,7 +19,7 @@ export default function AllTasks() {
             >
                 <Toolbar />
                 <h3>All Tasks</h3>
-                <hr></hr>
+                
                 <AllTasksTable />
             </Box>
         </Box >

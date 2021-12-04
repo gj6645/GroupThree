@@ -37,13 +37,14 @@ export default function SideBar() {
                         boxSizing: "border-box"
                     }
                 }}
+                
                 variant="permanent"
                 anchor="left"
             >
                 <List>
 
                     <ListItemButton button component={Link} href="/">
-                        <span class="material-icons">arrow_back</span>
+                        <span class="material-icons" >arrow_back</span>
                         {/* if we want to use home icon we put it here */}
 
                     </ListItemButton>

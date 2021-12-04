@@ -5,6 +5,13 @@
 h3{
     text-align: center;
     color:rgb(25, 114, 216);
+    font-size: 1.5rem;
+}
+
+h4{
+    text-align: center;
+    color:rgb(25, 114, 216);
+    font-size: 1.3rem;
 }
 
 .css-y8ay40-MuiTableCell-root {
@@ -27,7 +34,7 @@ h3{
 }
 
 .css-sghohy-MuiButtonBase-root-MuiButton-root{
-  font-size: medium !important;
+  font-size: 1.1rem !important;
 }
 
 

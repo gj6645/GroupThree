@@ -19,6 +19,7 @@ export default function CategoryOptions() {
                 <Toolbar />
                 <h3>Category Options</h3>
                 <hr></hr>
+                <br></br>
                 <CategoryOptionsTable />
             </Box>
         </Box >
