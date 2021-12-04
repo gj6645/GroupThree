@@ -7,7 +7,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Link from '@material-ui/core/Link';
 import { ListItemButton } from "@mui/material";
 import Collapse from '@mui/material/Collapse';
-
+import "./SideBar.css"
 
 const drawerWidth = 200;
 

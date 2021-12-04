@@ -1,0 +1,14 @@
+.MuiTypography-body1{
+    font-weight: 600  !important;
+    font-size: 1.3rem !important;
+    
+}
+
+
+.MuiTypography-colorPrimary {
+    color: #1976d2 !important;
+}
+
+.material-icons{
+    font-size:medium;
+}

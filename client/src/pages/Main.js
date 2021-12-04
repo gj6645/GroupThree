@@ -308,6 +308,7 @@ export default function Main() {
                             </Button>
                             <Button
                                 variant="contained"
+                                height= "75px"
                                 onClick={() => {
                                     handleSubmit();
 

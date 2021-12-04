@@ -7,6 +7,8 @@ import Toolbar from "@mui/material/Toolbar";
 import Link from '@material-ui/core/Link';
 import { ListItemButton } from "@mui/material";
 import Collapse from '@mui/material/Collapse';
+import "./SideBar.css"
+
 
 
 const drawerWidth = 200;
@@ -43,7 +45,7 @@ export default function SideBar() {
                     <ListItemButton button component={Link} href="/">
                         <span class="material-icons">arrow_back</span>
                         {/* if we want to use home icon we put it here */}
-                        
+
                     </ListItemButton>
 
                 </List>

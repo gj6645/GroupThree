@@ -7,3 +7,27 @@ h3{
     color:rgb(25, 114, 216);
 }
 
+.css-y8ay40-MuiTableCell-root {
+    font-family: "Roboto","Helvetica","Arial",sans-serif;
+    font-weight: 500;
+    font-size: 0.875rem;
+    line-height: 1.5rem;
+    letter-spacing: 0.01071em;
+    display: table-cell;
+    vertical-align: inherit;
+    border-bottom: 1px solid rgba(224, 224, 224, 1);
+    text-align: left;
+    padding: 16px;
+    color: blue;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background-color: #fff;
+}
+
+.css-sghohy-MuiButtonBase-root-MuiButton-root{
+  font-size: medium !important;
+}
+
+
