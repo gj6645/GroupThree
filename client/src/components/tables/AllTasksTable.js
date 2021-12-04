@@ -26,34 +26,34 @@ const columns = [
 ];
 
 export default function StickyHeadTable() {
-    
+
     // get rows from https://csc4710dbs.herokuapp.com/api/getTasks api
     const [rows, setRows] = useState([]);
 
     useEffect(() => {
         fetch('https://csc4710dbs.herokuapp.com/api/getTasks')
-        .then((response) => response.json())
-        .then((json) => setRows(json)).catch(error => console.log(error));
+            .then((response) => response.json())
+            .then((json) => setRows(json)).catch(error => console.log(error));
     }, []);
 
     //changing table view
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(15);
-  
+
     const handleChangePage = (event, newPage) => {
-      setPage(newPage);
+        setPage(newPage);
     };
-  
+
     const handleChangeRowsPerPage = (event) => {
-      setRowsPerPage(+event.target.value);
-      setPage(0);
+        setRowsPerPage(+event.target.value);
+        setPage(0);
     };
 
 
-  const [TasksList, setTasksList] = useState([]);
+    const [TasksList, setTasksList] = useState([]);
 
 
-  // Function to delete a task
+    // Function to delete a task
     const deleteTask = (Tasks_id) => {
         // Use api https://csc4710dbs.herokuapp.com/api/deleteTask/:Tasks_id to delete a task
         axios.delete(`https://csc4710dbs.herokuapp.com/api/deleteTask/${Tasks_id}`).then(res => {
@@ -68,81 +68,73 @@ export default function StickyHeadTable() {
 
 
     return (
-    // return setRows data to paper sx
-    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-        <TableContainer sx={{ maxHeight: 660 }}>
-            <Table stickyHeader aria-label="sticky table">
-                <TableHead>
-                    <TableRow>
-                        {columns.map((column) => (
-                            <TableCell
-                                key={column.id}
-                                align={column.align}
-                                style={{ minWidth: column.minWidth }}
-
-                                actionsColumnIndex={-1}
-                            >
-                                {column.label}
-                                
-                            </TableCell>
-
-                        ))}
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {/* For each row, add a edit and delete material ui button */}
-                    {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                        return (
-                            <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                                {columns.map((column) => {
-                                    const value = row[column.id];
-                                    return (
-                                        <TableCell key={column.id} align={column.align}>
-                                            {column.format && typeof value === 'number' ? column.format(value) : value}
-                                        </TableCell>
-                                    );
-                                })}
-
-                                {/* Edit icon on each row*/}
+        // return setRows data to paper sx
+        <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+            <TableContainer sx={{ maxHeight: 660 }}>
+                <Table stickyHeader aria-label="sticky table">
+                    <TableHead>
+                        <TableRow>
+                            {columns.map((column) => (
                                 <TableCell
-                                    style={{ minWidth: 17, align: 'right', color: '#1972d8', size: 'x-small' }}
-                                >{row.Tasks_actions}
-                                <EditIcon />
+                                    key={column.id}
+                                    align={column.align}
+                                    style={{ minWidth: column.minWidth }}
+                                    actionsColumnIndex={-1}
+                                >
+                                    {column.label}
                                 </TableCell>
+                            ))}
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {/* For each row, add a edit and delete material ui button */}
+                        {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                            return (
+                                <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                                    {columns.map((column) => {
+                                        const value = row[column.id];
+                                        return (
+                                            <TableCell key={column.id} align={column.align}>
+                                                {column.format && typeof value === 'number' ? column.format(value) : value}
+                                            </TableCell>
+                                        );
+                                    })}
+
+                                    {/* Edit icon on each row*/}
+                                    <TableCell
+                                        style={{ minWidth: 17, align: 'right', color: '#1972d8', size: 'x-small' }}
+                                    >{row.Tasks_actions}
+                                        <EditIcon />
+                                    </TableCell>
 
 
-                                {/* Delete icon on each row*/}
-                                <TableCell
-                                style={{ minWidth: 17, align: 'right', color: '#1972d8', size: 'x-small' }}
-                                >{row.Tasks_actions}
-                                <Button onClick={() => {
-                                        deleteTask(row.Tasks_id);
-                                    }}> 
-                                <DeleteIcon/>
-                                </Button>
-                                </TableCell>
-                            </TableRow>
-                        );
-                    })}
-                    
-                    
-                </TableBody>
-            </Table>
-        </TableContainer>
-        <TablePagination
-            rowsPerPageOptions={[15, 25, 100]}
-            component="div"
-            count={rows.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-
-        />
-    </Paper>
+                                    {/* Delete icon on each row*/}
+                                    <TableCell
+                                        style={{ minWidth: 17, align: 'right', color: '#1972d8', size: 'x-small' }}
+                                    >{row.Tasks_actions}
+                                        <Button onClick={() => {
+                                            deleteTask(row.Tasks_id);
+                                        }}>
+                                            <DeleteIcon />
+                                        </Button>
+                                    </TableCell>
+                                </TableRow>
+                            );
+                        })}
 
 
-
-    
+                    </TableBody>
+                </Table>
+            </TableContainer>
+            <TablePagination
+                rowsPerPageOptions={[15, 25, 100]}
+                component="div"
+                count={rows.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+        </Paper>
     );
-  }
+}

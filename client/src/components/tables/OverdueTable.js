@@ -27,125 +27,114 @@ const columns = [
 
 
 export default function StickyHeadTable() {
-    
-    
+
     const [rows, setRows] = useState([]);
 
     useEffect(() => {
         fetch('https://csc4710dbs.herokuapp.com/api/getOverdueTasks')
-        .then((response) => response.json())
-        .then((json) => setRows(json)).catch(error => console.log(error));
-
-          
+            .then((response) => response.json())
+            .then((json) => setRows(json)).catch(error => console.log(error));
     }, []);
-
-
 
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  
+
     const handleChangePage = (event, newPage) => {
-      setPage(newPage);
+        setPage(newPage);
     };
-  
+
     const handleChangeRowsPerPage = (event) => {
-      setRowsPerPage(+event.target.value);
-      setPage(0);
+        setRowsPerPage(+event.target.value);
+        setPage(0);
     };
 
     // TODO: Function to update a task
+    const [TasksList, setTasksList] = useState([]);
 
-  const [TasksList, setTasksList] = useState([]);
-
-
-  // Function to delete a task
+    // Function to delete a task
     const deleteTask = (Tasks_id) => {
         // Use api https://csc4710dbs.herokuapp.com/api/deleteTask/:Tasks_id to delete a task
         axios.delete(`https://csc4710dbs.herokuapp.com/api/deleteTask/${Tasks_id}`).then(res => {
             setTasksList(TasksList.filter((val) => {
                 return val.Tasks_id === Tasks_id;
             }));
-
             // refresh the page
             window.location.reload();
         });
     }
 
-
-  
-    return ( 
-    // return setRows data to paper sx
-    <Paper sx={{ width: '100%', overflow: 'hidden' }}>
-        <TableContainer sx={{ maxHeight: 440 }}>
-            <Table stickyHeader aria-label="sticky table">
-                <TableHead>
-                    <TableRow>
-                        {columns.map((column) => (
-                            <TableCell
-                                key={column.id}
-                                align={column.align}
-                                style={{ minWidth: column.minWidth }}
-
-                                actionsColumnIndex={-1}
-                            >
-                                {column.label}
-                                
-                            </TableCell>
-
-                        ))}
-                       
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {/* For each row, add a edit and delete material ui button */}
-                    {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                        return (
-                            <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
-                                {columns.map((column) => {
-                                    const value = row[column.id];
-                                    return (
-                                        <TableCell key={column.id} align={column.align}>
-                                            {column.format && typeof value === 'number' ? column.format(value) : value}
-                                        </TableCell>
-                                    );
-                                })}
-
-                                {/* Edit icon on each row*/}
+    return (
+        // return setRows data to paper sx
+        <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+            <TableContainer sx={{ maxHeight: 440 }}>
+                <Table stickyHeader aria-label="sticky table">
+                    <TableHead>
+                        <TableRow>
+                            {columns.map((column) => (
                                 <TableCell
-                                    style={{ minWidth: 17, align: 'right', color: '#1972d8', size: 'x-small' }}
-                                >{row.Tasks_actions}
-                                <EditIcon />
+                                    key={column.id}
+                                    align={column.align}
+                                    style={{ minWidth: column.minWidth }}
+
+                                    actionsColumnIndex={-1}
+                                >
+                                    {column.label}
+
                                 </TableCell>
 
+                            ))}
 
-                                {/* Delete icon on each row*/}
-                                <TableCell
-                                style={{ minWidth: 17, align: 'right', color: '#1972d8', size: 'x-small' }}
-                                >{row.Tasks_actions}
-                                <Button onClick={() => {
-                                        deleteTask(row.Tasks_id);
-                                    }}> 
-                                <DeleteIcon
-                                    
-                                />
-                                </Button>
-                                </TableCell>
-                            </TableRow>
-                        );
-                    })}
-                </TableBody>
-            </Table>
-        </TableContainer>
-        <TablePagination
-            rowsPerPageOptions={[10, 25, 100]}
-            component="div"
-            count={rows.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {/* For each row, add a edit and delete material ui button */}
+                        {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                            return (
+                                <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                                    {columns.map((column) => {
+                                        const value = row[column.id];
+                                        return (
+                                            <TableCell key={column.id} align={column.align}>
+                                                {column.format && typeof value === 'number' ? column.format(value) : value}
+                                            </TableCell>
+                                        );
+                                    })}
 
-        />
-    </Paper>
+                                    {/* Edit icon on each row*/}
+                                    <TableCell
+                                        style={{ minWidth: 17, align: 'right', color: '#1972d8', size: 'x-small' }}
+                                    >{row.Tasks_actions}
+                                        <EditIcon />
+                                    </TableCell>
+
+
+                                    {/* Delete icon on each row*/}
+                                    <TableCell
+                                        style={{ minWidth: 17, align: 'right', color: '#1972d8', size: 'x-small' }}
+                                    >{row.Tasks_actions}
+                                        <Button onClick={() => {
+                                            deleteTask(row.Tasks_id);
+                                        }}>
+                                            <DeleteIcon
+
+                                            />
+                                        </Button>
+                                    </TableCell>
+                                </TableRow>
+                            );
+                        })}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+            <TablePagination
+                rowsPerPageOptions={[10, 25, 100]}
+                component="div"
+                count={rows.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+        </Paper>
     );
-  }
+}

@@ -44,12 +44,12 @@ export default function Category() {
 
     const [tasks_categories, setTasks_categories] = React.useState('');
 
-     // Create function to call API
-     const createCategory = () => {
+    // Create function to call API
+    const createCategory = () => {
         Axios.post("https://csc4710dbs.herokuapp.com/api/createCategory", {
-            
+
             tasks_categories: tasks_categories,
-            
+
         }).then(() => {
             console.log("Added Category");
         })
@@ -57,81 +57,81 @@ export default function Category() {
 
     return (
         <>
-        <div className="text-center">
+            <div className="text-center">
 
-        <Box sx={{ display: 'flex' }}>
-            <Header />
-            <SideBar />
-            <Box
-                component="main"
-                sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
-            >
-                <Toolbar />
-                <br></br>
+                <Box sx={{ display: 'flex' }}>
+                    <Header />
+                    <SideBar />
+                    <Box
+                        component="main"
+                        sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
+                    >
+                        <Toolbar />
+                        <br></br>
                         {/* Button for add new task */}
                         <Button variant="contained" onClick={handleClickOpen} >
-                            <span class="material-icons" style={{padding: "1px"}} >add</span>
+                            <span class="material-icons" style={{ padding: "1px" }} >add</span>
                             Add New Category
                         </Button>
                         <br></br>
                         <br></br>
                         <br></br>
-                
-                <h3>Categories</h3>
 
-                <br></br>
+                        <h3>Categories</h3>
 
-                <hr></hr>
-                <CategoryTables />
-            </Box>
-        </Box >
+                        <br></br>
 
-        {/* Pop up form*/}
-        <div className="text-center">
-            <Dialog open={open} onClose={handleClose}>
-                <DialogTitle>
-                    <h3>
-                        New Category
-                    </h3>
-                </DialogTitle>
-                <DialogContent>
-                    <div className="text-center">
-                        <Box
-                            margin="auto"
-                            alignItems="center"
-                            justifyContent="center"
-                            className="text-center"
-                            component="form"
-                            sx={{
-                                width: 500,
-                                height: 200,
-                            }}
-                        >
+                        <hr></hr>
+                        <CategoryTables />
+                    </Box>
+                </Box >
 
-                            <Stack spacing={3}>
-                                {/* task category */}
-                                <Stack>
-                                    <FormGroup>
-                                        <InputLabel required id="taskCategory"> Task Category</InputLabel><br></br>
-                                        <FormControl>
-                                            <TextField
-                                                id="taskCategory"
-                                                required
-                                                type="text"
-                                                placeholder="Enter Task Category"
-                                                onChange={(e) => setTasks_categories(e.target.value)}
-                                            />
-                                        </FormControl>
-                                    </FormGroup>
-                                </Stack>
+                {/* Pop up form*/}
+                <div className="text-center">
+                    <Dialog open={open} onClose={handleClose}>
+                        <DialogTitle>
+                            <h3>
+                                New Category
+                            </h3>
+                        </DialogTitle>
+                        <DialogContent>
+                            <div className="text-center">
+                                <Box
+                                    margin="auto"
+                                    alignItems="center"
+                                    justifyContent="center"
+                                    className="text-center"
+                                    component="form"
+                                    sx={{
+                                        width: 500,
+                                        height: 200,
+                                    }}
+                                >
 
-                            </Stack>
-                        </Box>
-                    </div>
-                </DialogContent>
+                                    <Stack spacing={3}>
+                                        {/* task category */}
+                                        <Stack>
+                                            <FormGroup>
+                                                <InputLabel required id="taskCategory"> Task Category</InputLabel><br></br>
+                                                <FormControl>
+                                                    <TextField
+                                                        id="taskCategory"
+                                                        required
+                                                        type="text"
+                                                        placeholder="Enter Task Category"
+                                                        onChange={(e) => setTasks_categories(e.target.value)}
+                                                    />
+                                                </FormControl>
+                                            </FormGroup>
+                                        </Stack>
 
-                <DialogActions>
-                <Button
+                                    </Stack>
+                                </Box>
+                            </div>
+                        </DialogContent>
+
+                        <DialogActions>
+                            <Button
                                 onClick={handleClose}
                                 variant="contained">
                                 <span class="material-icons">cancel</span>
@@ -149,16 +149,15 @@ export default function Category() {
                                 <span class="material-icons">add</span>
                                 Add Category
                             </Button>
-                </DialogActions>
- 
-            </Dialog>
-        </div>
-        </div>
-        <Notification
+                        </DialogActions>
+
+                    </Dialog>
+                </div>
+            </div>
+            <Notification
                 notify={notify}
                 setNotify={setNotify}
             />
-
         </>
     )
 }

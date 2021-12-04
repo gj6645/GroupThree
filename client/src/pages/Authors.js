@@ -17,24 +17,21 @@ export default function Authors() {
                 <SideBar />
                 <Box
                     component="main"
-                    sx={{ flexGrow: 1,  p: 3 }}
+                    sx={{ flexGrow: 1, p: 3 }}
                 >
-
                     <Toolbar />
                     <h3>Authors</h3>
                     <hr></hr>
                     {/* Paragraph */}
-                    
+
                     <p className="text-center">
                         Here are all the contributors to the development of CSC 4710 Todo Application.
                     </p>
-                    <div id= "cards">
-                    <Cards />
+                    <div id="cards">
+                        <Cards />
                     </div>
                 </Box>
             </Box >
-
-
 
         </>
 

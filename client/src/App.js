@@ -21,7 +21,7 @@ function App() {
           <Route path="/completedtasks"> <CompletedTasks /> </Route>
           <Route path="/category"> <Category /></Route>
           <Route path="/alltasks"> <AllTasks /></Route>
-          <Route path="/usermanual"> < UserManual/></Route>
+          <Route path="/usermanual"> < UserManual /></Route>
           <Route path="/authors"> <Authors /> </Route>
           <Route path="/"> <Main /> </Route>
         </Switch>

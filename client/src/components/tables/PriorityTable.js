@@ -21,9 +21,8 @@ const columns = [
     { id: 'tasks_priority', label: 'Priority', minWidth: 170 },
     { id: 'tasks_categories', label: 'Category', minWidth: 170 },
     { id: 'tasks_status', label: 'Status', minWidth: 170 },
-    
-];
 
+];
 
 
 export default function StickyHeadTable() {
@@ -57,37 +56,35 @@ export default function StickyHeadTable() {
 
 
 
-// Function to filter a task by priority
-const prioritySelection = (event) => {
-        
-    // Create an array to store priority 1, 2, 3, 4
-    const priorityArray = ["Priority 1", "Priority 2", "Priority 3", "Priority 4"];
+    // Function to filter a task by priority
+    const prioritySelection = (event) => {
 
-    // Loop through the priority array and if the priority is equal to the event, call the API https://csc4710dbs.herokuapp.com/api/getTasksByPriority/:tasks_priority and pass in the priority and display the tasks for that priority
-    for (let i = 0; i < priorityArray.length; i++) {
-        if (priorityArray[i] === event.target.value) {
-            axios.get(`https://csc4710dbs.herokuapp.com/api/getTasksByPriority/${event.target.value}`)
-                .then(res => {
-                    setRows(res.data);
-                })
-                .catch(err => {
-                    console.log(err);
-                });
-        }
-        
-        if (event.target.value === "None") {
-            axios.get("https://csc4710dbs.herokuapp.com/api/getTasks")
-                .then(res => {
-                    setRows(res.data);
-                })
-                .catch(err => {
-                    console.log(err);
-                });
+        // Create an array to store priority 1, 2, 3, 4
+        const priorityArray = ["Priority 1", "Priority 2", "Priority 3", "Priority 4"];
+
+        // Loop through the priority array and if the priority is equal to the event, call the API https://csc4710dbs.herokuapp.com/api/getTasksByPriority/:tasks_priority and pass in the priority and display the tasks for that priority
+        for (let i = 0; i < priorityArray.length; i++) {
+            if (priorityArray[i] === event.target.value) {
+                axios.get(`https://csc4710dbs.herokuapp.com/api/getTasksByPriority/${event.target.value}`)
+                    .then(res => {
+                        setRows(res.data);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            }
+
+            if (event.target.value === "None") {
+                axios.get("https://csc4710dbs.herokuapp.com/api/getTasks")
+                    .then(res => {
+                        setRows(res.data);
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    });
+            }
         }
     }
-}
-
-
 
     return (
         <>
@@ -103,7 +100,6 @@ const prioritySelection = (event) => {
                         height: 150,
                     }}
                 >
-                
                     <InputLabel id="demo-simple-select-label">Filter Tasks by Priority</InputLabel>
                     <br></br>
                     <Select
@@ -120,12 +116,9 @@ const prioritySelection = (event) => {
                         <MenuItem value={"Priority 2"}>Priority 2</MenuItem>
                         <MenuItem value={"Priority 3"}>Priority 3</MenuItem>
                         <MenuItem value={"Priority 4"}>Priority 4</MenuItem>
-                        
                     </Select>
-
                 </Box>
             </div>
-
 
             {/* // return setRows data to paper sx */}
             {/* Create a priority dropdown and get value for each value and display table based on what was picked */}
@@ -157,7 +150,7 @@ const prioritySelection = (event) => {
                                                 </TableCell>
                                             );
                                         })}
-                                        
+
                                     </TableRow>
                                 );
                             })}
@@ -178,8 +171,6 @@ const prioritySelection = (event) => {
             <br></br>
             <br></br>
             <br></br>
-
-
         </>
     );
 }

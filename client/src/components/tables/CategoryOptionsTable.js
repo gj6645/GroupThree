@@ -22,7 +22,7 @@ const columns = [
     { id: 'tasks_priority', label: 'Priority', minWidth: 170 },
     { id: 'tasks_categories', label: 'Category', minWidth: 170 },
     { id: 'tasks_status', label: 'Status', minWidth: 170 },
-    
+
 ];
 
 let categoryArray = [];
@@ -43,10 +43,10 @@ export default function StickyHeadTable() {
             console.log(categoryArray);
         }
         )
-        .catch(err => {
-            console.log(err);
-        }
-        )
+            .catch(err => {
+                console.log(err);
+            }
+            )
     }
 
     // useEffect to display all tasks
@@ -74,11 +74,9 @@ export default function StickyHeadTable() {
         setPage(0);
     };
 
-
-
     // Function to filter a task by category
     const categorySelection = (event) => {
-    
+
         // Loop through the category array and if the category is equal to the event, call the API to display tasks for that category
         for (let i = 0; i < categoryArray.length; i++) {
             if (categoryArray[i] === event.target.value) {
@@ -90,7 +88,7 @@ export default function StickyHeadTable() {
                         console.log(err);
                     });
             }
-            if (event.target.value === "None"){
+            if (event.target.value === "None") {
                 axios.get("https://csc4710dbs.herokuapp.com/api/getTasks")
                     .then(res => {
                         setRows(res.data);
@@ -101,8 +99,6 @@ export default function StickyHeadTable() {
             }
         }
     }
-
-
 
     return (
         <>
@@ -118,7 +114,7 @@ export default function StickyHeadTable() {
                         height: 150,
                     }}
                 >
-                
+
                     <InputLabel id="demo-simple-select-label">Filter Tasks by Category</InputLabel>
                     <br></br>
                     <Select
@@ -132,11 +128,9 @@ export default function StickyHeadTable() {
                             <MenuItem key={category.tasks_categories} value={category.tasks_categories}>{category.tasks_categories}</MenuItem>
                         ))}
                     </Select>
-                            
 
                 </Box>
             </div>
-
 
             {/* // return setRows data to paper sx */}
             <Paper>
@@ -167,7 +161,7 @@ export default function StickyHeadTable() {
                                                 </TableCell>
                                             );
                                         })}
-                                        
+
                                     </TableRow>
                                 );
                             })}
@@ -188,7 +182,6 @@ export default function StickyHeadTable() {
             <br></br>
             <br></br>
             <br></br>
-
 
         </>
     );

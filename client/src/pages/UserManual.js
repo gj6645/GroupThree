@@ -16,14 +16,14 @@ export default function UserManual() {
                 <SideBar />
                 <Box
                     component="main"
-                    sx={{ flexGrow: 1,  p: 3 }}
+                    sx={{ flexGrow: 1, p: 3 }}
                 >
 
                     <Toolbar />
                     <h3>User Manual</h3>
                     <hr></hr>
                     {/* Paragraph */}
-                    
+
                     <p className="text-center">
                         Eisha Akbar Honors Project.
                     </p>
